@@ -216,7 +216,7 @@ function UploadPageInner() {
     setResult(null)
 
     try {
-      let data: FeedbackResponse
+      let data: UploadResponse
 
       if (isSwing && tradeDirection === "close" && linkedTradeId) {
         // Use the dedicated close endpoint
