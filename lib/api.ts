@@ -386,3 +386,32 @@ export async function importTrades(file: File, broker: string): Promise<ImportRe
   })
   return data
 }
+
+// ── Payments ──────────────────────────────────────────────────────────────────
+
+export interface RazorpayOrder {
+  order_id: string
+  amount: number
+  currency: string
+  key_id: string
+}
+
+export async function createPaymentOrder(plan: "monthly" | "yearly"): Promise<RazorpayOrder> {
+  const { data } = await api.post<RazorpayOrder>("/payments/create-order", { plan })
+  return data
+}
+
+export async function verifyPayment(payload: {
+  razorpay_order_id: string
+  razorpay_payment_id: string
+  razorpay_signature: string
+  plan: "monthly" | "yearly"
+}): Promise<{ success: boolean; is_pro: boolean }> {
+  const { data } = await api.post("/payments/verify", payload)
+  return data
+}
+
+export async function getProStatus(): Promise<{ is_pro: boolean; pro_plan: string | null }> {
+  const { data } = await api.get("/payments/status")
+  return data
+}

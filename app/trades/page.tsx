@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation"
 import { supabase } from "@/lib/supabase"
 import { fetchMyTrades, getTradeMarketContext, getTradeAutopsy, getSwingContext, generateTradeCoaching, getTradeFundamentals, setUserId, Trade, MarketContext, SwingContext, TradeFundamentals } from "@/lib/api"
 import { Badge } from "@/components/ui/badge"
+import UpgradeButton from "@/components/UpgradeButton"
 
 type Filter = "all" | "profit" | "loss" | "options" | "equity" | "swing"
 
@@ -798,9 +799,9 @@ function FeedbackDrawer({ trade, onClose, onTradeUpdated }: { trade: Trade; onCl
                   <p className="text-[10px] text-emerald-500 font-semibold">Save ₹1,089 · ₹208/mo</p>
                 </div>
               </div>
-              <button className="w-full rounded-xl py-3 text-sm font-bold text-white bg-gradient-to-r from-violet-600 to-indigo-600 hover:opacity-90 transition-opacity shadow-sm shadow-violet-200">
-                Upgrade to Pro →
-              </button>
+              <UpgradeButton plan="monthly" className="w-full rounded-xl py-3 text-sm font-bold text-white bg-gradient-to-r from-violet-600 to-indigo-600 hover:opacity-90 transition-opacity shadow-sm shadow-violet-200" onSuccess={() => setUpgradeRequired(false)}>
+                Upgrade to Pro — ₹299/mo →
+              </UpgradeButton>
               <p className="text-[10px] text-violet-400 mt-2">Cancel anytime · Instant access</p>
             </div>
           ) : (!effectiveFeedback || coachingLoading) && coachingLoading ? (

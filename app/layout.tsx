@@ -94,6 +94,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
         <meta name="theme-color" content="#2563EB" />
         <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📈</text></svg>" />
+        <script src="https://checkout.razorpay.com/v1/checkout.js" async />
       </head>
       <body className="min-h-full flex flex-col bg-white text-gray-900 antialiased">
 
