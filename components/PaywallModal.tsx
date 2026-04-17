@@ -1,15 +1,29 @@
 "use client"
 
 import { useState } from "react"
+import axios from "axios"
 
-export default function PaywallModal({ onClose }: { onClose: () => void }) {
+export default function PaywallModal({ onClose, limit = 10 }: { onClose: () => void; limit?: number }) {
   const [email, setEmail] = useState("")
   const [submitted, setSubmitted] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState("")
 
-  function handleNotify(e: React.FormEvent) {
+  async function handleNotify(e: React.FormEvent) {
     e.preventDefault()
-    // TODO: wire to a real waitlist API
-    setSubmitted(true)
+    setLoading(true)
+    setError("")
+    try {
+      await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"}/waitlist`,
+        { email }
+      )
+      setSubmitted(true)
+    } catch {
+      setError("Couldn't save your email. Please try again.")
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -40,10 +54,10 @@ export default function PaywallModal({ onClose }: { onClose: () => void }) {
 
         {/* copy */}
         <div>
-          <h2 className="text-xl font-black text-gray-900 mb-2">You&apos;ve used all 5 free analyses</h2>
+          <h2 className="text-xl font-black text-gray-900 mb-2">You&apos;ve used all {limit} free analyses</h2>
           <p className="text-sm text-gray-500 leading-relaxed">
-            Your free quota is up. Paid plans are launching soon — drop your email and
-            you&apos;ll be the first to know the price and get early access.
+            Your free quota is up. Upgrade to Pro for unlimited AI coaching — or drop
+            your email below to get notified about new features and offers.
           </p>
         </div>
 
@@ -78,13 +92,16 @@ export default function PaywallModal({ onClose }: { onClose: () => void }) {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="your@email.com"
-              className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm text-gray-900 placeholder-gray-400 outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100 transition"
+              disabled={loading}
+              className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm text-gray-900 placeholder-gray-400 outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100 transition disabled:opacity-50"
             />
+            {error && <p className="text-xs text-red-500">{error}</p>}
             <button
               type="submit"
-              className="w-full rounded-xl bg-blue-600 hover:bg-blue-700 text-white py-2.5 text-sm font-semibold transition-colors"
+              disabled={loading}
+              className="w-full rounded-xl bg-blue-600 hover:bg-blue-700 text-white py-2.5 text-sm font-semibold transition-colors disabled:opacity-60"
             >
-              Notify me when Pro launches
+              {loading ? "Saving…" : "Notify me when Pro launches"}
             </button>
           </form>
         )}

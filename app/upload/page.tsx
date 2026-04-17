@@ -10,6 +10,7 @@ import {
   getOpenPositions,
   setUserId,
   importTrades,
+  getUsage,
   FeedbackResponse,
   MultiTradeResponse,
   UploadResponse,
@@ -22,7 +23,7 @@ import FeedbackCard from "@/components/FeedbackCard"
 import PaywallModal from "@/components/PaywallModal"
 import { Button } from "@/components/ui/button"
 
-const FREE_LIMIT = 20
+const FREE_LIMIT_FALLBACK = 10 // matches backend FREE_AI_LIMIT; used until API responds
 const ACCEPTED = { "image/jpeg": [], "image/png": [], "image/webp": [] }
 const ACCEPTED_CSV = { "text/csv": [], "application/vnd.ms-excel": [], "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": [] }
 const MAX_SIZE = 10 * 1024 * 1024
@@ -79,7 +80,8 @@ function UploadPageInner() {
   const [loading, setLoading] = useState(false)
   const [result, setResult] = useState<UploadResponse | null>(null)
   const [error, setError] = useState<string | null>(null)
-  const [tradeCount, setTradeCount] = useState<number | null>(null)
+  const [aiUsed, setAiUsed] = useState<number>(0)
+  const [aiLimit, setAiLimit] = useState<number>(FREE_LIMIT_FALLBACK)
   const [showPaywall, setShowPaywall] = useState(false)
 
   // upload mode
@@ -109,16 +111,19 @@ function UploadPageInner() {
   const isOptionsSelected = instrument === "options"
   const canProceedToUpload = tradeType !== null
 
-  // Auth guard + quota check
+  // Auth guard + fetch real quota from backend
   useEffect(() => {
     supabase.auth.getSession().then(async ({ data }) => {
       if (!data.session) { router.replace("/"); return }
       setUserId(data.session.user.id)
       setChecking(false)
-      // tradeCount here tracks upload sessions, not individual trades.
-      // We start at 0 and increment by 1 per upload so multi-trade
-      // screenshots don't unfairly consume the free quota.
-      setTradeCount(0)
+      try {
+        const usage = await getUsage()
+        setAiUsed(usage.ai_analyses_used)
+        setAiLimit(usage.ai_analyses_limit)
+      } catch {
+        // fall back to defaults — upload will still work; backend enforces the real limit
+      }
     })
   }, [router])
 
@@ -201,7 +206,7 @@ function UploadPageInner() {
 
   async function handleAnalyse() {
     if (!file || !tradeType) return
-    if (tradeCount !== null && tradeCount >= FREE_LIMIT) {
+    if (aiUsed >= aiLimit) {
       setShowPaywall(true)
       return
     }
@@ -227,7 +232,14 @@ function UploadPageInner() {
       }
 
       setResult(data)
-      setTradeCount((c) => (c ?? 0) + 1)
+      // Refresh usage from backend so the quota display is accurate
+      try {
+        const usage = await getUsage()
+        setAiUsed(usage.ai_analyses_used)
+        setAiLimit(usage.ai_analyses_limit)
+      } catch {
+        setAiUsed((n) => n + 1)
+      }
     } catch (err: unknown) {
       const msg =
         (err as { response?: { data?: { detail?: string } } })?.response?.data?.detail ??
@@ -268,9 +280,9 @@ function UploadPageInner() {
     )
   }
 
-  const used = tradeCount ?? 0
-  const remaining = Math.max(0, FREE_LIMIT - used)
-  const atLimit = used >= FREE_LIMIT
+  const used = aiUsed
+  const remaining = Math.max(0, aiLimit - used)
+  const atLimit = used >= aiLimit
 
   const closeLabel =
     isSwing && tradeDirection === "close"
@@ -281,7 +293,7 @@ function UploadPageInner() {
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-10 sm:px-6">
-      {showPaywall && <PaywallModal onClose={() => setShowPaywall(false)} />}
+      {showPaywall && <PaywallModal onClose={() => setShowPaywall(false)} limit={aiLimit} />}
 
       {/* ── Header ── */}
       <div className="mb-8">
@@ -477,7 +489,7 @@ function UploadPageInner() {
       <>
       {/* ── Quota badge ── */}
       <div className="mb-6 flex justify-end">
-        {tradeCount !== null && (
+        {!checking && (
           <button
             onClick={atLimit ? () => setShowPaywall(true) : undefined}
             className={`flex items-center gap-3 rounded-2xl px-4 py-3 border text-sm transition-colors ${
@@ -489,7 +501,7 @@ function UploadPageInner() {
             }`}
           >
             <div className="flex gap-1">
-              {Array.from({ length: FREE_LIMIT }).map((_, i) => (
+              {Array.from({ length: aiLimit }).map((_, i) => (
                 <div
                   key={i}
                   className={`w-2.5 h-2.5 rounded-full ${
@@ -518,7 +530,7 @@ function UploadPageInner() {
             </svg>
           </div>
           <div>
-            <p className="text-base font-bold text-gray-900 mb-1">You&apos;ve used all 5 free trade analyses</p>
+            <p className="text-base font-bold text-gray-900 mb-1">You&apos;ve used all {aiLimit} free trade analyses</p>
             <p className="text-sm text-gray-500 max-w-xs">
               Upgrade to Pro to continue getting AI coaching on your trades. Paid plans are launching soon.
             </p>

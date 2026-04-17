@@ -1,13 +1,23 @@
 import axios from "axios"
+import { supabase } from "@/lib/supabase"
 
 const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000",
 })
 
-// Attach user ID to every request (replaced by JWT later)
-export function setUserId(userId: string) {
-  api.defaults.headers.common["X-User-Id"] = userId
-}
+// Attach the Supabase JWT to every request automatically.
+// Supabase handles token refresh, so this always sends a fresh valid token.
+api.interceptors.request.use(async (config) => {
+  const { data } = await supabase.auth.getSession()
+  if (data.session?.access_token) {
+    config.headers["Authorization"] = `Bearer ${data.session.access_token}`
+  }
+  return config
+})
+
+// Kept as a no-op so existing call sites compile without changes.
+// The interceptor above replaces its function.
+export function setUserId(_userId: string) {}
 
 export interface Trade {
   id?: string
