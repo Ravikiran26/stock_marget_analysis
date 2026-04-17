@@ -17,6 +17,7 @@ import {
   isMultiTrade,
   OpenPosition,
   ImportResult,
+  ChecklistAnswers,
 } from "@/lib/api"
 import TradeCard from "@/components/TradeCard"
 import FeedbackCard from "@/components/FeedbackCard"
@@ -93,6 +94,9 @@ function UploadPageInner() {
   const [csvLoading, setCsvLoading] = useState(false)
   const [csvResult, setCsvResult] = useState<ImportResult | null>(null)
   const [csvError, setCsvError] = useState<string | null>(null)
+
+  // checklist state
+  const [checklist, setChecklist] = useState<ChecklistAnswers>({})
 
   // 2-step instrument/style state
   const [instrument, setInstrument] = useState<Instrument | null>(null)
@@ -228,7 +232,7 @@ function UploadPageInner() {
         data = await closePosition(linkedTradeId, file)
       } else {
         // Normal upload — pass trade_type so backend uses correct AI prompt
-        data = await uploadTradeScreenshot(file, { trade_type: tradeType })
+        data = await uploadTradeScreenshot(file, { trade_type: tradeType, checklist })
       }
 
       setResult(data)
@@ -255,6 +259,7 @@ function UploadPageInner() {
     setPreview(null)
     setResult(null)
     setError(null)
+    setChecklist({})
     // Don't reset trade type — user likely wants to upload another of the same type
   }
 
@@ -734,6 +739,42 @@ function UploadPageInner() {
               </div>
             )}
           </div>
+
+          {/* ── Pre-trade checklist ── */}
+          {file && (
+            <div className="rounded-2xl border border-amber-100 bg-amber-50/60 p-4">
+              <p className="text-xs font-bold text-amber-800 uppercase tracking-wide mb-3">Quick checklist — helps AI give better feedback</p>
+              <div className="space-y-2">
+                {([
+                  { key: "planned" as const, label: "Was this trade planned in advance?" },
+                  { key: "stoploss" as const, label: "Did you set a stop loss before entering?" },
+                  { key: "strategy" as const, label: "Did you follow your own strategy?" },
+                ] as { key: keyof ChecklistAnswers; label: string }[]).map(({ key, label }) => (
+                  <div key={key} className="flex items-center justify-between gap-4">
+                    <span className="text-sm text-gray-700">{label}</span>
+                    <div className="flex gap-1.5 flex-shrink-0">
+                      {(["yes", "no"] as const).map((val) => (
+                        <button
+                          key={val}
+                          type="button"
+                          onClick={() => setChecklist((c) => ({ ...c, [key]: c[key] === val ? undefined : val }))}
+                          className={`px-3 py-1 rounded-lg text-xs font-bold transition-all ${
+                            checklist[key] === val
+                              ? val === "yes"
+                                ? "bg-emerald-500 text-white"
+                                : "bg-red-400 text-white"
+                              : "bg-white border border-gray-200 text-gray-500 hover:border-gray-300"
+                          }`}
+                        >
+                          {val === "yes" ? "Yes" : "No"}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
 
           {/* Error */}
           {error && (

@@ -6,9 +6,12 @@ import { supabase } from "@/lib/supabase"
 import {
   fetchMyTrades, fetchTradeStats, getOpenPositions, getSwingPatterns, getOptionsPatterns,
   getPatternInsights, getExpiryStats, getOptionsDepthStats, getUsage, getIntradayPatterns,
+  getStreak, getWeeklyReport,
   setUserId, Trade, TradeStats, OpenPosition, SwingPatterns, OptionsPatterns, PatternInsight, ExpiryStats, OptionsDepthStats, UsageInfo, IntradayPatterns,
+  StreakInfo, WeeklyReport,
 } from "@/lib/api"
 import OpenPositionsCard from "@/components/OpenPositionsCard"
+import MonthlyShareCard from "@/components/MonthlyShareCard"
 import {
   AreaChart, Area, XAxis, YAxis, CartesianGrid,
   Tooltip, ResponsiveContainer, ReferenceLine,
@@ -18,7 +21,7 @@ type Tab = "all" | "options" | "swing"
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
-function getStreak(trades: Trade[]): { type: "win" | "loss"; count: number } | null {
+function computeLocalStreak(trades: Trade[]): { type: "win" | "loss"; count: number } | null {
   const closed = [...trades]
     .filter((t) => t.pnl != null && t.status !== "open")
     .sort((a, b) => new Date(b.trade_date ?? b.created_at!).getTime() - new Date(a.trade_date ?? a.created_at!).getTime())
@@ -94,6 +97,8 @@ export default function DashboardPage() {
   const [insights, setInsights] = useState<PatternInsight[]>([])
   const [insightsReady, setInsightsReady] = useState(false)
   const [loadingInsights, setLoadingInsights] = useState(false)
+  const [streakInfo, setStreakInfo] = useState<StreakInfo | null>(null)
+  const [weeklyReport, setWeeklyReport] = useState<WeeklyReport | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [activeTab, setActiveTab] = useState<Tab>("all")
 
@@ -119,8 +124,10 @@ export default function DashboardPage() {
       setTrades(t)
       setStats(s)
       setOpenPositions(op)
-      // Load insights in background after main data
+      // Load insights + streak + weekly report in background
       loadInsights()
+      getStreak().then(setStreakInfo).catch(() => {})
+      getWeeklyReport().then(setWeeklyReport).catch(() => {})
     } catch {
       setError("Could not load your trading data. Make sure the backend is running.")
     } finally {
@@ -242,7 +249,10 @@ export default function DashboardPage() {
 
   const totalPnl = tabStats.total_pnl
   const isProfitable = totalPnl >= 0
-  const streak = !loadingData ? getStreak(trades) : null
+  // Use backend streak if available, else fall back to client-side computation
+  const localStreak = !loadingData ? computeLocalStreak(trades) : null
+  const streakType = (streakInfo?.streak_type ?? localStreak?.type) as "win" | "loss" | null | undefined
+  const streakCount = streakInfo?.streak_count ?? localStreak?.count ?? 0
   const monthly = !loadingData ? getMonthlyStats(trades) : null
 
   // Best sector from swing patterns
@@ -266,13 +276,13 @@ export default function DashboardPage() {
             <div>
               <div className="flex items-center gap-2.5 flex-wrap">
                 <h1 className="text-2xl font-black text-white tracking-tight">Dashboard</h1>
-                {streak && (
+                {streakType && streakCount >= 2 && (
                   <span className={`text-xs font-bold px-2.5 py-1 rounded-full backdrop-blur-sm ${
-                    streak.type === "win"
+                    streakType === "win"
                       ? "bg-white/20 text-white border border-white/30"
                       : "bg-red-500/30 text-red-100 border border-red-400/40"
                   }`}>
-                    {streak.type === "win" ? `🔥 ${streak.count}-win streak` : `⚠️ ${streak.count} losses in a row`}
+                    {streakType === "win" ? `🔥 ${streakCount}-win streak` : `⚠️ ${streakCount} losses in a row`}
                   </span>
                 )}
               </div>
@@ -302,6 +312,32 @@ export default function DashboardPage() {
 
         {/* ── AI usage indicator (only shown when nearing/hitting limit) ── */}
         <AiUsageBanner />
+
+        {/* ── Losing streak alert ── */}
+        {streakInfo?.alert && (
+          <div className="rounded-2xl border border-red-200 bg-red-50 p-4">
+            <div className="flex items-start gap-3">
+              <span className="text-2xl mt-0.5">🚨</span>
+              <div className="flex-1 min-w-0">
+                <p className="font-bold text-red-800 text-sm">{streakInfo.alert.message}</p>
+                {streakInfo.alert.patterns.length > 0 && (
+                  <ul className="mt-1.5 space-y-1">
+                    {streakInfo.alert.patterns.map((p, i) => (
+                      <li key={i} className="text-xs text-red-700 flex items-start gap-1.5">
+                        <span className="mt-0.5">•</span>
+                        <span>{p}</span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+                <p className="text-xs text-red-600 mt-2 font-medium">{streakInfo.alert.tip}</p>
+              </div>
+              <a href="/upload" className="flex-shrink-0 rounded-lg bg-red-600 hover:bg-red-700 text-white px-3 py-1.5 text-xs font-bold transition-colors">
+                Review trades
+              </a>
+            </div>
+          </div>
+        )}
 
         {error && (
           <div className="rounded-xl border border-red-100 bg-red-50 px-4 py-3 text-sm text-red-600 flex items-center gap-2">
@@ -474,6 +510,63 @@ export default function DashboardPage() {
               </>
             )}
           </div>
+        )}
+
+        {/* ── Weekly Report ── */}
+        {weeklyReport && (weeklyReport.this_week.total_trades > 0 || weeklyReport.last_week.total_trades > 0) && (
+          <div className="rounded-2xl bg-white border border-gray-100 shadow-sm p-5">
+            <div className="flex items-center gap-2 mb-4">
+              <div className="w-7 h-7 rounded-lg bg-blue-100 flex items-center justify-center">
+                <svg className="w-3.5 h-3.5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+              </div>
+              <p className="text-sm font-bold text-gray-900">This Week vs Last Week</p>
+            </div>
+            <div className="grid grid-cols-2 gap-3 mb-4">
+              {(["this_week", "last_week"] as const).map((key) => {
+                const w = weeklyReport[key]
+                const isThis = key === "this_week"
+                return (
+                  <div key={key} className={`rounded-xl p-3 ${isThis ? "bg-blue-50 border border-blue-100" : "bg-gray-50 border border-gray-100"}`}>
+                    <p className={`text-[10px] font-bold uppercase tracking-wide mb-1.5 ${isThis ? "text-blue-500" : "text-gray-400"}`}>
+                      {isThis ? "This week" : "Last week"}
+                    </p>
+                    {w.total_trades === 0 ? (
+                      <p className="text-xs text-gray-400">No trades</p>
+                    ) : (
+                      <>
+                        <p className={`text-lg font-black tabular-nums ${w.total_pnl >= 0 ? "text-emerald-600" : "text-red-600"}`}>
+                          {w.total_pnl >= 0 ? "+" : "−"}₹{Math.abs(w.total_pnl).toLocaleString("en-IN")}
+                        </p>
+                        <p className="text-[11px] text-gray-500 mt-0.5">
+                          {w.wins}W / {w.losses}L · {w.win_rate}% win rate
+                        </p>
+                      </>
+                    )}
+                  </div>
+                )
+              })}
+            </div>
+            {weeklyReport.this_week.total_trades > 0 && weeklyReport.last_week.total_trades > 0 && (
+              <div className={`flex items-center gap-2 rounded-xl px-3 py-2 text-xs font-medium mb-3 ${weeklyReport.pnl_change >= 0 ? "bg-emerald-50 text-emerald-700" : "bg-red-50 text-red-700"}`}>
+                <span>{weeklyReport.pnl_change >= 0 ? "▲" : "▼"}</span>
+                <span>
+                  {weeklyReport.pnl_change >= 0 ? "+" : "−"}₹{Math.abs(weeklyReport.pnl_change).toLocaleString("en-IN")} vs last week
+                  {weeklyReport.win_rate_change !== 0 && ` · Win rate ${weeklyReport.win_rate_change > 0 ? "+" : ""}${weeklyReport.win_rate_change}%`}
+                </span>
+              </div>
+            )}
+            <div className="rounded-xl bg-amber-50 border border-amber-100 px-3 py-2.5 flex gap-2">
+              <span className="text-base">🎯</span>
+              <p className="text-xs text-amber-800 font-medium leading-snug">{weeklyReport.focus}</p>
+            </div>
+          </div>
+        )}
+
+        {/* ── Monthly Share Card ── */}
+        {trades.length > 0 && (
+          <MonthlyShareCard trades={trades} />
         )}
 
         {/* ── Open Positions (above chart, only if positions exist) ── */}

@@ -102,9 +102,15 @@ export interface OptionsPatterns {
   total_options_trades: number
 }
 
+export interface ChecklistAnswers {
+  planned?: "yes" | "no"
+  stoploss?: "yes" | "no"
+  strategy?: "yes" | "no"
+}
+
 export async function uploadTradeScreenshot(
   file: File,
-  options?: { linked_trade_id?: string; trade_type?: string }
+  options?: { linked_trade_id?: string; trade_type?: string; checklist?: ChecklistAnswers }
 ): Promise<UploadResponse> {
   const form = new FormData()
   form.append("file", file)
@@ -114,6 +120,9 @@ export async function uploadTradeScreenshot(
   if (options?.trade_type) {
     form.append("trade_type_override", options.trade_type)
   }
+  if (options?.checklist?.planned) form.append("checklist_planned", options.checklist.planned)
+  if (options?.checklist?.stoploss) form.append("checklist_stoploss", options.checklist.stoploss)
+  if (options?.checklist?.strategy) form.append("checklist_strategy", options.checklist.strategy)
   const { data } = await api.post<UploadResponse>("/trades/upload", form, {
     headers: { "Content-Type": "multipart/form-data" },
   })
@@ -394,6 +403,50 @@ export async function importTrades(file: File, broker: string): Promise<ImportRe
   const { data } = await api.post<ImportResult>("/trades/import", form, {
     headers: { "Content-Type": "multipart/form-data" },
   })
+  return data
+}
+
+// ── Streak ────────────────────────────────────────────────────────────────────
+
+export interface LosingStreakAlert {
+  message: string
+  patterns: string[]
+  tip: string
+}
+
+export interface StreakInfo {
+  streak_type: "win" | "loss" | null
+  streak_count: number
+  alert: LosingStreakAlert | null
+}
+
+export async function getStreak(): Promise<StreakInfo> {
+  const { data } = await api.get<StreakInfo>("/trades/streak")
+  return data
+}
+
+// ── Weekly Report ─────────────────────────────────────────────────────────────
+
+export interface WeekStats {
+  total_trades: number
+  wins: number
+  losses: number
+  total_pnl: number
+  win_rate: number
+  best_trade: { symbol: string; pnl: number } | null
+  worst_trade: { symbol: string; pnl: number } | null
+}
+
+export interface WeeklyReport {
+  this_week: WeekStats
+  last_week: WeekStats
+  pnl_change: number
+  win_rate_change: number
+  focus: string
+}
+
+export async function getWeeklyReport(): Promise<WeeklyReport> {
+  const { data } = await api.get<WeeklyReport>("/trades/weekly-report")
   return data
 }
 
