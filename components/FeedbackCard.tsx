@@ -1,6 +1,7 @@
 "use client"
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import SwingFeedbackCard from "@/components/SwingFeedbackCard"
 
 interface FeedbackCardProps {
   feedback: string
@@ -35,6 +36,25 @@ const TYPE_CONFIG = {
 }
 
 export default function FeedbackCard({ feedback, tradeType }: FeedbackCardProps) {
+  // Detect new structured swing feedback (JSON) and render dedicated card
+  const isSwing = tradeType === "equity_swing" || tradeType === "futures_swing"
+  if (isSwing && feedback) {
+    try {
+      const parsed = JSON.parse(feedback)
+      if (parsed.verdict && Array.isArray(parsed.insights)) {
+        return (
+          <Card className="w-full shadow-sm border border-gray-100">
+            <CardContent className="pt-5">
+              <SwingFeedbackCard data={parsed} tradeType={tradeType} />
+            </CardContent>
+          </Card>
+        )
+      }
+    } catch {
+      // Not JSON — fall through to old text renderer below
+    }
+  }
+
   const cfg = TYPE_CONFIG[tradeType as keyof typeof TYPE_CONFIG] ?? TYPE_CONFIG.options_intraday
 
   // Strip markdown and split into lines
