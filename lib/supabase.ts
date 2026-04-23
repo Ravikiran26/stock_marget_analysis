@@ -15,12 +15,13 @@ export const supabase = createBrowserClient(
   key.length > 10 ? key : PLACEHOLDER_KEY
 )
 
-export async function signInWithGoogle() {
+export async function signInWithGoogle(next?: string) {
+  const callbackUrl = next
+    ? `${window.location.origin}/auth/callback?next=${encodeURIComponent(next)}`
+    : `${window.location.origin}/auth/callback`
   const { error } = await supabase.auth.signInWithOAuth({
     provider: "google",
-    options: {
-      redirectTo: `${window.location.origin}/auth/callback`,
-    },
+    options: { redirectTo: callbackUrl },
   })
   if (error) throw error
 }

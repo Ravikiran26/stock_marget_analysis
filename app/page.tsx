@@ -143,15 +143,23 @@ function ProCard() {
   const [loading, setLoading] = useState(false)
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle")
 
-  async function handleUpgrade() {
+  // Auto-trigger checkout if user just logged in via the upgrade flow
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    if (params.get("checkout") !== "pro") return
+    // Remove param from URL without reload
+    const url = new URL(window.location.href)
+    url.searchParams.delete("checkout")
+    window.history.replaceState({}, "", url.toString())
+    // Trigger checkout
+    triggerCheckout()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  async function triggerCheckout() {
     setLoading(true)
     setStatus("idle")
     try {
-      const { data: { session } } = await supabase.auth.getSession()
-      if (!session) {
-        await signInWithGoogle()
-        return
-      }
       const result = await startProCheckout("monthly")
       if (result === "success") setStatus("success")
       else if (result === "error") setStatus("error")
@@ -160,6 +168,15 @@ function ProCard() {
     } finally {
       setLoading(false)
     }
+  }
+
+  async function handleUpgrade() {
+    const { data: { session } } = await supabase.auth.getSession()
+    if (!session) {
+      await signInWithGoogle("/?checkout=pro")
+      return
+    }
+    await triggerCheckout()
   }
 
   return (
@@ -293,7 +310,7 @@ export default function LandingPage() {
           {/* CTAs */}
           <div className="animate-fade-up delay-300 flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
             <button
-              onClick={signInWithGoogle}
+              onClick={() => signInWithGoogle()}
               className="inline-flex items-center gap-2.5 rounded-xl px-7 py-3.5 text-sm font-bold text-white transition-all duration-200 hover:scale-[1.04] active:scale-[0.98]"
               style={{
                 background: "linear-gradient(135deg, #4f46e5, #7c3aed)",
@@ -560,7 +577,7 @@ export default function LandingPage() {
                   </li>
                 ))}
               </ul>
-              <button onClick={signInWithGoogle}
+              <button onClick={() => signInWithGoogle()}
                 className="w-full rounded-xl py-2.5 text-xs font-bold border border-[#1c2e4a] text-slate-400 hover:border-indigo-500/50 hover:text-indigo-300 transition-all flex items-center justify-center gap-2">
                 <GoogleIcon size={12} />
                 Get started free
@@ -672,7 +689,7 @@ export default function LandingPage() {
             Free to start. Works with Zerodha, Upstox, Angel One and all major Indian brokers.
           </p>
           <button
-            onClick={signInWithGoogle}
+            onClick={() => signInWithGoogle()}
             className="inline-flex items-center gap-3 rounded-xl px-8 py-4 text-base font-bold text-white transition-all duration-200 hover:scale-[1.04] active:scale-[0.98] mb-5"
             style={{
               background: "linear-gradient(135deg, #4f46e5, #7c3aed)",
