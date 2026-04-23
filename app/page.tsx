@@ -163,35 +163,36 @@ function ProCard() {
   }
 
   return (
-    <div className="rounded-2xl p-8 relative overflow-hidden text-white"
+    <div className="rounded-2xl p-7 relative overflow-hidden text-white flex flex-col"
       style={{
         background: "linear-gradient(135deg, #1e1b4b 0%, #2e1065 50%, #1e3a5f 100%)",
         border: "2px solid rgba(167,139,250,0.4)",
         boxShadow: "0 20px 60px rgba(79,70,229,0.3)",
       }}>
-      <div className="absolute top-5 right-5 text-[10px] font-bold px-2.5 py-1 rounded-full"
-        style={{ background: "rgba(34,197,94,0.2)", border: "1px solid rgba(34,197,94,0.4)", color: "#86efac" }}>
-        Live
+      <div className="absolute top-4 right-4 text-[10px] font-bold px-2 py-0.5 rounded-full"
+        style={{ background: "rgba(167,139,250,0.2)", border: "1px solid rgba(167,139,250,0.4)", color: "#ddd6fe" }}>
+        Most popular
       </div>
       <div className="absolute bottom-0 right-0 w-40 h-40 pointer-events-none"
         style={{ background: "radial-gradient(circle at bottom right, rgba(139,92,246,0.3), transparent 60%)" }} />
       <p className="text-xs font-bold uppercase tracking-widest text-violet-300 mb-3">Pro</p>
       <div className="flex items-baseline gap-1 mb-1">
-        <span className="text-5xl font-black">₹499</span>
-        <span className="text-base text-white/50 mb-1">/mo</span>
+        <span className="text-4xl font-black">₹499</span>
+        <span className="text-sm text-white/50 mb-1">/mo</span>
       </div>
-      <p className="text-white/40 text-sm mb-8">Unlimited AI · Cancel anytime</p>
-      <ul className="space-y-3 mb-8">
+      <p className="text-white/40 text-xs mb-6">₹4,499/yr · Save 25%</p>
+      <ul className="space-y-2.5 mb-6 flex-1">
         {[
-          "Unlimited AI trade analyses",
-          "Advanced pattern analytics",
-          "Win rate by sector & time slot",
-          "Expiry day edge detection",
-          "Options patterns dashboard",
-          "All future features included",
+          "Unlimited AI analyses",
+          "Full pattern dashboard",
+          "Overtrading detection",
+          "Revenge trading flag",
+          "Expiry day edge reports",
+          "Live market context",
+          "All brokers supported",
         ].map(f => (
-          <li key={f} className="flex items-center gap-3 text-sm text-white/70">
-            <svg className="w-4 h-4 text-violet-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+          <li key={f} className="flex items-center gap-2.5 text-xs text-white/70">
+            <svg className="w-3.5 h-3.5 text-violet-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"/>
             </svg>
             {f}
@@ -200,14 +201,14 @@ function ProCard() {
       </ul>
 
       {status === "success" ? (
-        <div className="w-full rounded-xl py-3 text-sm font-bold text-center text-emerald-300 bg-emerald-950/40 border border-emerald-800/40">
+        <div className="w-full rounded-xl py-2.5 text-xs font-bold text-center text-emerald-300 bg-emerald-950/40 border border-emerald-800/40">
           Payment successful! You&apos;re now Pro.
         </div>
       ) : (
         <button
           onClick={handleUpgrade}
           disabled={loading}
-          className="relative w-full rounded-xl py-3 text-sm font-bold text-white transition-all hover:opacity-90 disabled:opacity-60 flex items-center justify-center gap-2"
+          className="relative w-full rounded-xl py-2.5 text-xs font-bold text-white transition-all hover:opacity-90 disabled:opacity-60 flex items-center justify-center gap-2"
           style={{ background: "linear-gradient(135deg, #6d28d9, #4f46e5)", boxShadow: "0 8px 24px rgba(109,40,217,0.4)" }}>
           {loading ? (
             <><span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />Processing…</>
@@ -521,7 +522,7 @@ export default function LandingPage() {
           PRICING — dark
       ══════════════════════════════════════════════════════════════════ */}
       <section className="bg-[#060c18] py-24 px-6">
-        <div className="mx-auto max-w-3xl">
+        <div className="mx-auto max-w-5xl">
           <div className="text-center mb-14">
             <p className="text-xs font-bold uppercase tracking-widest text-emerald-400 mb-3">Pricing</p>
             <h2 className="text-3xl sm:text-4xl font-black text-slate-100 tracking-tight mb-3">
@@ -530,40 +531,84 @@ export default function LandingPage() {
             <p className="text-slate-500 text-sm">Upgrade when you&apos;re ready to go unlimited.</p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+
             {/* Free */}
-            <div className="rounded-2xl p-8 bg-[#0d1528] border-2 border-[#1c2e4a]">
+            <div className="rounded-2xl p-7 bg-[#0d1528] border border-[#1c2e4a] flex flex-col">
               <p className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-3">Free</p>
               <div className="flex items-baseline gap-1 mb-1">
-                <span className="text-5xl font-black text-slate-100">₹0</span>
+                <span className="text-4xl font-black text-slate-100">₹0</span>
               </div>
-              <p className="text-slate-500 text-sm mb-8">Always free · No card</p>
-              <ul className="space-y-3 mb-8">
+              <p className="text-slate-500 text-xs mb-6">Forever · No card needed</p>
+              <ul className="space-y-2.5 mb-6 flex-1">
                 {[
-                  "10 AI trade analyses free",
-                  "Screenshot upload (any broker)",
-                  "Zerodha CSV import",
-                  "P&L dashboard & calendar",
-                  "Overtrading & revenge trading detection",
-                  "Expiry day intelligence + Options patterns",
-                ].map(f => (
-                  <li key={f} className="flex items-center gap-3 text-sm text-slate-400">
-                    <svg className="w-4 h-4 text-emerald-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"/>
-                    </svg>
-                    {f}
+                  { label: "10 AI analyses (lifetime)", on: true },
+                  { label: "Screenshot upload", on: true },
+                  { label: "Zerodha CSV import", on: true },
+                  { label: "Basic P&L dashboard", on: true },
+                  { label: "Pattern intelligence", on: false },
+                  { label: "Behaviour analysis", on: false },
+                  { label: "Expiry edge reports", on: false },
+                ].map(({ label, on }) => (
+                  <li key={label} className="flex items-center gap-2.5 text-xs">
+                    {on ? (
+                      <svg className="w-3.5 h-3.5 text-emerald-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"/></svg>
+                    ) : (
+                      <span className="w-3.5 h-3.5 flex-shrink-0 flex items-center justify-center text-slate-700 font-bold text-base leading-none">–</span>
+                    )}
+                    <span className={on ? "text-slate-400" : "text-slate-600"}>{label}</span>
                   </li>
                 ))}
               </ul>
               <button onClick={signInWithGoogle}
-                className="w-full rounded-xl py-3 text-sm font-bold border border-[#1c2e4a] text-slate-400 hover:border-indigo-500/50 hover:text-indigo-300 transition-all flex items-center justify-center gap-2">
-                <GoogleIcon size={14} />
+                className="w-full rounded-xl py-2.5 text-xs font-bold border border-[#1c2e4a] text-slate-400 hover:border-indigo-500/50 hover:text-indigo-300 transition-all flex items-center justify-center gap-2">
+                <GoogleIcon size={12} />
                 Get started free
               </button>
             </div>
 
             {/* Pro */}
             <ProCard />
+
+            {/* Elite — coming soon */}
+            <div className="rounded-2xl p-7 relative overflow-hidden text-white flex flex-col"
+              style={{
+                background: "linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)",
+                border: "1px solid rgba(99,102,241,0.25)",
+              }}>
+              <div className="absolute top-4 right-4 text-[10px] font-bold px-2 py-0.5 rounded-full"
+                style={{ background: "rgba(99,102,241,0.15)", border: "1px solid rgba(99,102,241,0.3)", color: "#a5b4fc" }}>
+                Coming soon
+              </div>
+              <p className="text-xs font-bold uppercase tracking-widest text-indigo-300 mb-3">Elite</p>
+              <div className="flex items-baseline gap-1 mb-1">
+                <span className="text-4xl font-black">₹999</span>
+                <span className="text-sm text-white/50 mb-1">/mo</span>
+              </div>
+              <p className="text-white/30 text-xs mb-6">₹8,999/yr · Save 25%</p>
+              <ul className="space-y-2.5 mb-6 flex-1">
+                {[
+                  "Everything in Pro",
+                  "Weekly AI review report",
+                  "Priority support",
+                  "Advanced sector analytics",
+                  "Custom trade tags & notes",
+                  "Export to PDF/Excel",
+                  "Early access to features",
+                ].map(f => (
+                  <li key={f} className="flex items-center gap-2.5 text-xs text-white/50">
+                    <svg className="w-3.5 h-3.5 text-indigo-400/60 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"/></svg>
+                    {f}
+                  </li>
+                ))}
+              </ul>
+              <button disabled
+                className="w-full rounded-xl py-2.5 text-xs font-bold text-white/30 cursor-not-allowed"
+                style={{ background: "rgba(99,102,241,0.1)", border: "1px solid rgba(99,102,241,0.2)" }}>
+                Launching soon
+              </button>
+            </div>
+
           </div>
         </div>
       </section>
