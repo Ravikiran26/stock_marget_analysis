@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { signInWithGoogle, supabase } from "@/lib/supabase"
+import { startProCheckout } from "@/hooks/useRazorpay"
 
 function GoogleIcon({ size = 16 }: { size?: number }) {
   return (
@@ -136,6 +137,90 @@ const BROKERS = [
   "Zerodha","Upstox","Angel One","Groww","Fyers","Dhan",
   "5paisa","Kotak Neo","ICICI Direct","HDFC Sky","Paytm Money","Motilal Oswal",
 ]
+
+/* ─── Pro pricing card with live Razorpay checkout ──────────────────────── */
+function ProCard() {
+  const [loading, setLoading] = useState(false)
+  const [status, setStatus] = useState<"idle" | "success" | "error">("idle")
+
+  async function handleUpgrade() {
+    setLoading(true)
+    setStatus("idle")
+    try {
+      const { data: { session } } = await supabase.auth.getSession()
+      if (!session) {
+        await signInWithGoogle()
+        return
+      }
+      const result = await startProCheckout("monthly")
+      if (result === "success") setStatus("success")
+      else if (result === "error") setStatus("error")
+    } catch {
+      setStatus("error")
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  return (
+    <div className="rounded-2xl p-8 relative overflow-hidden text-white"
+      style={{
+        background: "linear-gradient(135deg, #1e1b4b 0%, #2e1065 50%, #1e3a5f 100%)",
+        border: "2px solid rgba(167,139,250,0.4)",
+        boxShadow: "0 20px 60px rgba(79,70,229,0.3)",
+      }}>
+      <div className="absolute top-5 right-5 text-[10px] font-bold px-2.5 py-1 rounded-full"
+        style={{ background: "rgba(34,197,94,0.2)", border: "1px solid rgba(34,197,94,0.4)", color: "#86efac" }}>
+        Live
+      </div>
+      <div className="absolute bottom-0 right-0 w-40 h-40 pointer-events-none"
+        style={{ background: "radial-gradient(circle at bottom right, rgba(139,92,246,0.3), transparent 60%)" }} />
+      <p className="text-xs font-bold uppercase tracking-widest text-violet-300 mb-3">Pro</p>
+      <div className="flex items-baseline gap-1 mb-1">
+        <span className="text-5xl font-black">₹499</span>
+        <span className="text-base text-white/50 mb-1">/mo</span>
+      </div>
+      <p className="text-white/40 text-sm mb-8">Unlimited AI · Cancel anytime</p>
+      <ul className="space-y-3 mb-8">
+        {[
+          "Unlimited AI trade analyses",
+          "Advanced pattern analytics",
+          "Win rate by sector & time slot",
+          "Expiry day edge detection",
+          "Options patterns dashboard",
+          "All future features included",
+        ].map(f => (
+          <li key={f} className="flex items-center gap-3 text-sm text-white/70">
+            <svg className="w-4 h-4 text-violet-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"/>
+            </svg>
+            {f}
+          </li>
+        ))}
+      </ul>
+
+      {status === "success" ? (
+        <div className="w-full rounded-xl py-3 text-sm font-bold text-center text-emerald-300 bg-emerald-950/40 border border-emerald-800/40">
+          Payment successful! You&apos;re now Pro.
+        </div>
+      ) : (
+        <button
+          onClick={handleUpgrade}
+          disabled={loading}
+          className="relative w-full rounded-xl py-3 text-sm font-bold text-white transition-all hover:opacity-90 disabled:opacity-60 flex items-center justify-center gap-2"
+          style={{ background: "linear-gradient(135deg, #6d28d9, #4f46e5)", boxShadow: "0 8px 24px rgba(109,40,217,0.4)" }}>
+          {loading ? (
+            <><span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />Processing…</>
+          ) : "Upgrade to Pro →"}
+        </button>
+      )}
+
+      {status === "error" && (
+        <p className="text-xs text-red-400 text-center mt-3">Payment failed. Please try again.</p>
+      )}
+    </div>
+  )
+}
 
 /* ─── Page ───────────────────────────────────────────────────────────────── */
 export default function LandingPage() {
@@ -478,46 +563,7 @@ export default function LandingPage() {
             </div>
 
             {/* Pro */}
-            <div className="rounded-2xl p-8 relative overflow-hidden text-white"
-              style={{
-                background: "linear-gradient(135deg, #1e1b4b 0%, #2e1065 50%, #1e3a5f 100%)",
-                border: "2px solid rgba(167,139,250,0.4)",
-                boxShadow: "0 20px 60px rgba(79,70,229,0.3)",
-              }}>
-              <div className="absolute top-5 right-5 text-[10px] font-bold px-2.5 py-1 rounded-full"
-                style={{ background: "rgba(167,139,250,0.2)", border: "1px solid rgba(167,139,250,0.4)", color: "#ddd6fe" }}>
-                Coming soon
-              </div>
-              <div className="absolute bottom-0 right-0 w-40 h-40 pointer-events-none"
-                style={{ background: "radial-gradient(circle at bottom right, rgba(139,92,246,0.3), transparent 60%)" }} />
-              <p className="text-xs font-bold uppercase tracking-widest text-violet-300 mb-3">Pro</p>
-              <div className="flex items-baseline gap-1 mb-1">
-                <span className="text-5xl font-black">₹299</span>
-                <span className="text-base text-white/50 mb-1">/mo</span>
-              </div>
-              <p className="text-white/40 text-sm mb-8">Early-bird · Lock price forever</p>
-              <ul className="space-y-3 mb-8">
-                {[
-                  "Unlimited AI trade analyses",
-                  "Advanced pattern analytics",
-                  "Win rate by sector & time slot",
-                  "Expiry day edge detection",
-                  "Options patterns dashboard",
-                  "All future features included",
-                ].map(f => (
-                  <li key={f} className="flex items-center gap-3 text-sm text-white/70">
-                    <svg className="w-4 h-4 text-violet-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"/>
-                    </svg>
-                    {f}
-                  </li>
-                ))}
-              </ul>
-              <button className="relative w-full rounded-xl py-3 text-sm font-bold text-white transition-all hover:opacity-90"
-                style={{ background: "rgba(167,139,250,0.25)", border: "1px solid rgba(167,139,250,0.4)" }}>
-                Notify me at launch
-              </button>
-            </div>
+            <ProCard />
           </div>
         </div>
       </section>

@@ -291,8 +291,21 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {isNewUser && <WelcomeModal />}
 
         {/* ── Footer ─────────────────────────────────────────────────────── */}
-        <footer className="py-6 text-center text-xs bg-[#020817] border-t border-white/[0.05] text-slate-600">
-          © {new Date().getFullYear()} TradersDiary.in · Not investment advice · For educational use only
+        <footer className="py-8 bg-[#020817] border-t border-white/[0.05]">
+          <div className="max-w-4xl mx-auto px-6 flex flex-col items-center gap-3">
+            <div className="flex flex-wrap items-center justify-center gap-4 text-xs text-slate-600">
+              <a href="/privacy" className="hover:text-slate-400 transition-colors">Privacy Policy</a>
+              <span>·</span>
+              <a href="/terms" className="hover:text-slate-400 transition-colors">Terms of Service</a>
+              <span>·</span>
+              <a href="/terms#6" className="hover:text-slate-400 transition-colors">Refund Policy</a>
+              <span>·</span>
+              <a href="mailto:support@tradersdiary.in" className="hover:text-slate-400 transition-colors">support@tradersdiary.in</a>
+            </div>
+            <p className="text-xs text-slate-700 text-center">
+              © {new Date().getFullYear()} TradersDiary.in · Not investment advice · For educational use only
+            </p>
+          </div>
         </footer>
       </body>
     </html>
