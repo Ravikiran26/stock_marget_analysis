@@ -394,6 +394,101 @@ export default function LandingPage() {
       </section>
 
       {/* ══════════════════════════════════════════════════════════════════
+          PRICING — dark
+      ══════════════════════════════════════════════════════════════════ */}
+      <section className="bg-[#060c18] py-24 px-6">
+        <div className="mx-auto max-w-5xl">
+          <div className="text-center mb-14">
+            <p className="text-xs font-bold uppercase tracking-widest text-emerald-400 mb-3">Pricing</p>
+            <h2 className="text-3xl sm:text-4xl font-black text-slate-100 tracking-tight mb-3">
+              Start free. No card needed.
+            </h2>
+            <p className="text-slate-500 text-sm">Upgrade when you&apos;re ready to go unlimited.</p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+
+            {/* Free */}
+            <div className="rounded-2xl p-7 bg-[#0d1528] border border-[#1c2e4a] flex flex-col">
+              <p className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-3">Free</p>
+              <div className="flex items-baseline gap-1 mb-1">
+                <span className="text-4xl font-black text-slate-100">₹0</span>
+              </div>
+              <p className="text-slate-500 text-xs mb-6">Forever · No card needed</p>
+              <ul className="space-y-2.5 mb-6 flex-1">
+                {[
+                  { label: "10 AI analyses (lifetime)", on: true },
+                  { label: "Screenshot upload", on: true },
+                  { label: "Zerodha · Upstox · Dhan CSV", on: true },
+                  { label: "Basic P&L dashboard", on: true },
+                  { label: "Pattern intelligence", on: false },
+                  { label: "Behaviour analysis", on: false },
+                  { label: "Expiry edge reports", on: false },
+                ].map(({ label, on }) => (
+                  <li key={label} className="flex items-center gap-2.5 text-xs">
+                    {on ? (
+                      <svg className="w-3.5 h-3.5 text-emerald-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"/></svg>
+                    ) : (
+                      <span className="w-3.5 h-3.5 flex-shrink-0 flex items-center justify-center text-slate-700 font-bold text-base leading-none">–</span>
+                    )}
+                    <span className={on ? "text-slate-400" : "text-slate-600"}>{label}</span>
+                  </li>
+                ))}
+              </ul>
+              <button onClick={() => signInWithGoogle()}
+                className="w-full rounded-xl py-2.5 text-xs font-bold border border-[#1c2e4a] text-slate-400 hover:border-indigo-500/50 hover:text-indigo-300 transition-all flex items-center justify-center gap-2">
+                <GoogleIcon size={12} />
+                Get started free
+              </button>
+            </div>
+
+            {/* Pro */}
+            <ProCard />
+
+            {/* Elite — coming soon */}
+            <div className="rounded-2xl p-7 relative overflow-hidden text-white flex flex-col"
+              style={{
+                background: "linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)",
+                border: "1px solid rgba(99,102,241,0.25)",
+              }}>
+              <div className="absolute top-4 right-4 text-[10px] font-bold px-2 py-0.5 rounded-full"
+                style={{ background: "rgba(99,102,241,0.15)", border: "1px solid rgba(99,102,241,0.3)", color: "#a5b4fc" }}>
+                Coming soon
+              </div>
+              <p className="text-xs font-bold uppercase tracking-widest text-indigo-300 mb-3">Elite</p>
+              <div className="flex items-baseline gap-1 mb-1">
+                <span className="text-4xl font-black">₹999</span>
+                <span className="text-sm text-white/50 mb-1">/mo</span>
+              </div>
+              <p className="text-white/30 text-xs mb-6">Coming soon</p>
+              <ul className="space-y-2.5 mb-6 flex-1">
+                {[
+                  "Everything in Pro",
+                  "Weekly AI review report",
+                  "Priority support",
+                  "Advanced sector analytics",
+                  "Custom trade tags & notes",
+                  "Export to PDF/Excel",
+                  "Early access to features",
+                ].map(f => (
+                  <li key={f} className="flex items-center gap-2.5 text-xs text-white/50">
+                    <svg className="w-3.5 h-3.5 text-indigo-400/60 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"/></svg>
+                    {f}
+                  </li>
+                ))}
+              </ul>
+              <button disabled
+                className="w-full rounded-xl py-2.5 text-xs font-bold text-white/30 cursor-not-allowed"
+                style={{ background: "rgba(99,102,241,0.1)", border: "1px solid rgba(99,102,241,0.2)" }}>
+                Launching soon
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════════════════════
           TRUST BADGES
       ══════════════════════════════════════════════════════════════════ */}
       <section className="bg-[#060c18] py-16 px-6 border-t border-white/[0.04]">
@@ -563,101 +658,6 @@ export default function LandingPage() {
                 </div>
               </div>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ══════════════════════════════════════════════════════════════════
-          PRICING — dark
-      ══════════════════════════════════════════════════════════════════ */}
-      <section className="bg-[#060c18] py-24 px-6">
-        <div className="mx-auto max-w-5xl">
-          <div className="text-center mb-14">
-            <p className="text-xs font-bold uppercase tracking-widest text-emerald-400 mb-3">Pricing</p>
-            <h2 className="text-3xl sm:text-4xl font-black text-slate-100 tracking-tight mb-3">
-              Start free. No card needed.
-            </h2>
-            <p className="text-slate-500 text-sm">Upgrade when you&apos;re ready to go unlimited.</p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-
-            {/* Free */}
-            <div className="rounded-2xl p-7 bg-[#0d1528] border border-[#1c2e4a] flex flex-col">
-              <p className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-3">Free</p>
-              <div className="flex items-baseline gap-1 mb-1">
-                <span className="text-4xl font-black text-slate-100">₹0</span>
-              </div>
-              <p className="text-slate-500 text-xs mb-6">Forever · No card needed</p>
-              <ul className="space-y-2.5 mb-6 flex-1">
-                {[
-                  { label: "10 AI analyses (lifetime)", on: true },
-                  { label: "Screenshot upload", on: true },
-                  { label: "Zerodha · Upstox · Dhan CSV", on: true },
-                  { label: "Basic P&L dashboard", on: true },
-                  { label: "Pattern intelligence", on: false },
-                  { label: "Behaviour analysis", on: false },
-                  { label: "Expiry edge reports", on: false },
-                ].map(({ label, on }) => (
-                  <li key={label} className="flex items-center gap-2.5 text-xs">
-                    {on ? (
-                      <svg className="w-3.5 h-3.5 text-emerald-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"/></svg>
-                    ) : (
-                      <span className="w-3.5 h-3.5 flex-shrink-0 flex items-center justify-center text-slate-700 font-bold text-base leading-none">–</span>
-                    )}
-                    <span className={on ? "text-slate-400" : "text-slate-600"}>{label}</span>
-                  </li>
-                ))}
-              </ul>
-              <button onClick={() => signInWithGoogle()}
-                className="w-full rounded-xl py-2.5 text-xs font-bold border border-[#1c2e4a] text-slate-400 hover:border-indigo-500/50 hover:text-indigo-300 transition-all flex items-center justify-center gap-2">
-                <GoogleIcon size={12} />
-                Get started free
-              </button>
-            </div>
-
-            {/* Pro */}
-            <ProCard />
-
-            {/* Elite — coming soon */}
-            <div className="rounded-2xl p-7 relative overflow-hidden text-white flex flex-col"
-              style={{
-                background: "linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)",
-                border: "1px solid rgba(99,102,241,0.25)",
-              }}>
-              <div className="absolute top-4 right-4 text-[10px] font-bold px-2 py-0.5 rounded-full"
-                style={{ background: "rgba(99,102,241,0.15)", border: "1px solid rgba(99,102,241,0.3)", color: "#a5b4fc" }}>
-                Coming soon
-              </div>
-              <p className="text-xs font-bold uppercase tracking-widest text-indigo-300 mb-3">Elite</p>
-              <div className="flex items-baseline gap-1 mb-1">
-                <span className="text-4xl font-black">₹999</span>
-                <span className="text-sm text-white/50 mb-1">/mo</span>
-              </div>
-              <p className="text-white/30 text-xs mb-6">Coming soon</p>
-              <ul className="space-y-2.5 mb-6 flex-1">
-                {[
-                  "Everything in Pro",
-                  "Weekly AI review report",
-                  "Priority support",
-                  "Advanced sector analytics",
-                  "Custom trade tags & notes",
-                  "Export to PDF/Excel",
-                  "Early access to features",
-                ].map(f => (
-                  <li key={f} className="flex items-center gap-2.5 text-xs text-white/50">
-                    <svg className="w-3.5 h-3.5 text-indigo-400/60 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"/></svg>
-                    {f}
-                  </li>
-                ))}
-              </ul>
-              <button disabled
-                className="w-full rounded-xl py-2.5 text-xs font-bold text-white/30 cursor-not-allowed"
-                style={{ background: "rgba(99,102,241,0.1)", border: "1px solid rgba(99,102,241,0.2)" }}>
-                Launching soon
-              </button>
-            </div>
-
           </div>
         </div>
       </section>
