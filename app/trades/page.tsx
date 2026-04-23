@@ -1064,7 +1064,7 @@ export default function TradesPage() {
 
   return (
     <>
-      <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 space-y-6">
+      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 space-y-6">
         {/* Header */}
         <div className="rounded-2xl bg-gradient-to-br from-slate-800 via-slate-900 to-slate-800 px-6 py-5 shadow-lg">
           <div className="flex items-center justify-between gap-4 flex-wrap">
@@ -1221,17 +1221,27 @@ export default function TradesPage() {
 
           {/* ── Desktop table (≥ md) ── */}
           <div className="hidden md:block overflow-x-auto rounded-2xl border border-gray-100 shadow-sm">
-            <table className="w-full text-sm">
+            <table className="w-full text-sm table-fixed">
+              <colgroup>
+                <col className="w-[100px]" />
+                <col className="w-[220px]" />
+                <col className="w-[80px]" />
+                <col className="w-[70px]" />
+                <col className="w-[80px]" />
+                <col className="w-[80px]" />
+                <col className="w-[130px]" />
+                <col />
+              </colgroup>
               <thead>
                 <tr className="bg-gray-50 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">
-                  <th className="px-4 py-3">Date</th>
-                  <th className="px-4 py-3">Symbol</th>
-                  <th className="px-4 py-3 hidden sm:table-cell">Broker</th>
-                  <th className="px-4 py-3">Action</th>
-                  <th className="px-4 py-3 hidden md:table-cell">Entry</th>
-                  <th className="px-4 py-3 hidden md:table-cell">Exit</th>
-                  <th className="px-4 py-3">P&L</th>
-                  <th className="px-4 py-3 hidden lg:table-cell">AI Insight</th>
+                  <th className="px-3 py-3">Date</th>
+                  <th className="px-3 py-3">Symbol</th>
+                  <th className="px-3 py-3 hidden sm:table-cell">Broker</th>
+                  <th className="px-3 py-3">Action</th>
+                  <th className="px-3 py-3 hidden md:table-cell">Entry</th>
+                  <th className="px-3 py-3 hidden md:table-cell">Exit</th>
+                  <th className="px-3 py-3">P&L</th>
+                  <th className="px-3 py-3 hidden lg:table-cell">AI Insight</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-50">
@@ -1256,20 +1266,20 @@ export default function TradesPage() {
                       onClick={() => setSelectedTrade(t)}
                       className="hover:bg-blue-50/40 transition-colors bg-white cursor-pointer group"
                     >
-                      <td className="px-4 py-3 text-gray-500 whitespace-nowrap">
+                      <td className="px-3 py-3 text-gray-500 whitespace-nowrap text-xs">
                         {fmtDate(t.trade_date ?? t.created_at)}
                       </td>
-                      <td className="px-4 py-3 font-semibold text-gray-900 whitespace-nowrap">
-                        <div className="flex items-center gap-1.5">
+                      <td className="px-3 py-3 font-semibold text-gray-900">
+                        <div className="truncate" title={t.symbol ?? ""}>
                           {t.symbol ?? "—"}
                           {t.instrument_type && (
-                            <span className="text-xs text-gray-400 capitalize hidden sm:inline">
+                            <span className="text-xs text-gray-400 capitalize hidden sm:inline ml-1">
                               ({t.instrument_type})
                             </span>
                           )}
                         </div>
                       </td>
-                      <td className="px-4 py-3 hidden sm:table-cell">
+                      <td className="px-3 py-3 hidden sm:table-cell">
                         {t.broker ? (
                           <Badge variant="outline" className="text-blue-600 border-blue-200 bg-blue-50 text-xs">
                             {t.broker}
@@ -1278,7 +1288,7 @@ export default function TradesPage() {
                           <span className="text-gray-300">—</span>
                         )}
                       </td>
-                      <td className="px-4 py-3">
+                      <td className="px-3 py-3">
                         {t.action ? (
                           <Badge
                             variant="outline"
@@ -1294,14 +1304,14 @@ export default function TradesPage() {
                           <span className="text-gray-300">—</span>
                         )}
                       </td>
-                      <td className="px-4 py-3 hidden md:table-cell text-gray-600">
+                      <td className="px-3 py-3 hidden md:table-cell text-gray-600 text-xs">
                         {t.entry_price != null ? `₹${t.entry_price.toLocaleString("en-IN")}` : "—"}
                       </td>
-                      <td className="px-4 py-3 hidden md:table-cell text-gray-600">
+                      <td className="px-3 py-3 hidden md:table-cell text-gray-600 text-xs">
                         {t.exit_price != null ? `₹${t.exit_price.toLocaleString("en-IN")}` : "—"}
                       </td>
-                      <td className="px-4 py-3 whitespace-nowrap">
-                        <span className={`font-semibold ${isProfit ? "text-green-600" : "text-red-600"}`}>
+                      <td className="px-3 py-3 whitespace-nowrap">
+                        <span className={`font-semibold text-sm ${isProfit ? "text-green-600" : "text-red-600"}`}>
                           {t.pnl != null ? `${isProfit ? "+" : "−"}${fmt(t.pnl)}` : "—"}
                         </span>
                         {t.pnl_percent != null && (
@@ -1310,7 +1320,7 @@ export default function TradesPage() {
                           </span>
                         )}
                       </td>
-                      <td className="px-4 py-3 hidden lg:table-cell max-w-xs">
+                      <td className="px-3 py-3 hidden lg:table-cell">
                         {feedbackPreview ? (
                           <div className="flex items-center gap-1.5">
                             <span className="text-gray-500 text-xs truncate block">
