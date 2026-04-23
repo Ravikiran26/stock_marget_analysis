@@ -394,6 +394,54 @@ export default function LandingPage() {
       </section>
 
       {/* ══════════════════════════════════════════════════════════════════
+          DEMO VIDEO
+      ══════════════════════════════════════════════════════════════════ */}
+      <section className="bg-[#0a1220] py-20 px-6 border-t border-white/[0.04]">
+        <div className="mx-auto max-w-4xl">
+          <div className="text-center mb-10">
+            <p className="text-xs font-bold uppercase tracking-widest text-violet-400 mb-3">See it in action</p>
+            <h2 className="text-3xl sm:text-4xl font-black text-slate-100 tracking-tight mb-3">
+              Screenshot to insight in 45 seconds.
+            </h2>
+            <p className="text-slate-500 text-sm">Upload a trade, get AI analysis, review your patterns.</p>
+          </div>
+
+          {/* Video embed — replace DEMO_VIDEO_ID with your YouTube video ID */}
+          {/* To use Loom instead, replace the iframe src with your Loom embed URL */}
+          <div className="relative rounded-2xl overflow-hidden border border-[#1c2e4a]"
+            style={{ boxShadow: "0 0 0 1px rgba(99,102,241,0.15), 0 24px 80px rgba(0,0,0,0.6)" }}>
+            <div className="aspect-video bg-[#0d1528] flex items-center justify-center">
+              {/* PLACEHOLDER — swap the div below for your iframe once you have the video */}
+              <div className="text-center px-8">
+                <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
+                  style={{ background: "linear-gradient(135deg,#4f46e5,#7c3aed)", boxShadow: "0 0 40px rgba(79,70,229,0.5)" }}>
+                  <svg className="w-6 h-6 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M8 5v14l11-7z"/>
+                  </svg>
+                </div>
+                <p className="text-slate-300 font-semibold text-lg mb-2">Demo video coming soon</p>
+                <p className="text-slate-600 text-sm">45-second walkthrough — upload → AI extract → pattern review</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-wrap items-center justify-center gap-6 mt-8">
+            {[
+              { icon: "📸", text: "Screenshot → auto-extracted trade" },
+              { icon: "🤖", text: "AI coaching on every trade" },
+              { icon: "📊", text: "Overtrading & revenge trade flags" },
+              { icon: "📅", text: "Expiry day win rate analysis" },
+            ].map(({ icon, text }) => (
+              <div key={text} className="flex items-center gap-2 text-slate-500 text-xs">
+                <span>{icon}</span>
+                <span>{text}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════════════════════
           PRICING — dark
       ══════════════════════════════════════════════════════════════════ */}
       <section className="bg-[#060c18] py-24 px-6">
