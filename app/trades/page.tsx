@@ -1305,15 +1305,17 @@ export default function TradesPage() {
                       <td className="px-3 py-3 hidden md:table-cell text-gray-600 text-xs">
                         {t.exit_price != null ? `₹${t.exit_price.toLocaleString("en-IN")}` : "—"}
                       </td>
-                      <td className="px-3 py-3 whitespace-nowrap">
-                        <span className={`font-semibold text-sm ${isProfit ? "text-green-600" : "text-red-600"}`}>
-                          {t.pnl != null ? `${isProfit ? "+" : "−"}${fmt(t.pnl)}` : "—"}
-                        </span>
-                        {t.pnl_percent != null && (
-                          <span className={`text-xs ml-1 ${isProfit ? "text-green-500" : "text-red-500"}`}>
-                            ({isProfit ? "+" : ""}{t.pnl_percent.toFixed(1)}%)
+                      <td className="px-3 py-3">
+                        <div className="flex flex-col items-start">
+                          <span className={`font-semibold text-sm whitespace-nowrap ${isProfit ? "text-green-600" : "text-red-600"}`}>
+                            {t.pnl != null ? `${isProfit ? "+" : "−"}${fmt(t.pnl)}` : "—"}
                           </span>
-                        )}
+                          {t.pnl_percent != null && (
+                            <span className={`text-xs ${isProfit ? "text-green-500" : "text-red-500"}`}>
+                              ({isProfit ? "+" : ""}{t.pnl_percent.toFixed(1)}%)
+                            </span>
+                          )}
+                        </div>
                       </td>
                       <td className="px-3 py-3 hidden lg:table-cell">
                         {feedbackPreview ? (
