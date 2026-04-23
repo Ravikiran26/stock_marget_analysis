@@ -81,9 +81,9 @@ function ProductMockup() {
         <p className="text-[9px] font-bold uppercase tracking-widest mb-3" style={{ color: "#a5b4fc" }}>⚡ Pattern Intelligence · Last 30 days</p>
         <div className="grid grid-cols-3 gap-2">
           {[
-            { label: "Overtrading alert", val: "7+ trades/day → avg −₹4,200. Your sweet spot is 1–3 trades.", icon: "⚠️", warn: true },
-            { label: "Revenge trading", val: "After a loss, you win only 28% of the time. Stop after 2 losses.", icon: "🔁", warn: true },
-            { label: "Expiry edge", val: "Thursday weekly expiry: 62% win rate. Non-expiry days: 41% only.", icon: "📅", warn: false },
+            { label: "Overtrading pattern", val: "7+ trades/day → avg −₹4,200. Your results drop sharply after trade 3.", icon: "⚠️", warn: true },
+            { label: "After-loss behaviour", val: "After a loss, your win rate drops to 28%. Your data shows a clear pattern here.", icon: "🔁", warn: true },
+            { label: "Expiry day analysis", val: "Thursday weekly expiry: 62% win rate vs 41% on non-expiry days.", icon: "📅", warn: false },
           ].map((item,i) => (
             <div key={i} className="flex gap-2 items-start p-2.5 rounded-lg" style={{ background: "rgba(255,255,255,0.03)", border: `1px solid ${item.warn ? "rgba(251,191,36,0.2)" : "rgba(255,255,255,0.06)"}` }}>
               <span className="text-[13px] flex-shrink-0 mt-px">{item.icon}</span>
@@ -296,20 +296,20 @@ export default function LandingPage() {
           {/* Headline */}
           <h1 className="animate-fade-up delay-100 font-black tracking-tight leading-[1.06] mb-6 text-white"
             style={{ fontSize: "clamp(2.8rem, 5.5vw, 5rem)" }}>
-            Stop losing money<br />
+            Stop trading blind.<br />
             <span style={{
               background: "linear-gradient(135deg, #c4b5fd 0%, #a78bfa 35%, #818cf8 65%, #67e8f9 100%)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               backgroundClip: "text",
-            }}>without knowing why.</span>
+            }}>Understand every trade.</span>
           </h1>
 
           {/* Subheading */}
           <p className="animate-fade-up delay-200 text-lg leading-relaxed max-w-2xl mx-auto mb-10 text-white/60">
-            Traders Diary spots{" "}
-            <span className="text-white/90 font-medium">overtrading patterns, revenge trading, expiry day edge</span>
-            {" "}— and gives AI coaching grounded in your actual numbers. Not generic advice.
+            Traders Diary analyses your trade history to surface{" "}
+            <span className="text-white/90 font-medium">overtrading patterns, revenge trading, and behavioural risks</span>
+            {" "}— with AI coaching grounded in your own data. Educational, not advisory.
           </p>
 
           {/* CTAs */}
@@ -565,12 +565,12 @@ export default function LandingPage() {
                 style={{ background: "radial-gradient(circle at top right, rgba(124,58,237,0.1), transparent 60%)" }} />
               <div className="w-11 h-11 rounded-xl flex items-center justify-center text-xl mb-5 bg-violet-600">📊</div>
               <p className="text-[10px] font-bold uppercase tracking-widest text-violet-400 mb-2">Pattern Dashboard</p>
-              <h3 className="text-slate-100 font-black text-xl mb-3 leading-tight">See where your real edge is.</h3>
+              <h3 className="text-slate-100 font-black text-xl mb-3 leading-tight">Review your behaviour patterns.</h3>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                 {[
-                  { label: "Expiry day edge", val: "+18%" },
-                  { label: "Revenge trading", val: "28% wins" },
-                  { label: "Best time slot", val: "9:30–10am" },
+                  { label: "Expiry day win rate", val: "43%" },
+                  { label: "After-loss trades", val: "28% wins" },
+                  { label: "Most active slot", val: "9:30–10am" },
                   { label: "OTM win rate", val: "38%" },
                 ].map(({ label, val }) => (
                   <div key={label} className="rounded-xl px-4 py-3 bg-[#0a1220] border border-[#1c2e4a]">
@@ -712,10 +712,10 @@ export default function LandingPage() {
             backgroundSize: "28px 28px",
           }} />
         <div className="relative mx-auto max-w-2xl">
-          <p className="text-xs font-bold uppercase tracking-widest text-indigo-300 mb-5">Ready to find your edge?</p>
+          <p className="text-xs font-bold uppercase tracking-widest text-indigo-300 mb-5">Start your trade journal today</p>
           <h2 className="font-black text-white tracking-tight leading-tight mb-5" style={{ fontSize: "clamp(2rem,4.5vw,3.5rem)" }}>
             Upload your first trade.<br />
-            <span className="text-white/40">See what you missed.</span>
+            <span className="text-white/40">Review what happened.</span>
           </h2>
           <p className="text-white/50 text-base mb-10 max-w-sm mx-auto leading-relaxed">
             Free to start. Works with Zerodha, Upstox, and Dhan.
