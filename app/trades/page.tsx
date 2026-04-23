@@ -790,17 +790,17 @@ function FeedbackDrawer({ trade, onClose, onTradeUpdated }: { trade: Trade; onCl
               </p>
               <div className="flex items-center justify-center gap-3 flex-wrap mb-4">
                 <div className="text-center">
-                  <p className="text-2xl font-black text-violet-700">₹299<span className="text-sm font-normal text-violet-400">/mo</span></p>
+                  <p className="text-2xl font-black text-violet-700">₹499<span className="text-sm font-normal text-violet-400">/mo</span></p>
                   <p className="text-[10px] text-violet-400">billed monthly</p>
                 </div>
                 <div className="text-violet-300 font-light text-lg">or</div>
                 <div className="text-center">
-                  <p className="text-2xl font-black text-violet-700">₹2,499<span className="text-sm font-normal text-violet-400">/yr</span></p>
-                  <p className="text-[10px] text-emerald-500 font-semibold">Save ₹1,089 · ₹208/mo</p>
+                  <p className="text-2xl font-black text-violet-700">₹3,499<span className="text-sm font-normal text-violet-400">/yr</span></p>
+                  <p className="text-[10px] text-emerald-500 font-semibold">Save ₹2,489 · ₹292/mo</p>
                 </div>
               </div>
               <UpgradeButton plan="monthly" className="w-full rounded-xl py-3 text-sm font-bold text-white bg-gradient-to-r from-violet-600 to-indigo-600 hover:opacity-90 transition-opacity shadow-sm shadow-violet-200" onSuccess={() => setUpgradeRequired(false)}>
-                Upgrade to Pro — ₹299/mo →
+                Upgrade to Pro — ₹499/mo →
               </UpgradeButton>
               <p className="text-[10px] text-violet-400 mt-2">Cancel anytime · Instant access</p>
             </div>
