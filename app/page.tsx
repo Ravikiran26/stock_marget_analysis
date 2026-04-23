@@ -202,7 +202,7 @@ function ProCard() {
         <span className="text-4xl font-black">₹499</span>
         <span className="text-sm text-white/50 mb-1">/mo</span>
       </div>
-      <p className="text-white/40 text-xs mb-6">₹4,499/yr · Save 25%</p>
+      <p className="text-white/40 text-xs mb-6">Cancel anytime</p>
       <ul className="space-y-2.5 mb-6 flex-1">
         {[
           "Unlimited AI analyses",
@@ -607,7 +607,7 @@ export default function LandingPage() {
                 <span className="text-4xl font-black">₹999</span>
                 <span className="text-sm text-white/50 mb-1">/mo</span>
               </div>
-              <p className="text-white/30 text-xs mb-6">₹8,999/yr · Save 25%</p>
+              <p className="text-white/30 text-xs mb-6">Coming soon</p>
               <ul className="space-y-2.5 mb-6 flex-1">
                 {[
                   "Everything in Pro",

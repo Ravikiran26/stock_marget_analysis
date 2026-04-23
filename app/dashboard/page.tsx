@@ -1712,7 +1712,7 @@ function AiUsageBanner() {
         <div className="flex items-center gap-2 flex-shrink-0">
           <div className="text-right hidden sm:block">
             <p className="text-xs font-black text-violet-300">₹499<span className="font-normal text-violet-500">/mo</span></p>
-            <p className="text-[10px] text-violet-500">or ₹3,499/yr</p>
+            <p className="text-[10px] text-violet-500">Cancel anytime</p>
           </div>
           <button className="text-xs font-bold text-white bg-gradient-to-r from-violet-600 to-indigo-600 hover:opacity-90 px-4 py-2 rounded-xl transition-opacity shadow-lg shadow-violet-900/40">
             Upgrade to Pro →

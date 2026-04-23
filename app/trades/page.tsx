@@ -788,15 +788,10 @@ function FeedbackDrawer({ trade, onClose, onTradeUpdated }: { trade: Trade; onCl
               <p className="text-xs text-violet-600 mb-4 leading-relaxed">
                 You&apos;ve used all 10 free analyses. Journaling, dashboards and all pattern analysis remain free forever.
               </p>
-              <div className="flex items-center justify-center gap-3 flex-wrap mb-4">
+              <div className="flex items-center justify-center mb-4">
                 <div className="text-center">
                   <p className="text-2xl font-black text-violet-700">₹499<span className="text-sm font-normal text-violet-400">/mo</span></p>
-                  <p className="text-[10px] text-violet-400">billed monthly</p>
-                </div>
-                <div className="text-violet-300 font-light text-lg">or</div>
-                <div className="text-center">
-                  <p className="text-2xl font-black text-violet-700">₹3,499<span className="text-sm font-normal text-violet-400">/yr</span></p>
-                  <p className="text-[10px] text-emerald-500 font-semibold">Save ₹2,489 · ₹292/mo</p>
+                  <p className="text-[10px] text-violet-400">Cancel anytime</p>
                 </div>
               </div>
               <UpgradeButton plan="monthly" className="w-full rounded-xl py-3 text-sm font-bold text-white bg-gradient-to-r from-violet-600 to-indigo-600 hover:opacity-90 transition-opacity shadow-sm shadow-violet-200" onSuccess={() => setUpgradeRequired(false)}>
