@@ -125,17 +125,19 @@ function FeatureCard({ icon, title, desc, color, wide = false }: { icon: string;
 const FAQS = [
   { q: "Is my trade data private?", a: "Yes — completely. Trades are stored in your private account only. Nobody else can see your journal. We never share or sell data." },
   { q: "Does this give buy/sell recommendations?", a: "No. Traders Diary is an educational trade journal. The AI reviews your past trades only — never tells you what to buy or sell. All outputs end with 'Not investment advice.'" },
-  { q: "Which brokers are supported?", a: "Screenshot upload works with any Indian broker (Zerodha Kite, Upstox Pro, Angel One, Groww, Dhan, etc.). CSV import supports Zerodha Tax P&L and Tradebook formats." },
+  { q: "Which brokers are supported?", a: "CSV import is supported for Zerodha (Tax P&L / Tradebook), Upstox, and Dhan (P&L Report). Screenshot upload works with any broker — AI reads the image directly." },
   { q: "How does the AI coaching work?", a: "Each trade is analysed with live data — VIX, DTE, Greeks, OTM/ATM/ITM classification, NIFTY trend — generating 5 specific insights grounded in your actual numbers. You get 10 AI analyses free; after that, upgrade to Pro for unlimited." },
   { q: "What are behaviour patterns?", a: "After enough trades, Traders Diary automatically detects your personal patterns: days you overtrade, revenge trading spirals after losses, expiry day win rates, best underlying symbols, best time slots. These are shown on your dashboard — no extra steps needed." },
   { q: "Is it SEBI compliant?", a: "Yes. Traders Diary is a journaling and analytics tool, not an investment adviser. It analyses trades you have already made — retrospective only. No SEBI IA registration required for this use case." },
 ]
 
 const BROKERS = [
-  "Zerodha","Upstox","Angel One","Groww","Fyers","Dhan",
-  "5paisa","Kotak Neo","ICICI Direct","HDFC Sky","Paytm Money","Motilal Oswal",
-  "Zerodha","Upstox","Angel One","Groww","Fyers","Dhan",
-  "5paisa","Kotak Neo","ICICI Direct","HDFC Sky","Paytm Money","Motilal Oswal",
+  "Zerodha","Upstox","Dhan",
+  "Zerodha","Upstox","Dhan",
+  "Zerodha","Upstox","Dhan",
+  "Zerodha","Upstox","Dhan",
+  "Zerodha","Upstox","Dhan",
+  "Zerodha","Upstox","Dhan",
 ]
 
 /* ─── Pro pricing card with live Razorpay checkout ──────────────────────── */
@@ -341,7 +343,7 @@ export default function LandingPage() {
                   style={{ borderColor: "#1e1760", background: `hsl(${h},55%,35%)` }}>{n}</div>
               ))}
             </div>
-            <p className="text-sm text-white/35">Joined by traders from Zerodha, Upstox & Angel One</p>
+            <p className="text-sm text-white/35">Joined by traders from Zerodha, Upstox & Dhan</p>
           </div>
 
           {/* Product mockup */}
@@ -360,7 +362,7 @@ export default function LandingPage() {
       ══════════════════════════════════════════════════════════════════ */}
       <div className="bg-[#060c18] py-5 overflow-hidden border-y border-white/[0.05]">
         <p className="text-center text-[10px] uppercase tracking-[0.2em] font-semibold text-slate-600 mb-4">
-          Works with all major Indian brokers
+          CSV import supported for
         </p>
         <div className="flex">
           <div className="flex gap-12 animate-marquee whitespace-nowrap">
@@ -379,7 +381,7 @@ export default function LandingPage() {
           {[
             { val: "F&O",  label: "Native support",       sub: "CE/PE, lot sizes, weekly expiry, DTE" },
             { val: "10",   label: "Free AI analyses",      sub: "No card needed to get started" },
-            { val: "10+",  label: "Indian brokers",        sub: "Screenshot & CSV import" },
+            { val: "3",    label: "Brokers supported",      sub: "Zerodha · Upstox · Dhan" },
             { val: "100%", label: "Private",               sub: "Your journal, only yours" },
           ].map(({ val, label, sub }) => (
             <div key={val}>
@@ -487,7 +489,7 @@ export default function LandingPage() {
               { icon: "💹", title: "Index options",        desc: "NIFTY, BANKNIFTY, FINNIFTY, SENSEX — underlying trend and EMA structure included."    },
               { icon: "₹",  title: "INR native",           desc: "All P&L in rupees. Lot-based calculations. ₹ throughout — not a USD tool adapted."    },
               { icon: "📅", title: "Expiry intelligence",  desc: "Day-of-week win rates + Thursday week-of-month breakdown. Know your expiry edge cold." },
-              { icon: "🗂️", title: "Zerodha import",       desc: "Upload Tax P&L Excel directly. Full history loaded — open + closed positions."        },
+              { icon: "🗂️", title: "CSV import",             desc: "Upload P&L reports from Zerodha, Upstox, or Dhan directly. Full history loaded in seconds." },
             ].map(f => (
               <div key={f.title} className="rounded-2xl p-5 flex gap-4 bg-[#0d1528] border border-[#1c2e4a] hover:border-[#2a4570] transition-colors">
                 <div className="w-10 h-10 rounded-xl bg-[#0a1220] border border-[#1c2e4a] flex items-center justify-center text-lg flex-shrink-0">{f.icon}</div>
@@ -514,7 +516,7 @@ export default function LandingPage() {
           </div>
           <div className="space-y-5">
             {[
-              { n:"01", title:"Upload a screenshot or CSV",      body:"Drag from Zerodha Kite, Upstox, Angel One — or import your Tax P&L. Any broker works.",               tag:"Any broker"   },
+              { n:"01", title:"Upload a screenshot or CSV",      body:"Drag from Zerodha Kite, Upstox, or Dhan — or import your P&L report. Takes 10 seconds.",         tag:"Quick import" },
               { n:"02", title:"AI extracts every field",         body:"Symbol, action, CE/PE, strike, lot size, entry, exit, P&L — all read automatically. Zero manual entry.", tag:"Zero effort"  },
               { n:"03", title:"Live F&O context attached",       body:"VIX, DTE, Greeks, NIFTY trend, OTM/ATM/ITM classification — fetched automatically at trade time.",       tag:"Real-time"    },
               { n:"04", title:"Read your AI coaching",           body:"5 numbered insights grounded in your actual numbers — entry quality, timing, risk-reward, what to fix.",  tag:"5 insights"   },
@@ -564,7 +566,7 @@ export default function LandingPage() {
                 {[
                   { label: "10 AI analyses (lifetime)", on: true },
                   { label: "Screenshot upload", on: true },
-                  { label: "Zerodha CSV import", on: true },
+                  { label: "Zerodha · Upstox · Dhan CSV", on: true },
                   { label: "Basic P&L dashboard", on: true },
                   { label: "Pattern intelligence", on: false },
                   { label: "Behaviour analysis", on: false },
@@ -689,7 +691,7 @@ export default function LandingPage() {
             <span className="text-white/40">See what you missed.</span>
           </h2>
           <p className="text-white/50 text-base mb-10 max-w-sm mx-auto leading-relaxed">
-            Free to start. Works with Zerodha, Upstox, Angel One and all major Indian brokers.
+            Free to start. Works with Zerodha, Upstox, and Dhan.
           </p>
           <button
             onClick={() => signInWithGoogle()}
