@@ -394,6 +394,33 @@ export default function LandingPage() {
       </section>
 
       {/* ══════════════════════════════════════════════════════════════════
+          TRUST BADGES
+      ══════════════════════════════════════════════════════════════════ */}
+      <section className="bg-[#060c18] py-16 px-6 border-t border-white/[0.04]">
+        <div className="mx-auto max-w-5xl">
+          <p className="text-center text-[10px] uppercase tracking-[0.2em] font-semibold text-slate-600 mb-10">
+            Why traders trust us with their data
+          </p>
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-6">
+            {[
+              { icon: "🔒", title: "No broker login", body: "We never ask for your Zerodha, Upstox or Dhan credentials" },
+              { icon: "📁", title: "File upload only", body: "Share only the report you choose. Nothing else is ever accessed" },
+              { icon: "🇮🇳", title: "SEBI compliant", body: "Educational tool. Not investment advice. No regulated activity" },
+              { icon: "👁️", title: "You control your data", body: "Delete your account and all data any time, instantly" },
+              { icon: "🚫", title: "No live trading access", body: "Technically impossible for us to place trades on your behalf" },
+              { icon: "🔑", title: "Read-only analysis", body: "We read your uploaded file. We cannot write to anything" },
+            ].map(({ icon, title, body }) => (
+              <div key={title} className="flex flex-col items-center text-center gap-3 p-5 rounded-2xl bg-[#0d1528] border border-[#1c2e4a]">
+                <span className="text-2xl">{icon}</span>
+                <p className="text-slate-200 font-semibold text-sm">{title}</p>
+                <p className="text-slate-500 text-xs leading-relaxed">{body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════════════════════
           FEATURES — dark
       ══════════════════════════════════════════════════════════════════ */}
       <section className="bg-[#0a1220] py-24 px-6">
