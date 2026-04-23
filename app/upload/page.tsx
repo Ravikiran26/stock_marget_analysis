@@ -39,7 +39,7 @@ const BROKERS = [
   { value: "zerodha",  label: "Zerodha",  note: "Tradebook / P&L CSV" },
   { value: "upstox",   label: "Upstox",   note: "Trade history CSV" },
   { value: "groww",    label: "Groww",    note: "P&L or transaction CSV" },
-  { value: "dhan",     label: "Dhan",     note: "Tradebook CSV" },
+  { value: "dhan",     label: "Dhan",     note: "P&L Report (XLS)" },
 ]
 
 const INSTRUMENTS: { value: Instrument; label: string; sub: string; icon: string }[] = [
@@ -460,7 +460,7 @@ function UploadPageInner() {
                     {csvBroker === "zerodha" && "In Zerodha Console → Reports → Tradebook → select date range → Download CSV"}
                     {csvBroker === "upstox" && "In Upstox → Reports → Trade History → select date range → Export to CSV"}
                     {csvBroker === "groww" && "In Groww → P&L → Download P&L Report or Transaction Statement (CSV)"}
-                    {csvBroker === "dhan" && "In Dhan → Reports → Tradebook → select date range → Export CSV"}
+                    {csvBroker === "dhan" && "In Dhan → Reports → P&L Report → select date range → Download Report"}
                   </span>
                 </div>
               )}
