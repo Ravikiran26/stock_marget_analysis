@@ -142,6 +142,7 @@ const BROKERS = [
 function ProCard() {
   const [loading, setLoading] = useState(false)
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle")
+  const [errorMsg, setErrorMsg] = useState<string>("")
 
   // Auto-trigger checkout if user just logged in via the upgrade flow
   useEffect(() => {
@@ -159,12 +160,14 @@ function ProCard() {
   async function triggerCheckout() {
     setLoading(true)
     setStatus("idle")
+    setErrorMsg("")
     try {
       const result = await startProCheckout("monthly")
       if (result === "success") setStatus("success")
-      else if (result === "error") setStatus("error")
-    } catch {
+      else if (result === "error") { setStatus("error"); setErrorMsg("Payment verification failed.") }
+    } catch (err: unknown) {
       setStatus("error")
+      setErrorMsg((err as Error).message ?? "Something went wrong")
     } finally {
       setLoading(false)
     }
@@ -234,7 +237,7 @@ function ProCard() {
       )}
 
       {status === "error" && (
-        <p className="text-xs text-red-400 text-center mt-3">Payment failed. Please try again.</p>
+        <p className="text-xs text-red-400 text-center mt-3">{errorMsg || "Payment failed. Please try again."}</p>
       )}
     </div>
   )
