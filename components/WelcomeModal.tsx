@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
-import { Button } from "@/components/ui/button"
 
 const STORAGE_KEY = "tradfy_welcomed"
 
@@ -11,7 +10,6 @@ export default function WelcomeModal() {
   const [open, setOpen] = useState(false)
 
   useEffect(() => {
-    // Show once per browser — flip flag after shown
     if (!localStorage.getItem(STORAGE_KEY)) {
       setOpen(true)
     }
@@ -31,36 +29,41 @@ export default function WelcomeModal() {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-      {/* Backdrop */}
-      <div
-        className="absolute inset-0 bg-black/40 backdrop-blur-sm"
-        onClick={dismiss}
-      />
+      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={dismiss} />
 
-      {/* Modal */}
-      <div className="relative bg-white rounded-2xl shadow-2xl max-w-sm w-full p-8 flex flex-col items-center text-center gap-5 animate-in fade-in zoom-in-95 duration-200">
-        <div className="text-5xl">🎉</div>
+      <div className="relative bg-[#0d1528] border border-[#1c2e4a] rounded-2xl shadow-2xl shadow-black/60 max-w-sm w-full p-8 flex flex-col items-center text-center gap-5 animate-in fade-in zoom-in-95 duration-200">
+        {/* Icon */}
+        <div className="w-14 h-14 rounded-2xl bg-indigo-600/20 border border-indigo-500/30 flex items-center justify-center">
+          <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
+            <polyline points="2,24 8,16 14,20 20,10 26,14 30,8" fill="none" stroke="#6366f1" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+            <circle cx="30" cy="8" r="2.5" fill="#22c55e"/>
+          </svg>
+        </div>
 
         <div>
-          <h2 className="text-xl font-bold text-gray-900 mb-2">
-            Welcome to Tradfy!
+          <h2 className="text-xl font-bold text-slate-100 mb-2">
+            Welcome to Traders Diary!
           </h2>
-          <p className="text-sm text-gray-500 leading-relaxed">
+          <p className="text-sm text-slate-500 leading-relaxed">
             Your AI trade journal is ready. Upload your first broker screenshot
-            and get instant AI coaching insights on your trade.
+            and get instant AI coaching on your trade.
           </p>
         </div>
 
         <div className="flex flex-col gap-3 w-full">
-          <Button
+          <button
             onClick={goUpload}
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white rounded-full font-semibold"
+            className="w-full rounded-xl py-3 text-sm font-bold text-white transition-all hover:opacity-90"
+            style={{
+              background: "linear-gradient(135deg, #4f46e5, #7c3aed)",
+              boxShadow: "0 8px 24px rgba(79,70,229,0.4)",
+            }}
           >
             Upload My First Trade →
-          </Button>
+          </button>
           <button
             onClick={dismiss}
-            className="text-sm text-gray-400 hover:text-gray-600 transition-colors"
+            className="text-sm text-slate-600 hover:text-slate-400 transition-colors"
           >
             I&apos;ll do it later
           </button>

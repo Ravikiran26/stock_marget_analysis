@@ -206,12 +206,12 @@ export default function DashboardPage() {
     }
   }, [activeTab, intradayPatterns, loadingIntraday])
 
-  useEffect(() => { document.title = "Dashboard | Tradfy" }, [])
+  useEffect(() => { document.title = "Dashboard | Traders Diary" }, [])
 
   if (checking) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="flex items-center gap-3 text-gray-400 text-sm">
+        <div className="flex items-center gap-3 text-slate-500 text-sm">
           <svg className="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24">
             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/>
             <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"/>
@@ -267,7 +267,7 @@ export default function DashboardPage() {
   }, 0)
 
   return (
-    <div className="min-h-screen bg-[#f4f7fb]">
+    <div className="min-h-screen bg-[#060c18]">
       <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 space-y-6">
 
         {/* ── Header ── */}
@@ -299,7 +299,7 @@ export default function DashboardPage() {
               )}
               <a
                 href="/upload"
-                className="inline-flex items-center gap-2 rounded-xl bg-white hover:bg-blue-50 text-blue-700 px-4 py-2.5 text-sm font-bold transition-colors shadow-sm"
+                className="inline-flex items-center gap-2 rounded-xl bg-white/10 hover:bg-white/15 text-white px-4 py-2.5 text-sm font-bold transition-colors border border-white/20"
               >
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
@@ -315,22 +315,22 @@ export default function DashboardPage() {
 
         {/* ── Losing streak alert ── */}
         {streakInfo?.alert && (
-          <div className="rounded-2xl border border-red-200 bg-red-50 p-4">
+          <div className="rounded-2xl border border-red-900/50 bg-red-950/30 p-4">
             <div className="flex items-start gap-3">
               <span className="text-2xl mt-0.5">🚨</span>
               <div className="flex-1 min-w-0">
-                <p className="font-bold text-red-800 text-sm">{streakInfo.alert.message}</p>
+                <p className="font-bold text-red-300 text-sm">{streakInfo.alert.message}</p>
                 {streakInfo.alert.patterns.length > 0 && (
                   <ul className="mt-1.5 space-y-1">
                     {streakInfo.alert.patterns.map((p, i) => (
-                      <li key={i} className="text-xs text-red-700 flex items-start gap-1.5">
+                      <li key={i} className="text-xs text-red-400/80 flex items-start gap-1.5">
                         <span className="mt-0.5">•</span>
                         <span>{p}</span>
                       </li>
                     ))}
                   </ul>
                 )}
-                <p className="text-xs text-red-600 mt-2 font-medium">{streakInfo.alert.tip}</p>
+                <p className="text-xs text-red-400 mt-2 font-medium">{streakInfo.alert.tip}</p>
               </div>
               <a href="/upload" className="flex-shrink-0 rounded-lg bg-red-600 hover:bg-red-700 text-white px-3 py-1.5 text-xs font-bold transition-colors">
                 Review trades
@@ -340,7 +340,7 @@ export default function DashboardPage() {
         )}
 
         {error && (
-          <div className="rounded-xl border border-red-100 bg-red-50 px-4 py-3 text-sm text-red-600 flex items-center gap-2">
+          <div className="rounded-xl border border-red-900/50 bg-red-950/30 px-4 py-3 text-sm text-red-400 flex items-center gap-2">
             <svg className="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
             </svg>
@@ -349,7 +349,7 @@ export default function DashboardPage() {
         )}
 
         {/* ── Tab bar ── */}
-        <div className="flex gap-1 rounded-xl bg-white border border-gray-100 p-1 shadow-sm w-fit">
+        <div className="flex gap-1 rounded-xl bg-[#0d1528] border border-[#1c2e4a] p-1 w-fit">
           {([
             { id: "all",     label: "All Trades",  icon: "M4 6h16M4 10h16M4 14h16M4 18h16" },
             { id: "options", label: "Options",     icon: "M13 10V3L4 14h7v7l9-11h-7z" },
@@ -360,8 +360,8 @@ export default function DashboardPage() {
               onClick={() => setActiveTab(tab.id)}
               className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-semibold transition-all ${
                 activeTab === tab.id
-                  ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-sm"
-                  : "text-gray-500 hover:text-gray-700 hover:bg-gray-50"
+                  ? "bg-gradient-to-r from-indigo-600 to-violet-600 text-white shadow-lg shadow-indigo-900/40"
+                  : "text-slate-500 hover:text-slate-300 hover:bg-white/5"
               }`}
             >
               <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={activeTab === tab.id ? 2.2 : 1.8}>
@@ -376,9 +376,9 @@ export default function DashboardPage() {
         {loadingData ? (
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             {[1, 2, 3, 4].map((i) => (
-              <div key={i} className="rounded-2xl bg-white p-5 animate-pulse border border-gray-100">
-                <div className="h-3 bg-gray-100 rounded w-1/2 mb-3" />
-                <div className="h-7 bg-gray-100 rounded w-3/4" />
+              <div key={i} className="rounded-2xl bg-[#0d1528] p-5 animate-pulse border border-[#1c2e4a]">
+                <div className="h-3 bg-[#162035] rounded w-1/2 mb-3" />
+                <div className="h-7 bg-[#162035] rounded w-3/4" />
               </div>
             ))}
           </div>
@@ -387,7 +387,7 @@ export default function DashboardPage() {
           loadingSwing ? (
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
               {[1, 2, 3, 4].map((i) => (
-                <div key={i} className="rounded-2xl bg-white p-5 animate-pulse border border-gray-100">
+                <div key={i} className="rounded-2xl bg-[#0d1528] p-5 animate-pulse border border-[#1c2e4a]">
                   <div className="h-3 bg-gray-100 rounded w-1/2 mb-3" />
                   <div className="h-7 bg-gray-100 rounded w-3/4" />
                 </div>
@@ -477,33 +477,33 @@ export default function DashboardPage() {
 
         {/* ── Monthly comparison strip ── */}
         {monthly && (monthly.thisCnt > 0 || monthly.lastCnt > 0) && (
-          <div className="rounded-2xl bg-white border border-gray-100 shadow-sm px-5 py-4 flex flex-wrap items-center gap-x-6 gap-y-3">
+          <div className="rounded-2xl bg-[#0d1528] border border-[#1c2e4a] px-5 py-4 flex flex-wrap items-center gap-x-6 gap-y-3">
             <div className="flex items-center gap-2">
-              <div className="w-6 h-6 rounded-lg bg-gray-100 flex items-center justify-center">
-                <svg className="w-3.5 h-3.5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <div className="w-6 h-6 rounded-lg bg-[#162035] flex items-center justify-center">
+                <svg className="w-3.5 h-3.5 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
               </div>
-              <span className="text-xs font-bold uppercase tracking-widest text-gray-400">Monthly</span>
+              <span className="text-xs font-bold uppercase tracking-widest text-slate-500">Monthly</span>
             </div>
-            <div className="flex items-center gap-2 bg-gray-50 rounded-xl px-3 py-2">
-              <span className="text-[11px] text-gray-400 font-medium">This month</span>
-              <span className={`text-sm font-black tabular-nums ${monthly.thisPnl >= 0 ? "text-emerald-600" : "text-red-600"}`}>
+            <div className="flex items-center gap-2 bg-[#0a1220] rounded-xl px-3 py-2">
+              <span className="text-[11px] text-slate-500 font-medium">This month</span>
+              <span className={`text-sm font-black tabular-nums ${monthly.thisPnl >= 0 ? "text-emerald-400" : "text-red-400"}`}>
                 {monthly.thisPnl >= 0 ? "+" : "−"}₹{Math.abs(monthly.thisPnl).toLocaleString("en-IN")}
               </span>
-              <span className="text-[10px] text-gray-400 bg-white rounded-lg px-1.5 py-0.5 border border-gray-100">{monthly.thisCnt}t</span>
+              <span className="text-[10px] text-slate-600 bg-[#0d1528] rounded-lg px-1.5 py-0.5 border border-[#1c2e4a]">{monthly.thisCnt}t</span>
             </div>
             {monthly.lastCnt > 0 && (
               <>
-                <div className="flex items-center gap-2 bg-gray-50 rounded-xl px-3 py-2">
-                  <span className="text-[11px] text-gray-400 font-medium">Last month</span>
-                  <span className={`text-sm font-black tabular-nums ${monthly.lastPnl >= 0 ? "text-emerald-600" : "text-red-600"}`}>
+                <div className="flex items-center gap-2 bg-[#0a1220] rounded-xl px-3 py-2">
+                  <span className="text-[11px] text-slate-500 font-medium">Last month</span>
+                  <span className={`text-sm font-black tabular-nums ${monthly.lastPnl >= 0 ? "text-emerald-400" : "text-red-400"}`}>
                     {monthly.lastPnl >= 0 ? "+" : "−"}₹{Math.abs(monthly.lastPnl).toLocaleString("en-IN")}
                   </span>
-                  <span className="text-[10px] text-gray-400 bg-white rounded-lg px-1.5 py-0.5 border border-gray-100">{monthly.lastCnt}t</span>
+                  <span className="text-[10px] text-slate-600 bg-[#0d1528] rounded-lg px-1.5 py-0.5 border border-[#1c2e4a]">{monthly.lastCnt}t</span>
                 </div>
                 {monthly.lastPnl !== 0 && (
-                  <span className={`text-xs font-bold px-2.5 py-1.5 rounded-xl ${monthly.thisPnl > monthly.lastPnl ? "bg-emerald-50 text-emerald-700 border border-emerald-100" : "bg-red-50 text-red-600 border border-red-100"}`}>
+                  <span className={`text-xs font-bold px-2.5 py-1.5 rounded-xl ${monthly.thisPnl > monthly.lastPnl ? "bg-emerald-950/40 text-emerald-400 border border-emerald-900/50" : "bg-red-950/40 text-red-400 border border-red-900/50"}`}>
                     {monthly.thisPnl > monthly.lastPnl ? "▲" : "▼"} {Math.abs(Math.round(((monthly.thisPnl - monthly.lastPnl) / Math.abs(monthly.lastPnl)) * 100))}% vs last month
                   </span>
                 )}
@@ -514,32 +514,32 @@ export default function DashboardPage() {
 
         {/* ── Weekly Report ── */}
         {weeklyReport && (weeklyReport.this_week.total_trades > 0 || weeklyReport.last_week.total_trades > 0) && (
-          <div className="rounded-2xl bg-white border border-gray-100 shadow-sm p-5">
+          <div className="rounded-2xl bg-[#0d1528] border border-[#1c2e4a] p-5">
             <div className="flex items-center gap-2 mb-4">
-              <div className="w-7 h-7 rounded-lg bg-blue-100 flex items-center justify-center">
-                <svg className="w-3.5 h-3.5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <div className="w-7 h-7 rounded-lg bg-indigo-900/60 flex items-center justify-center">
+                <svg className="w-3.5 h-3.5 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
               </div>
-              <p className="text-sm font-bold text-gray-900">This Week vs Last Week</p>
+              <p className="text-sm font-bold text-slate-200">This Week vs Last Week</p>
             </div>
             <div className="grid grid-cols-2 gap-3 mb-4">
               {(["this_week", "last_week"] as const).map((key) => {
                 const w = weeklyReport[key]
                 const isThis = key === "this_week"
                 return (
-                  <div key={key} className={`rounded-xl p-3 ${isThis ? "bg-blue-50 border border-blue-100" : "bg-gray-50 border border-gray-100"}`}>
-                    <p className={`text-[10px] font-bold uppercase tracking-wide mb-1.5 ${isThis ? "text-blue-500" : "text-gray-400"}`}>
+                  <div key={key} className={`rounded-xl p-3 ${isThis ? "bg-indigo-950/40 border border-indigo-900/50" : "bg-[#0a1220] border border-[#1c2e4a]"}`}>
+                    <p className={`text-[10px] font-bold uppercase tracking-wide mb-1.5 ${isThis ? "text-indigo-400" : "text-slate-500"}`}>
                       {isThis ? "This week" : "Last week"}
                     </p>
                     {w.total_trades === 0 ? (
-                      <p className="text-xs text-gray-400">No trades</p>
+                      <p className="text-xs text-slate-600">No trades</p>
                     ) : (
                       <>
-                        <p className={`text-lg font-black tabular-nums ${w.total_pnl >= 0 ? "text-emerald-600" : "text-red-600"}`}>
+                        <p className={`text-lg font-black tabular-nums ${w.total_pnl >= 0 ? "text-emerald-400" : "text-red-400"}`}>
                           {w.total_pnl >= 0 ? "+" : "−"}₹{Math.abs(w.total_pnl).toLocaleString("en-IN")}
                         </p>
-                        <p className="text-[11px] text-gray-500 mt-0.5">
+                        <p className="text-[11px] text-slate-500 mt-0.5">
                           {w.wins}W / {w.losses}L · {w.win_rate}% win rate
                         </p>
                       </>
@@ -549,7 +549,7 @@ export default function DashboardPage() {
               })}
             </div>
             {weeklyReport.this_week.total_trades > 0 && weeklyReport.last_week.total_trades > 0 && (
-              <div className={`flex items-center gap-2 rounded-xl px-3 py-2 text-xs font-medium mb-3 ${weeklyReport.pnl_change >= 0 ? "bg-emerald-50 text-emerald-700" : "bg-red-50 text-red-700"}`}>
+              <div className={`flex items-center gap-2 rounded-xl px-3 py-2 text-xs font-medium mb-3 ${weeklyReport.pnl_change >= 0 ? "bg-emerald-950/40 text-emerald-400 border border-emerald-900/40" : "bg-red-950/40 text-red-400 border border-red-900/40"}`}>
                 <span>{weeklyReport.pnl_change >= 0 ? "▲" : "▼"}</span>
                 <span>
                   {weeklyReport.pnl_change >= 0 ? "+" : "−"}₹{Math.abs(weeklyReport.pnl_change).toLocaleString("en-IN")} vs last week
@@ -557,9 +557,9 @@ export default function DashboardPage() {
                 </span>
               </div>
             )}
-            <div className="rounded-xl bg-amber-50 border border-amber-100 px-3 py-2.5 flex gap-2">
+            <div className="rounded-xl bg-amber-950/30 border border-amber-900/40 px-3 py-2.5 flex gap-2">
               <span className="text-base">🎯</span>
-              <p className="text-xs text-amber-800 font-medium leading-snug">{weeklyReport.focus}</p>
+              <p className="text-xs text-amber-300/80 font-medium leading-snug">{weeklyReport.focus}</p>
             </div>
           </div>
         )}
@@ -575,17 +575,17 @@ export default function DashboardPage() {
         )}
 
         {/* ── P&L Chart ── */}
-        <div className="rounded-2xl bg-white border border-gray-100 shadow-sm overflow-hidden">
-          <div className="flex items-center justify-between px-6 py-4 border-b border-gray-50">
+        <div className="rounded-2xl bg-[#0d1528] border border-[#1c2e4a] overflow-hidden">
+          <div className="flex items-center justify-between px-6 py-4 border-b border-[#162035]">
             <div className="flex items-center gap-3">
-              <div className={`w-8 h-8 rounded-xl flex items-center justify-center ${isProfitable ? "bg-emerald-100" : "bg-red-100"}`}>
-                <svg className={`w-4 h-4 ${isProfitable ? "text-emerald-600" : "text-red-500"}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <div className={`w-8 h-8 rounded-xl flex items-center justify-center ${isProfitable ? "bg-emerald-900/50" : "bg-red-900/50"}`}>
+                <svg className={`w-4 h-4 ${isProfitable ? "text-emerald-400" : "text-red-400"}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 12l3-3 3 3 4-4" />
                 </svg>
               </div>
               <div>
-                <p className="text-sm font-bold text-gray-900">Cumulative P&amp;L</p>
-                <p className="text-xs text-gray-400 mt-0.5">
+                <p className="text-sm font-bold text-slate-200">Cumulative P&amp;L</p>
+                <p className="text-xs text-slate-500 mt-0.5">
                   {activeTab === "swing" ? "Swing trades only" :
                    activeTab === "options" ? "Options & intraday only" :
                    "Running total across all trades"}
@@ -593,30 +593,30 @@ export default function DashboardPage() {
               </div>
             </div>
             {chartData.length > 0 && (
-              <span className={`text-sm font-black tabular-nums px-3.5 py-1.5 rounded-xl border ${isProfitable ? "bg-emerald-50 text-emerald-700 border-emerald-100" : "bg-red-50 text-red-600 border-red-100"}`}>
+              <span className={`text-sm font-black tabular-nums px-3.5 py-1.5 rounded-xl border ${isProfitable ? "bg-emerald-950/40 text-emerald-400 border-emerald-900/50" : "bg-red-950/40 text-red-400 border-red-900/50"}`}>
                 {fmt(totalPnl)}
               </span>
             )}
           </div>
           <div className="px-2 pt-4 pb-2">
             {chartData.length === 0 ? <EmptyChart /> : (() => {
-              const chartColor = isProfitable ? "#10b981" : "#ef4444"
+              const chartColor = isProfitable ? "#22c55e" : "#ef4444"
               return (
                 <ResponsiveContainer width="100%" height={230}>
                   <AreaChart data={chartData} margin={{ top: 8, right: 16, left: 0, bottom: 0 }}>
                     <defs>
                       <linearGradient id="pnlFill" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stopColor={chartColor} stopOpacity={0.18} />
+                        <stop offset="0%" stopColor={chartColor} stopOpacity={0.22} />
                         <stop offset="100%" stopColor={chartColor} stopOpacity={0.01} />
                       </linearGradient>
                     </defs>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
-                    <ReferenceLine y={0} stroke="#cbd5e1" strokeWidth={1} strokeDasharray="4 4" />
-                    <XAxis dataKey="date" tick={{ fontSize: 11, fill: "#94a3b8" }} tickLine={false} axisLine={false} />
-                    <YAxis tick={{ fontSize: 11, fill: "#94a3b8" }} tickLine={false} axisLine={false} tickFormatter={(v) => `₹${(v / 1000).toFixed(0)}k`} width={48} />
+                    <CartesianGrid strokeDasharray="3 3" stroke="#162035" vertical={false} />
+                    <ReferenceLine y={0} stroke="#1c2e4a" strokeWidth={1} strokeDasharray="4 4" />
+                    <XAxis dataKey="date" tick={{ fontSize: 11, fill: "#475569" }} tickLine={false} axisLine={false} />
+                    <YAxis tick={{ fontSize: 11, fill: "#475569" }} tickLine={false} axisLine={false} tickFormatter={(v) => `₹${(v / 1000).toFixed(0)}k`} width={48} />
                     <Tooltip
                       formatter={(value) => [fmt(Number(value)), "Cumulative P&L"]}
-                      contentStyle={{ borderRadius: "12px", border: "1px solid #e2e8f0", fontSize: 12, boxShadow: "0 8px 24px rgba(0,0,0,0.08)" }}
+                      contentStyle={{ borderRadius: "12px", border: "1px solid #1c2e4a", background: "#0d1528", fontSize: 12, boxShadow: "0 8px 24px rgba(0,0,0,0.4)", color: "#e2e8f0" }}
                       cursor={{ stroke: chartColor, strokeWidth: 1, strokeDasharray: "4 4" }}
                     />
                     <Area
@@ -626,7 +626,7 @@ export default function DashboardPage() {
                       strokeWidth={2.5}
                       fill="url(#pnlFill)"
                       dot={{ r: 3, fill: chartColor, strokeWidth: 0 }}
-                      activeDot={{ r: 5, fill: chartColor, strokeWidth: 2, stroke: "#fff" }}
+                      activeDot={{ r: 5, fill: chartColor, strokeWidth: 2, stroke: "#0d1528" }}
                     />
                   </AreaChart>
                 </ResponsiveContainer>
@@ -641,35 +641,35 @@ export default function DashboardPage() {
         )}
 
         {/* ── Recent Trades ── */}
-        <div className="rounded-2xl bg-white border border-gray-100 shadow-sm overflow-hidden">
-          <div className="flex items-center justify-between px-6 py-4 border-b border-gray-50">
+        <div className="rounded-2xl bg-[#0d1528] border border-[#1c2e4a] overflow-hidden">
+          <div className="flex items-center justify-between px-6 py-4 border-b border-[#162035]">
             <div>
-              <p className="text-sm font-semibold text-gray-900">Recent Trades</p>
-              <p className="text-xs text-gray-400 mt-0.5">Last 5 {activeTab !== "all" ? `${activeTab} ` : ""}trades logged</p>
+              <p className="text-sm font-semibold text-slate-200">Recent Trades</p>
+              <p className="text-xs text-slate-500 mt-0.5">Last 5 {activeTab !== "all" ? `${activeTab} ` : ""}trades logged</p>
             </div>
             {visibleTrades.length > 5 && (
-              <a href="/trades" className="text-xs font-semibold text-blue-600 hover:text-blue-700 bg-blue-50 hover:bg-blue-100 px-3 py-1.5 rounded-lg transition-colors">View all →</a>
+              <a href="/trades" className="text-xs font-semibold text-indigo-400 hover:text-indigo-300 bg-indigo-950/40 hover:bg-indigo-950/60 border border-indigo-900/50 px-3 py-1.5 rounded-lg transition-colors">View all →</a>
             )}
           </div>
           {recentTrades.length === 0 ? <EmptyTrades /> : (
-            <div className="divide-y divide-gray-50">
+            <div className="divide-y divide-[#162035]">
               {recentTrades.map((t, i) => {
                 const isProfit = (t.pnl ?? 0) >= 0
                 const isOpen = t.status === "open"
                 const isBuy = t.action?.toLowerCase() === "buy"
-                const accentColor = isOpen ? "border-l-amber-400" : isProfit ? "border-l-emerald-500" : "border-l-red-400"
+                const accentColor = isOpen ? "border-l-amber-500" : isProfit ? "border-l-emerald-500" : "border-l-red-500"
                 return (
-                  <div key={t.id ?? i} className={`relative flex items-center justify-between px-6 py-4 hover:bg-gray-50/60 transition-colors border-l-[3px] ${accentColor} bg-white group`}>
+                  <div key={t.id ?? i} className={`relative flex items-center justify-between px-6 py-4 hover:bg-[#111d33] transition-colors border-l-[3px] ${accentColor} group`}>
                     <div className="flex items-center gap-3 min-w-0">
-                      <div className={`w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0 text-[10px] font-black ${isBuy ? "bg-emerald-50 text-emerald-700 border border-emerald-100" : "bg-red-50 text-red-700 border border-red-100"}`}>
+                      <div className={`w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0 text-[10px] font-black ${isBuy ? "bg-emerald-950/50 text-emerald-400 border border-emerald-900/50" : "bg-red-950/50 text-red-400 border border-red-900/50"}`}>
                         {t.action?.slice(0,1).toUpperCase() ?? "—"}
                       </div>
                       <div className="min-w-0">
-                        <p className="font-bold text-gray-900 text-sm truncate">{t.symbol ?? "Unknown"}</p>
+                        <p className="font-bold text-slate-200 text-sm truncate">{t.symbol ?? "Unknown"}</p>
                         <div className="flex items-center gap-1.5 mt-0.5">
-                          {t.broker && <p className="text-xs text-gray-400 truncate">{t.broker}</p>}
+                          {t.broker && <p className="text-xs text-slate-500 truncate">{t.broker}</p>}
                           {t.trade_type && t.trade_type !== "options_intraday" && (
-                            <span className="text-[10px] font-semibold text-violet-600 bg-violet-50 px-1.5 py-0.5 rounded-md">
+                            <span className="text-[10px] font-semibold text-violet-400 bg-violet-950/40 border border-violet-900/40 px-1.5 py-0.5 rounded-md">
                               {t.trade_type === "equity_swing" ? "Swing" : "Futures"}
                             </span>
                           )}
@@ -677,10 +677,10 @@ export default function DashboardPage() {
                       </div>
                     </div>
                     <div className="text-right ml-4 flex-shrink-0">
-                      <p className={`text-sm font-bold tabular-nums ${isOpen ? "text-amber-600" : isProfit ? "text-emerald-600" : "text-red-500"}`}>
+                      <p className={`text-sm font-bold tabular-nums ${isOpen ? "text-amber-400" : isProfit ? "text-emerald-400" : "text-red-400"}`}>
                         {t.pnl != null ? fmt(t.pnl) : isOpen ? "Open" : "—"}
                       </p>
-                      <p className="text-[11px] text-gray-400 mt-0.5">{fmtDate(t.trade_date ?? t.created_at)}</p>
+                      <p className="text-[11px] text-slate-500 mt-0.5">{fmtDate(t.trade_date ?? t.created_at)}</p>
                     </div>
                   </div>
                 )
@@ -709,7 +709,7 @@ export default function DashboardPage() {
           <OptionsPatternsSection patterns={optionsPatterns} loading={loadingOptions} />
         )}
         {optionsPatternsFailed && (
-          <div className="rounded-2xl bg-white border border-gray-100 px-5 py-4 text-sm text-gray-400 text-center">
+          <div className="rounded-2xl bg-[#0d1528] border border-[#1c2e4a] px-5 py-4 text-sm text-slate-500 text-center">
             Could not load patterns — make sure the backend is running.
           </div>
         )}
@@ -736,7 +736,7 @@ const UNDERLYING_LABELS: Record<string, string> = {
 function IntradayPatternsSection({ patterns, loading }: { patterns: IntradayPatterns | null; loading: boolean }) {
   if (loading) {
     return (
-      <div className="rounded-2xl bg-white border border-gray-100 shadow-sm p-6 animate-pulse space-y-4">
+      <div className="rounded-2xl bg-[#0d1528] border border-[#1c2e4a] p-6 animate-pulse space-y-4">
         <div className="h-4 bg-gray-100 rounded w-56" />
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {[1,2,3].map(i => <div key={i} className="h-48 bg-gray-50 rounded-xl" />)}
@@ -747,10 +747,10 @@ function IntradayPatternsSection({ patterns, loading }: { patterns: IntradayPatt
 
   if (!patterns || patterns.total_intraday_trades < 5) {
     return (
-      <div className="rounded-2xl bg-white border border-gray-100 shadow-sm px-6 py-10 text-center">
+      <div className="rounded-2xl bg-[#0d1528] border border-[#1c2e4a] px-6 py-10 text-center">
         <div className="text-3xl mb-2">🧠</div>
         <p className="text-sm font-medium text-gray-700">Behaviour patterns unlock after 5 intraday trades</p>
-        <p className="text-xs text-gray-400 mt-1">We&apos;ll show overtrading, revenge trading and your best underlying</p>
+        <p className="text-xs text-slate-500 mt-1">We&apos;ll show overtrading, revenge trading and your best underlying</p>
       </div>
     )
   }
@@ -760,25 +760,25 @@ function IntradayPatternsSection({ patterns, loading }: { patterns: IntradayPatt
   const underlyings = UNDERLYING_ORDER.filter(k => best_underlying[k])
 
   return (
-    <div className="rounded-2xl bg-white border border-gray-100 shadow-sm overflow-hidden">
+    <div className="rounded-2xl bg-[#0d1528] border border-[#1c2e4a] overflow-hidden">
       {/* Header */}
-      <div className="px-6 py-4 border-b border-gray-50 flex items-center gap-3">
+      <div className="px-6 py-4 border-b border-[#162035] flex items-center gap-3">
         <div className="w-8 h-8 rounded-xl bg-red-100 flex items-center justify-center flex-shrink-0">
           <span className="text-base">🧠</span>
         </div>
         <div>
-          <p className="text-sm font-bold text-gray-900">Intraday Behaviour Patterns</p>
-          <p className="text-xs text-gray-400 mt-0.5">{patterns.total_intraday_trades} trades across {total_trading_days} trading days</p>
+          <p className="text-sm font-bold text-slate-200">Intraday Behaviour Patterns</p>
+          <p className="text-xs text-slate-500 mt-0.5">{patterns.total_intraday_trades} trades across {total_trading_days} trading days</p>
         </div>
       </div>
 
       <div className="p-4 grid grid-cols-1 sm:grid-cols-3 gap-4">
 
         {/* ── Overtrading ── */}
-        <div className="rounded-xl border border-gray-100 bg-gray-50 p-4">
+        <div className="rounded-xl border border-[#1c2e4a] bg-[#0a1220] p-4">
           <div className="flex items-center gap-2 mb-1">
             <span className="text-sm">📈</span>
-            <p className="text-xs font-bold text-gray-700 uppercase tracking-wide">Overtrading</p>
+            <p className="text-xs font-bold text-slate-400 uppercase tracking-wide">Overtrading</p>
           </div>
           <p className="text-[10px] text-gray-400 mb-4">Avg P&amp;L per trade by how many trades you took that day</p>
 
@@ -801,15 +801,15 @@ function IntradayPatternsSection({ patterns, loading }: { patterns: IntradayPatt
                 <div key={key}>
                   <div className="flex items-center justify-between text-xs mb-1">
                     <div className="flex items-center gap-1.5">
-                      <span className="text-gray-600 font-medium">{key}</span>
-                      {isBest  && <span className="text-[9px] font-bold text-emerald-700 bg-emerald-100 px-1.5 py-0.5 rounded-full">BEST</span>}
-                      {isWorst && <span className="text-[9px] font-bold text-red-700 bg-red-100 px-1.5 py-0.5 rounded-full">WORST</span>}
+                      <span className="text-slate-400 font-medium">{key}</span>
+                      {isBest  && <span className="text-[9px] font-bold text-emerald-400 bg-emerald-100 px-1.5 py-0.5 rounded-full">BEST</span>}
+                      {isWorst && <span className="text-[9px] font-bold text-red-400 bg-red-100 px-1.5 py-0.5 rounded-full">WORST</span>}
                     </div>
                     <span className={`font-bold tabular-nums ${pos ? "text-emerald-600" : "text-red-500"}`}>
                       {pos ? "+" : ""}₹{Math.abs(s.avg_pnl).toLocaleString("en-IN", { maximumFractionDigits: 0 })}
                     </span>
                   </div>
-                  <div className="h-2 rounded-full bg-gray-200 overflow-hidden">
+                  <div className="h-2 rounded-full bg-[#162035] overflow-hidden">
                     <div className={`h-full rounded-full ${pos ? "bg-emerald-500" : "bg-red-400"}`} style={{ width: `${barPct}%` }} />
                   </div>
                   <p className="text-[9px] text-gray-400 mt-0.5">{s.wins}/{s.total} wins · {s.win_rate.toFixed(0)}%</p>
@@ -819,30 +819,30 @@ function IntradayPatternsSection({ patterns, loading }: { patterns: IntradayPatt
           </div>
 
           {best_bucket && worst_bucket && worst_bucket !== best_bucket && overtrading[worst_bucket] && (
-            <div className="mt-3 rounded-lg px-3 py-2 bg-red-50 border border-red-100 text-xs text-red-700 font-medium">
+            <div className="mt-3 rounded-lg px-3 py-2 bg-red-950/30 border border-red-900/40 text-xs text-red-400 font-medium">
               ⚠️ Stop after <strong>{best_bucket.replace(" trades","")}</strong> trades — your P&amp;L drops sharply beyond that
             </div>
           )}
         </div>
 
         {/* ── Revenge Trading ── */}
-        <div className="rounded-xl border border-gray-100 bg-gray-50 p-4">
+        <div className="rounded-xl border border-[#1c2e4a] bg-[#0a1220] p-4">
           <div className="flex items-center gap-2 mb-1">
             <span className="text-sm">😤</span>
-            <p className="text-xs font-bold text-gray-700 uppercase tracking-wide">Revenge Trading</p>
+            <p className="text-xs font-bold text-slate-400 uppercase tracking-wide">Revenge Trading</p>
           </div>
           <p className="text-[10px] text-gray-400 mb-4">Trades placed immediately after a loss on the same day</p>
 
           {!revenge_trading ? (
-            <p className="text-xs text-gray-400 text-center mt-8">Not enough data yet — need more multi-trade days</p>
+            <p className="text-xs text-slate-500 text-center mt-8">Not enough data yet — need more multi-trade days</p>
           ) : (
             <>
               {/* Big stat */}
-              <div className={`rounded-xl p-4 text-center mb-3 ${revenge_trading.is_problem ? "bg-red-50 border border-red-200" : "bg-emerald-50 border border-emerald-200"}`}>
+              <div className={`rounded-xl p-4 text-center mb-3 ${revenge_trading.is_problem ? "bg-red-950/30 border border-red-900/50" : "bg-emerald-950/30 border border-emerald-900/50"}`}>
                 <p className={`text-4xl font-black tabular-nums mb-1 ${revenge_trading.is_problem ? "text-red-600" : "text-emerald-600"}`}>
                   {revenge_trading.loss_rate.toFixed(0)}%
                 </p>
-                <p className={`text-xs font-semibold ${revenge_trading.is_problem ? "text-red-700" : "text-emerald-700"}`}>
+                <p className={`text-xs font-semibold ${revenge_trading.is_problem ? "text-red-400" : "text-emerald-400"}`}>
                   of post-loss trades also lost
                 </p>
                 <p className="text-[10px] text-gray-400 mt-1">
@@ -868,12 +868,12 @@ function IntradayPatternsSection({ patterns, loading }: { patterns: IntradayPatt
               </div>
 
               {revenge_trading.is_problem && (
-                <div className="mt-3 rounded-lg px-3 py-2 bg-red-50 border border-red-100 text-xs text-red-700 font-medium">
+                <div className="mt-3 rounded-lg px-3 py-2 bg-red-950/30 border border-red-900/40 text-xs text-red-400 font-medium">
                   🚨 After a loss, take a 15-min break before the next trade
                 </div>
               )}
               {!revenge_trading.is_problem && (
-                <div className="mt-3 rounded-lg px-3 py-2 bg-emerald-50 border border-emerald-100 text-xs text-emerald-700 font-medium">
+                <div className="mt-3 rounded-lg px-3 py-2 bg-emerald-950/30 border border-emerald-900/40 text-xs text-emerald-400 font-medium">
                   ✅ Good emotional control — you recover well after losses
                 </div>
               )}
@@ -882,15 +882,15 @@ function IntradayPatternsSection({ patterns, loading }: { patterns: IntradayPatt
         </div>
 
         {/* ── Best Underlying ── */}
-        <div className="rounded-xl border border-gray-100 bg-gray-50 p-4">
+        <div className="rounded-xl border border-[#1c2e4a] bg-[#0a1220] p-4">
           <div className="flex items-center gap-2 mb-1">
             <span className="text-sm">🎯</span>
-            <p className="text-xs font-bold text-gray-700 uppercase tracking-wide">Best Underlying</p>
+            <p className="text-xs font-bold text-slate-400 uppercase tracking-wide">Best Underlying</p>
           </div>
           <p className="text-[10px] text-gray-400 mb-4">Which index gives you the best results?</p>
 
           {underlyings.length === 0 ? (
-            <p className="text-xs text-gray-400 text-center mt-8">No underlying data found — make sure symbols are in format like &quot;NIFTY 22600 CE&quot;</p>
+            <p className="text-xs text-slate-500 text-center mt-8">No underlying data found — make sure symbols are in format like &quot;NIFTY 22600 CE&quot;</p>
           ) : (
             <div className="space-y-3">
               {underlyings.map((key, idx) => {
@@ -899,17 +899,17 @@ function IntradayPatternsSection({ patterns, loading }: { patterns: IntradayPatt
                   s.avg_pnl === Math.max(...underlyings.map(k => best_underlying[k]?.avg_pnl ?? -Infinity)))
                 const pos = s.avg_pnl >= 0
                 return (
-                  <div key={key} className={`rounded-xl p-3 border ${isBest && pos ? "bg-indigo-50 border-indigo-200" : "bg-white border-gray-100"}`}>
+                  <div key={key} className={`rounded-xl p-3 border ${isBest && pos ? "bg-indigo-950/40 border-indigo-900/60" : "bg-[#0a1220] border-[#1c2e4a]"}`}>
                     <div className="flex items-center justify-between mb-1.5">
                       <div className="flex items-center gap-2">
-                        <span className="text-xs font-black text-gray-700">{UNDERLYING_LABELS[key] ?? key}</span>
+                        <span className="text-xs font-black text-slate-300">{UNDERLYING_LABELS[key] ?? key}</span>
                         {isBest && pos && <span className="text-[9px] font-bold text-indigo-700 bg-indigo-100 px-1.5 py-0.5 rounded-full">YOUR EDGE</span>}
                       </div>
                       <span className={`text-sm font-black tabular-nums ${s.win_rate >= 55 ? "text-emerald-600" : s.win_rate <= 40 ? "text-red-500" : "text-gray-700"}`}>
                         {s.win_rate.toFixed(0)}%
                       </span>
                     </div>
-                    <div className="h-1.5 rounded-full bg-gray-200 overflow-hidden mb-1.5">
+                    <div className="h-1.5 rounded-full bg-[#162035] overflow-hidden mb-1.5">
                       <div className={`h-full rounded-full ${s.win_rate >= 55 ? "bg-emerald-500" : s.win_rate <= 40 ? "bg-red-400" : "bg-amber-400"}`}
                         style={{ width: `${s.win_rate}%` }} />
                     </div>
@@ -944,7 +944,7 @@ const WEEK_LABELS: Record<string, string> = {
 function ExpiryIntelligenceSection({ stats, loading }: { stats: ExpiryStats | null; loading: boolean }) {
   if (loading) {
     return (
-      <div className="rounded-2xl bg-white border border-gray-100 shadow-sm p-6 animate-pulse space-y-4">
+      <div className="rounded-2xl bg-[#0d1528] border border-[#1c2e4a] p-6 animate-pulse space-y-4">
         <div className="h-4 bg-gray-100 rounded w-48" />
         <div className="grid grid-cols-5 gap-2">
           {[1,2,3,4,5].map(i => <div key={i} className="h-24 bg-gray-50 rounded-xl" />)}
@@ -958,10 +958,10 @@ function ExpiryIntelligenceSection({ stats, loading }: { stats: ExpiryStats | nu
 
   if (!stats || stats.total_options_trades < 3) {
     return (
-      <div className="rounded-2xl bg-white border border-gray-100 shadow-sm px-6 py-10 text-center">
+      <div className="rounded-2xl bg-[#0d1528] border border-[#1c2e4a] px-6 py-10 text-center">
         <div className="text-3xl mb-2">📅</div>
         <p className="text-sm font-medium text-gray-700">Expiry intelligence unlocks after 3 options trades</p>
-        <p className="text-xs text-gray-400 mt-1">We&apos;ll show exactly which day of the week costs you money</p>
+        <p className="text-xs text-slate-500 mt-1">We&apos;ll show exactly which day of the week costs you money</p>
       </div>
     )
   }
@@ -973,20 +973,20 @@ function ExpiryIntelligenceSection({ stats, loading }: { stats: ExpiryStats | nu
   const bestStat  = best_day  ? day_stats[best_day]  : null
 
   return (
-    <div className="rounded-2xl bg-white border border-gray-100 shadow-sm overflow-hidden">
+    <div className="rounded-2xl bg-[#0d1528] border border-[#1c2e4a] overflow-hidden">
       {/* Header */}
-      <div className="px-6 py-4 border-b border-gray-50 flex items-center justify-between">
+      <div className="px-6 py-4 border-b border-[#162035] flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="w-8 h-8 rounded-xl bg-orange-100 flex items-center justify-center flex-shrink-0">
             <span className="text-base">📅</span>
           </div>
           <div>
-            <p className="text-sm font-bold text-gray-900">Expiry Day Intelligence</p>
-            <p className="text-xs text-gray-400 mt-0.5">{stats.total_options_trades} options trades analysed</p>
+            <p className="text-sm font-bold text-slate-200">Expiry Day Intelligence</p>
+            <p className="text-xs text-slate-500 mt-0.5">{stats.total_options_trades} options trades analysed</p>
           </div>
         </div>
         {worst_day && worstStat && (
-          <span className="text-[11px] font-bold text-red-600 bg-red-50 border border-red-100 px-2.5 py-1 rounded-lg">
+          <span className="text-[11px] font-bold text-red-600 bg-red-950/30 border border-red-900/40 px-2.5 py-1 rounded-lg">
             Worst: {DAY_SHORT[worst_day]}
           </span>
         )}
@@ -1052,11 +1052,11 @@ function ExpiryIntelligenceSection({ stats, loading }: { stats: ExpiryStats | nu
         {worst_day && worstStat && bestStat && (
           <div className={`rounded-xl px-4 py-3 flex items-start gap-3 ${
             (worstStat.avg_pnl < -500)
-              ? "bg-red-50 border border-red-100"
-              : "bg-blue-50 border border-blue-100"
+              ? "bg-red-950/30 border border-red-900/40"
+              : "bg-indigo-950/30 border border-indigo-900/40"
           }`}>
             <span className="text-base mt-0.5">{worstStat.avg_pnl < -500 ? "🚨" : "💡"}</span>
-            <p className={`text-xs font-medium leading-relaxed ${worstStat.avg_pnl < -500 ? "text-red-700" : "text-blue-700"}`}>
+            <p className={`text-xs font-medium leading-relaxed ${worstStat.avg_pnl < -500 ? "text-red-400" : "text-blue-700"}`}>
               {worstStat.avg_pnl < -500
                 ? `${worst_day} is bleeding you — avg ₹${Math.abs(worstStat.avg_pnl).toLocaleString("en-IN", { maximumFractionDigits: 0 })} loss per trade over ${worstStat.total} trades (₹${Math.abs(worstStat.total_pnl).toLocaleString("en-IN", { maximumFractionDigits: 0 })} total). ${best_day !== worst_day ? `Your best day is ${best_day} at ${bestStat.win_rate.toFixed(0)}% win rate.` : ""} Consider sitting out ${DAY_SHORT[worst_day]} entirely.`
                 : `No single day is dramatically worse than others. Your edge is fairly distributed across the week.`
@@ -1135,7 +1135,7 @@ const HOLD_ORDER = ["<30 min", "30–60 min", "1–2 hrs", "2–3 hrs", "3 hrs+"
 function OptionsDepthSection({ stats, loading }: { stats: OptionsDepthStats | null; loading: boolean }) {
   if (loading) {
     return (
-      <div className="rounded-2xl bg-white border border-gray-100 shadow-sm p-6 animate-pulse space-y-4">
+      <div className="rounded-2xl bg-[#0d1528] border border-[#1c2e4a] p-6 animate-pulse space-y-4">
         <div className="h-4 bg-gray-100 rounded w-56" />
         <div className="grid grid-cols-2 gap-4">
           <div className="h-48 bg-gray-50 rounded-xl" />
@@ -1147,10 +1147,10 @@ function OptionsDepthSection({ stats, loading }: { stats: OptionsDepthStats | nu
 
   if (!stats || stats.total_options_trades < 5) {
     return (
-      <div className="rounded-2xl bg-white border border-gray-100 shadow-sm px-6 py-10 text-center">
+      <div className="rounded-2xl bg-[#0d1528] border border-[#1c2e4a] px-6 py-10 text-center">
         <div className="text-3xl mb-2">🎯</div>
         <p className="text-sm font-medium text-gray-700">Strike &amp; hold-time analysis unlocks after 5 options trades</p>
-        <p className="text-xs text-gray-400 mt-1">We&apos;ll show whether OTM, ATM, or ITM works best for you</p>
+        <p className="text-xs text-slate-500 mt-1">We&apos;ll show whether OTM, ATM, or ITM works best for you</p>
       </div>
     )
   }
@@ -1176,21 +1176,21 @@ function OptionsDepthSection({ stats, loading }: { stats: OptionsDepthStats | nu
   const maxAbsPnl = Math.max(1, ...validHolds.map(k => Math.abs(hold_time_stats[k]?.avg_pnl ?? 0)))
 
   return (
-    <div className="rounded-2xl bg-white border border-gray-100 shadow-sm overflow-hidden">
-      <div className="px-6 py-4 border-b border-gray-50 flex items-center gap-3">
+    <div className="rounded-2xl bg-[#0d1528] border border-[#1c2e4a] overflow-hidden">
+      <div className="px-6 py-4 border-b border-[#162035] flex items-center gap-3">
         <div className="w-8 h-8 rounded-xl bg-indigo-100 flex items-center justify-center flex-shrink-0">
           <span className="text-base">🎯</span>
         </div>
         <div>
-          <p className="text-sm font-bold text-gray-900">Strike &amp; Hold Time Analysis</p>
-          <p className="text-xs text-gray-400 mt-0.5">{stats.total_options_trades} options trades</p>
+          <p className="text-sm font-bold text-slate-200">Strike &amp; Hold Time Analysis</p>
+          <p className="text-xs text-slate-500 mt-0.5">{stats.total_options_trades} options trades</p>
         </div>
       </div>
 
       <div className="p-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
 
         {/* ── Strike selection ── */}
-        <div className="rounded-xl border border-gray-100 bg-gray-50 p-4">
+        <div className="rounded-xl border border-[#1c2e4a] bg-[#0a1220] p-4">
           <div className="flex items-center gap-2 mb-4">
             <span className="text-sm">💰</span>
             <p className="text-xs font-semibold text-gray-700 uppercase tracking-wide">Strike Type Performance</p>
@@ -1204,11 +1204,11 @@ function OptionsDepthSection({ stats, loading }: { stats: OptionsDepthStats | nu
               if (!s) return (
                 <div key={key} className="flex items-center gap-3 opacity-40">
                   <div className={`w-12 text-center py-1 rounded-lg text-[10px] font-black ${meta.color} ${meta.bg}`}>{meta.label}</div>
-                  <p className="text-xs text-gray-400">No data</p>
+                  <p className="text-xs text-slate-500">No data</p>
                 </div>
               )
               return (
-                <div key={key} className={`rounded-xl p-3 border ${isBest ? `${meta.bg} ${meta.border}` : "bg-white border-gray-100"}`}>
+                <div key={key} className={`rounded-xl p-3 border ${isBest ? `${meta.bg} ${meta.border}` : "bg-[#0a1220] border-[#1c2e4a]"}`}>
                   <div className="flex items-center justify-between mb-2">
                     <div className="flex items-center gap-2">
                       <span className={`text-xs font-black px-2 py-0.5 rounded-lg ${meta.color} ${meta.bg}`}>{meta.label}</span>
@@ -1219,7 +1219,7 @@ function OptionsDepthSection({ stats, loading }: { stats: OptionsDepthStats | nu
                       {s.win_rate.toFixed(0)}%
                     </span>
                   </div>
-                  <div className="h-1.5 rounded-full bg-gray-200 overflow-hidden mb-2">
+                  <div className="h-1.5 rounded-full bg-[#162035] overflow-hidden mb-2">
                     <div
                       className={`h-full rounded-full ${s.win_rate >= 55 ? "bg-emerald-500" : s.win_rate <= 40 ? "bg-red-400" : "bg-amber-400"}`}
                       style={{ width: `${s.win_rate}%` }}
@@ -1244,14 +1244,14 @@ function OptionsDepthSection({ stats, loading }: { stats: OptionsDepthStats | nu
         </div>
 
         {/* ── Hold time ── */}
-        <div className="rounded-xl border border-gray-100 bg-gray-50 p-4">
+        <div className="rounded-xl border border-[#1c2e4a] bg-[#0a1220] p-4">
           <div className="flex items-center gap-2 mb-4">
             <span className="text-sm">⏱️</span>
             <p className="text-xs font-semibold text-gray-700 uppercase tracking-wide">Hold Time vs Avg P&amp;L</p>
           </div>
 
           {validHolds.length === 0 ? (
-            <p className="text-xs text-gray-400">No trade time data available — make sure trade time is captured on upload</p>
+            <p className="text-xs text-slate-500">No trade time data available — make sure trade time is captured on upload</p>
           ) : (
             <div className="space-y-3">
               {HOLD_ORDER.map(key => {
@@ -1265,9 +1265,9 @@ function OptionsDepthSection({ stats, loading }: { stats: OptionsDepthStats | nu
                   <div key={key}>
                     <div className="flex items-center justify-between text-xs mb-1">
                       <div className="flex items-center gap-1.5">
-                        <span className="text-gray-600 font-medium w-20">{key}</span>
-                        {isBest  && <span className="text-[9px] font-bold text-emerald-700 bg-emerald-100 px-1.5 py-0.5 rounded-full">SWEET SPOT</span>}
-                        {isWorst && <span className="text-[9px] font-bold text-red-700 bg-red-100 px-1.5 py-0.5 rounded-full">AVOID</span>}
+                        <span className="text-slate-400 font-medium w-20">{key}</span>
+                        {isBest  && <span className="text-[9px] font-bold text-emerald-400 bg-emerald-100 px-1.5 py-0.5 rounded-full">SWEET SPOT</span>}
+                        {isWorst && <span className="text-[9px] font-bold text-red-400 bg-red-100 px-1.5 py-0.5 rounded-full">AVOID</span>}
                       </div>
                       <div className="flex items-center gap-2">
                         <span className="text-gray-400 text-[10px]">{s.total}t</span>
@@ -1276,7 +1276,7 @@ function OptionsDepthSection({ stats, loading }: { stats: OptionsDepthStats | nu
                         </span>
                       </div>
                     </div>
-                    <div className="h-2 rounded-full bg-gray-200 overflow-hidden">
+                    <div className="h-2 rounded-full bg-[#162035] overflow-hidden">
                       <div
                         className={`h-full rounded-full ${positive ? "bg-emerald-500" : "bg-red-400"}`}
                         style={{ width: `${barPct}%` }}
@@ -1289,7 +1289,7 @@ function OptionsDepthSection({ stats, loading }: { stats: OptionsDepthStats | nu
           )}
 
           {bestHold && worstHold && worstHold !== bestHold && hold_time_stats[worstHold] && (
-            <div className="mt-3 rounded-lg px-3 py-2 bg-red-50 border border-red-100 text-xs text-red-700 font-medium">
+            <div className="mt-3 rounded-lg px-3 py-2 bg-red-950/30 border border-red-900/40 text-xs text-red-400 font-medium">
               ⚠️ You give back profits after <strong>{worstHold}</strong> — avg ₹{Math.abs(hold_time_stats[worstHold]!.avg_pnl).toLocaleString("en-IN", { maximumFractionDigits: 0 })} loss. Exit earlier.
             </div>
           )}
@@ -1305,7 +1305,7 @@ function OptionsDepthSection({ stats, loading }: { stats: OptionsDepthStats | nu
 function OptionsPatternsSection({ patterns, loading }: { patterns: OptionsPatterns | null; loading: boolean }) {
   if (loading) {
     return (
-      <div className="rounded-2xl bg-white border border-gray-100 shadow-sm p-6 animate-pulse space-y-3">
+      <div className="rounded-2xl bg-[#0d1528] border border-[#1c2e4a] p-6 animate-pulse space-y-3">
         <div className="h-4 bg-gray-100 rounded w-40" />
         <div className="grid grid-cols-2 gap-4">
           <div className="h-28 bg-gray-50 rounded-xl" />
@@ -1317,10 +1317,10 @@ function OptionsPatternsSection({ patterns, loading }: { patterns: OptionsPatter
 
   if (!patterns || patterns.total_options_trades < 3) {
     return (
-      <div className="rounded-2xl bg-white border border-gray-100 shadow-sm px-6 py-10 text-center">
+      <div className="rounded-2xl bg-[#0d1528] border border-[#1c2e4a] px-6 py-10 text-center">
         <div className="text-3xl mb-2">📊</div>
         <p className="text-sm font-medium text-gray-700">Not enough options data yet</p>
-        <p className="text-xs text-gray-400 mt-1">Upload at least 3 options trades to see patterns</p>
+        <p className="text-xs text-slate-500 mt-1">Upload at least 3 options trades to see patterns</p>
       </div>
     )
   }
@@ -1338,21 +1338,21 @@ function OptionsPatternsSection({ patterns, loading }: { patterns: OptionsPatter
   const expiryDiff  = expiryWR != null && nonExpiryWR != null ? expiryWR - nonExpiryWR : null
 
   return (
-    <div className="rounded-2xl bg-white border border-gray-100 shadow-sm overflow-hidden">
-      <div className="px-6 py-4 border-b border-gray-50 flex items-center gap-3">
+    <div className="rounded-2xl bg-[#0d1528] border border-[#1c2e4a] overflow-hidden">
+      <div className="px-6 py-4 border-b border-[#162035] flex items-center gap-3">
         <div className="w-8 h-8 rounded-xl bg-violet-100 flex items-center justify-center flex-shrink-0">
           <svg className="w-4 h-4 text-violet-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
           </svg>
         </div>
-        <p className="text-sm font-bold text-gray-900">Options Trading Patterns</p>
+        <p className="text-sm font-bold text-slate-200">Options Trading Patterns</p>
         <span className="ml-auto text-[11px] font-semibold text-gray-400 bg-gray-50 border border-gray-100 px-2.5 py-1 rounded-lg">{patterns.total_options_trades} trades</span>
       </div>
 
       <div className="p-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
 
         {/* Expiry day card */}
-        <div className="rounded-xl border border-gray-100 bg-gray-50 p-4">
+        <div className="rounded-xl border border-[#1c2e4a] bg-[#0a1220] p-4">
           <div className="flex items-center gap-2 mb-3">
             <span className="text-sm">📅</span>
             <p className="text-xs font-semibold text-gray-700 uppercase tracking-wide">Expiry Day (Thursday) vs Other Days</p>
@@ -1368,7 +1368,7 @@ function OptionsPatternsSection({ patterns, loading }: { patterns: OptionsPatter
                   <span className="text-gray-400 font-normal ml-1">({patterns.expiry_day_trades} trades)</span>
                 </span>
               </div>
-              <div className="h-2 rounded-full bg-gray-200 overflow-hidden">
+              <div className="h-2 rounded-full bg-[#162035] overflow-hidden">
                 <div
                   className={`h-full rounded-full transition-all ${(expiryWR ?? 0) >= 50 ? "bg-green-500" : "bg-red-400"}`}
                   style={{ width: `${expiryWR ?? 0}%` }}
@@ -1384,7 +1384,7 @@ function OptionsPatternsSection({ patterns, loading }: { patterns: OptionsPatter
                   {nonExpiryWR != null ? `${nonExpiryWR.toFixed(0)}%` : "—"}
                 </span>
               </div>
-              <div className="h-2 rounded-full bg-gray-200 overflow-hidden">
+              <div className="h-2 rounded-full bg-[#162035] overflow-hidden">
                 <div
                   className={`h-full rounded-full transition-all ${(nonExpiryWR ?? 0) >= 50 ? "bg-green-500" : "bg-red-400"}`}
                   style={{ width: `${nonExpiryWR ?? 0}%` }}
@@ -1395,7 +1395,7 @@ function OptionsPatternsSection({ patterns, loading }: { patterns: OptionsPatter
 
           {expiryDiff != null && (
             <div className={`mt-3 rounded-lg px-3 py-2 text-xs font-medium ${
-              expiryDiff < -10 ? "bg-red-50 text-red-700 border border-red-100" :
+              expiryDiff < -10 ? "bg-red-50 text-red-400 border border-red-100" :
               expiryDiff > 10  ? "bg-green-50 text-green-700 border border-green-100" :
               "bg-blue-50 text-blue-700 border border-blue-100"
             }`}>
@@ -1409,14 +1409,14 @@ function OptionsPatternsSection({ patterns, loading }: { patterns: OptionsPatter
         </div>
 
         {/* Time slot card */}
-        <div className="rounded-xl border border-gray-100 bg-gray-50 p-4">
+        <div className="rounded-xl border border-[#1c2e4a] bg-[#0a1220] p-4">
           <div className="flex items-center gap-2 mb-3">
             <span className="text-sm">⏰</span>
             <p className="text-xs font-semibold text-gray-700 uppercase tracking-wide">Win Rate by Time of Day</p>
           </div>
 
           {slots.length === 0 ? (
-            <p className="text-xs text-gray-400">No time data available</p>
+            <p className="text-xs text-slate-500">No time data available</p>
           ) : (
             <div className="space-y-2">
               {slots.map(([slot, stat]) => {
@@ -1435,7 +1435,7 @@ function OptionsPatternsSection({ patterns, loading }: { patterns: OptionsPatter
                         <span className="text-gray-400 font-normal ml-1">{stat.wins}/{stat.total}</span>
                       </span>
                     </div>
-                    <div className="h-1.5 rounded-full bg-gray-200 overflow-hidden">
+                    <div className="h-1.5 rounded-full bg-[#162035] overflow-hidden">
                       <div
                         className={`h-full rounded-full ${stat.win_rate >= 50 ? "bg-green-500" : "bg-red-400"}`}
                         style={{ width: `${stat.win_rate}%` }}
@@ -1469,38 +1469,38 @@ function SwingPatternsSection({ patterns }: { patterns: SwingPatterns }) {
   const deadMoney = patterns.dead_money_positions ?? []
 
   return (
-    <div className="rounded-2xl bg-white border border-gray-100 shadow-sm overflow-hidden">
-      <div className="px-6 py-4 border-b border-gray-50 flex items-center gap-3">
+    <div className="rounded-2xl bg-[#0d1528] border border-[#1c2e4a] overflow-hidden">
+      <div className="px-6 py-4 border-b border-[#162035] flex items-center gap-3">
         <div className="w-8 h-8 rounded-xl bg-emerald-100 flex items-center justify-center flex-shrink-0">
           <svg className="w-4 h-4 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
           </svg>
         </div>
-        <p className="text-sm font-bold text-gray-900">Swing Trading Patterns</p>
+        <p className="text-sm font-bold text-slate-200">Swing Trading Patterns</p>
       </div>
 
       <div className="p-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
 
         {/* Sector performance */}
-        <div className="rounded-xl border border-gray-100 bg-gray-50 p-4">
+        <div className="rounded-xl border border-[#1c2e4a] bg-[#0a1220] p-4">
           <div className="flex items-center gap-2 mb-3">
             <span className="text-sm">🏭</span>
             <p className="text-xs font-semibold text-gray-700 uppercase tracking-wide">Sector Win Rates</p>
           </div>
           {sectors.length === 0 ? (
-            <p className="text-xs text-gray-400">No sector data available yet</p>
+            <p className="text-xs text-slate-500">No sector data available yet</p>
           ) : (
             <div className="space-y-2.5">
               {sectors.map(([sector, stat]) => (
                 <div key={sector}>
                   <div className="flex justify-between text-xs mb-1">
-                    <span className="text-gray-600 font-medium">{sector}</span>
+                    <span className="text-slate-400 font-medium">{sector}</span>
                     <span className={`font-bold ${stat.win_rate >= 50 ? "text-green-600" : "text-red-500"}`}>
                       {stat.win_rate.toFixed(0)}%
                       <span className="text-gray-400 font-normal ml-1">({stat.wins}/{stat.total})</span>
                     </span>
                   </div>
-                  <div className="h-2 rounded-full bg-gray-200 overflow-hidden">
+                  <div className="h-2 rounded-full bg-[#162035] overflow-hidden">
                     <div
                       className={`h-full rounded-full ${stat.win_rate >= 50 ? "bg-green-500" : "bg-red-400"}`}
                       style={{ width: `${stat.win_rate}%` }}
@@ -1515,7 +1515,7 @@ function SwingPatternsSection({ patterns }: { patterns: SwingPatterns }) {
         {/* Holding behaviour + dead money */}
         <div className="space-y-3">
           {/* Hold time comparison */}
-          <div className="rounded-xl border border-gray-100 bg-gray-50 p-4">
+          <div className="rounded-xl border border-[#1c2e4a] bg-[#0a1220] p-4">
             <div className="flex items-center gap-2 mb-3">
               <span className="text-sm">⏱</span>
               <p className="text-xs font-semibold text-gray-700 uppercase tracking-wide">Holding Behaviour</p>
@@ -1528,7 +1528,7 @@ function SwingPatternsSection({ patterns }: { patterns: SwingPatterns }) {
                 </p>
                 <p className="text-[10px] text-green-500 mt-0.5">avg hold time</p>
               </div>
-              <div className="text-center rounded-lg bg-red-50 border border-red-100 py-3">
+              <div className="text-center rounded-lg bg-red-950/30 border border-red-900/40 py-3">
                 <p className="text-xs text-red-500 font-medium">Losers</p>
                 <p className="text-xl font-black text-red-600 mt-1">
                   {patterns.avg_holding_days_losers != null ? `${patterns.avg_holding_days_losers}d` : "—"}
@@ -1539,7 +1539,7 @@ function SwingPatternsSection({ patterns }: { patterns: SwingPatterns }) {
             {patterns.avg_holding_days_winners != null && patterns.avg_holding_days_losers != null && (
               <p className={`mt-2 text-xs px-3 py-2 rounded-lg font-medium ${
                 patterns.avg_holding_days_losers > patterns.avg_holding_days_winners
-                  ? "bg-red-50 border border-red-100 text-red-700"
+                  ? "bg-red-950/30 border border-red-900/40 text-red-400"
                   : "bg-green-50 border border-green-100 text-green-700"
               }`}>
                 {patterns.avg_holding_days_losers > patterns.avg_holding_days_winners
@@ -1600,7 +1600,7 @@ function PatternInsightsSection({
 
   if (loading) {
     return (
-      <div className="rounded-2xl bg-white border border-gray-100 shadow-sm p-6 space-y-3 animate-pulse">
+      <div className="rounded-2xl bg-[#0d1528] border border-[#1c2e4a] p-6 space-y-3 animate-pulse">
         <div className="h-4 bg-gray-100 rounded w-40" />
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           {[1, 2, 3].map(i => <div key={i} className="h-20 bg-gray-50 rounded-xl" />)}
@@ -1628,14 +1628,14 @@ function PatternInsightsSection({
   }
 
   const severityStyle = (s: PatternInsight["severity"]) => {
-    if (s === "positive") return { card: "bg-emerald-50 border-emerald-200", icon: "bg-emerald-100", badge: "bg-emerald-100 text-emerald-700" }
+    if (s === "positive") return { card: "bg-emerald-50 border-emerald-200", icon: "bg-emerald-100", badge: "bg-emerald-100 text-emerald-400" }
     if (s === "warning")  return { card: "bg-amber-50 border-amber-200",   icon: "bg-amber-100",   badge: "bg-amber-100 text-amber-700"   }
     return                         { card: "bg-slate-50 border-slate-200",  icon: "bg-slate-100",   badge: "bg-slate-100 text-slate-600"   }
   }
 
   return (
-    <div className="rounded-2xl bg-white border border-gray-100 shadow-sm overflow-hidden">
-      <div className="px-6 py-4 border-b border-gray-50 flex items-center justify-between">
+    <div className="rounded-2xl bg-[#0d1528] border border-[#1c2e4a] overflow-hidden">
+      <div className="px-6 py-4 border-b border-[#162035] flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="w-8 h-8 rounded-xl bg-indigo-100 flex items-center justify-center">
             <svg className="w-4 h-4 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -1643,8 +1643,8 @@ function PatternInsightsSection({
             </svg>
           </div>
           <div>
-            <p className="text-sm font-bold text-gray-900">Pattern Insights</p>
-            <p className="text-xs text-gray-400 mt-0.5">Based on your last {totalTrades} trades</p>
+            <p className="text-sm font-bold text-slate-200">Pattern Insights</p>
+            <p className="text-xs text-slate-500 mt-0.5">Based on your last {totalTrades} trades</p>
           </div>
         </div>
         <span className="text-[10px] font-bold uppercase tracking-widest text-indigo-500 bg-indigo-50 border border-indigo-100 px-2.5 py-1 rounded-full">
@@ -1699,22 +1699,22 @@ function AiUsageBanner() {
 
   if (isExhausted) {
     return (
-      <div className="rounded-2xl border border-violet-200 bg-gradient-to-r from-violet-50 to-indigo-50 px-5 py-4 flex items-center justify-between gap-4 flex-wrap">
+      <div className="rounded-2xl border border-violet-900/50 bg-violet-950/30 px-5 py-4 flex items-center justify-between gap-4 flex-wrap">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-xl bg-violet-100 flex items-center justify-center flex-shrink-0">
+          <div className="w-8 h-8 rounded-xl bg-violet-900/60 flex items-center justify-center flex-shrink-0">
             <span className="text-base">🧠</span>
           </div>
           <div>
-            <p className="text-sm font-bold text-violet-900">You&apos;ve used all {ai_analyses_limit} free AI analyses</p>
-            <p className="text-xs text-violet-600 mt-0.5">Journaling &amp; all dashboards remain free forever. Upgrade for unlimited AI coaching.</p>
+            <p className="text-sm font-bold text-violet-200">You&apos;ve used all {ai_analyses_limit} free AI analyses</p>
+            <p className="text-xs text-violet-400 mt-0.5">Journaling &amp; all dashboards remain free forever. Upgrade for unlimited AI coaching.</p>
           </div>
         </div>
         <div className="flex items-center gap-2 flex-shrink-0">
           <div className="text-right hidden sm:block">
-            <p className="text-xs font-black text-violet-700">₹299<span className="font-normal text-violet-500">/mo</span></p>
-            <p className="text-[10px] text-violet-400">or ₹2,499/yr</p>
+            <p className="text-xs font-black text-violet-300">₹299<span className="font-normal text-violet-500">/mo</span></p>
+            <p className="text-[10px] text-violet-500">or ₹2,499/yr</p>
           </div>
-          <button className="text-xs font-bold text-white bg-gradient-to-r from-violet-600 to-indigo-600 hover:opacity-90 px-4 py-2 rounded-xl transition-opacity shadow-sm shadow-violet-200">
+          <button className="text-xs font-bold text-white bg-gradient-to-r from-violet-600 to-indigo-600 hover:opacity-90 px-4 py-2 rounded-xl transition-opacity shadow-lg shadow-violet-900/40">
             Upgrade to Pro →
           </button>
         </div>
@@ -1723,18 +1723,18 @@ function AiUsageBanner() {
   }
 
   return (
-    <div className="rounded-2xl border border-amber-100 bg-amber-50/60 px-5 py-3 flex items-center justify-between gap-4 flex-wrap">
+    <div className="rounded-2xl border border-amber-900/40 bg-amber-950/20 px-5 py-3 flex items-center justify-between gap-4 flex-wrap">
       <div className="flex items-center gap-2.5">
         <div className="flex gap-1">
           {Array.from({ length: ai_analyses_limit }).map((_, i) => (
-            <div key={i} className={`w-2 h-2 rounded-full ${i < ai_analyses_used ? "bg-amber-400" : "bg-amber-100"}`} />
+            <div key={i} className={`w-2 h-2 rounded-full ${i < ai_analyses_used ? "bg-amber-500" : "bg-amber-900/50"}`} />
           ))}
         </div>
-        <p className="text-sm font-semibold text-amber-800">
+        <p className="text-sm font-semibold text-amber-300/80">
           {remaining} free AI {remaining === 1 ? "analysis" : "analyses"} remaining
         </p>
       </div>
-      <button className="text-xs font-bold text-amber-700 hover:text-amber-900 bg-white hover:bg-amber-50 border border-amber-200 px-3 py-1.5 rounded-lg transition-colors">
+      <button className="text-xs font-bold text-amber-400 hover:text-amber-300 bg-amber-950/40 hover:bg-amber-950/60 border border-amber-900/50 px-3 py-1.5 rounded-lg transition-colors">
         Upgrade for unlimited →
       </button>
     </div>
@@ -1746,24 +1746,22 @@ function StatCard({ label, value, sub, positive, color, icon }: {
   color: "blue" | "green" | "purple" | "amber"; icon: React.ReactNode
 }) {
   const colorMap = {
-    blue:   { from: "from-blue-50/70",    iconBg: "bg-blue-100",    iconText: "text-blue-600",    border: "border-blue-100/80"    },
-    green:  { from: "from-emerald-50/70", iconBg: "bg-emerald-100", iconText: "text-emerald-600", border: "border-emerald-100/80" },
-    purple: { from: "from-violet-50/70",  iconBg: "bg-violet-100",  iconText: "text-violet-600",  border: "border-violet-100/80"  },
-    amber:  { from: "from-amber-50/70",   iconBg: "bg-amber-100",   iconText: "text-amber-600",   border: "border-amber-100/80"   },
+    blue:   { iconBg: "bg-indigo-900/60",  iconText: "text-indigo-400",  accent: "group-hover:border-indigo-500/40"  },
+    green:  { iconBg: "bg-emerald-900/60", iconText: "text-emerald-400", accent: "group-hover:border-emerald-500/40" },
+    purple: { iconBg: "bg-violet-900/60",  iconText: "text-violet-400",  accent: "group-hover:border-violet-500/40"  },
+    amber:  { iconBg: "bg-amber-900/60",   iconText: "text-amber-400",   accent: "group-hover:border-amber-500/40"   },
   }
   const c = colorMap[color]
-  const valueColor = positive === true ? "text-emerald-600" : positive === false ? "text-red-500" : "text-gray-900"
+  const valueColor = positive === true ? "text-emerald-400" : positive === false ? "text-red-400" : "text-slate-100"
   return (
-    <div className={`rounded-2xl bg-gradient-to-br ${c.from} to-white border ${c.border} shadow-sm p-5 flex flex-col gap-3 hover:shadow-md transition-shadow duration-200`}>
-      <div className="flex items-center justify-between">
-        <div className={`w-9 h-9 rounded-xl flex items-center justify-center ${c.iconBg} ${c.iconText} flex-shrink-0`}>
-          {icon}
-        </div>
+    <div className={`group rounded-2xl bg-[#0d1528] border border-[#1c2e4a] ${c.accent} p-5 flex flex-col gap-3 transition-all duration-200 hover:bg-[#111d33]`}>
+      <div className={`w-9 h-9 rounded-xl flex items-center justify-center ${c.iconBg} ${c.iconText} flex-shrink-0`}>
+        {icon}
       </div>
       <div>
-        <p className="text-[11px] font-bold text-gray-400 uppercase tracking-wider">{label}</p>
+        <p className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">{label}</p>
         <p className={`text-[26px] font-black tracking-tight leading-none tabular-nums mt-1 ${valueColor}`}>{value}</p>
-        <p className="text-[11px] text-gray-400 mt-1.5">{sub}</p>
+        <p className="text-[11px] text-slate-600 mt-1.5">{sub}</p>
       </div>
     </div>
   )
@@ -1823,45 +1821,45 @@ function TradeHeatmap({ trades }: { trades: Trade[] }) {
 
   function cellBg(pnl: number | null, count: number, isFuture: boolean) {
     if (isFuture) return "bg-transparent cursor-default"
-    if (count === 0 || pnl === null) return "bg-gray-100 hover:bg-gray-200"
+    if (count === 0 || pnl === null) return "bg-[#162035] hover:bg-[#1c2e4a]"
     if (pnl > 0) {
-      if (pnl < 2000) return "bg-emerald-200 hover:bg-emerald-300"
-      if (pnl < 8000) return "bg-emerald-400 hover:bg-emerald-500"
-      return "bg-emerald-600 hover:bg-emerald-700"
+      if (pnl < 2000) return "bg-emerald-900 hover:bg-emerald-800"
+      if (pnl < 8000) return "bg-emerald-600 hover:bg-emerald-500"
+      return "bg-emerald-400 hover:bg-emerald-300"
     }
-    if (pnl > -2000) return "bg-red-200 hover:bg-red-300"
-    if (pnl > -8000) return "bg-red-400 hover:bg-red-500"
-    return "bg-red-600 hover:bg-red-700"
+    if (pnl > -2000) return "bg-red-900 hover:bg-red-800"
+    if (pnl > -8000) return "bg-red-600 hover:bg-red-500"
+    return "bg-red-400 hover:bg-red-300"
   }
 
   const CELL = 14, GAP = 3
 
   return (
     <>
-      <div className="rounded-2xl bg-white border border-gray-100 shadow-sm overflow-hidden">
-        <div className="px-6 py-4 border-b border-gray-50 flex items-center justify-between flex-wrap gap-3">
+      <div className="rounded-2xl bg-[#0d1528] border border-[#1c2e4a] overflow-hidden">
+        <div className="px-6 py-4 border-b border-[#162035] flex items-center justify-between flex-wrap gap-3">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-xl bg-slate-100 flex items-center justify-center flex-shrink-0">
-              <svg className="w-4 h-4 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div className="w-8 h-8 rounded-xl bg-[#162035] flex items-center justify-center flex-shrink-0">
+              <svg className="w-4 h-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
               </svg>
             </div>
             <div>
-              <p className="text-sm font-bold text-gray-900">Trading Calendar</p>
-              <p className="text-xs text-gray-400 mt-0.5">Daily P&amp;L — last {WEEKS} weeks</p>
+              <p className="text-sm font-bold text-slate-200">Trading Calendar</p>
+              <p className="text-xs text-slate-500 mt-0.5">Daily P&amp;L — last {WEEKS} weeks</p>
             </div>
           </div>
           <div className="flex items-center gap-1.5 flex-wrap">
-            <span className="text-[10px] text-gray-400 font-medium">Less</span>
-            {["bg-gray-100", "bg-emerald-200", "bg-emerald-400", "bg-emerald-600"].map((c) => (
+            <span className="text-[10px] text-slate-600 font-medium">Less</span>
+            {["bg-[#162035]", "bg-emerald-900", "bg-emerald-600", "bg-emerald-400"].map((c) => (
               <div key={c} className={`w-3 h-3 rounded-sm ${c}`} />
             ))}
-            <span className="text-[10px] text-gray-400 font-medium">Profit</span>
-            <span className="text-gray-200 mx-1">·</span>
-            {["bg-red-200", "bg-red-400", "bg-red-600"].map((c) => (
+            <span className="text-[10px] text-slate-600 font-medium">Profit</span>
+            <span className="text-slate-700 mx-1">·</span>
+            {["bg-red-900", "bg-red-600", "bg-red-400"].map((c) => (
               <div key={c} className={`w-3 h-3 rounded-sm ${c}`} />
             ))}
-            <span className="text-[10px] text-gray-400 font-medium">Loss</span>
+            <span className="text-[10px] text-slate-600 font-medium">Loss</span>
           </div>
         </div>
 
@@ -1874,7 +1872,7 @@ function TradeHeatmap({ trades }: { trades: Trade[] }) {
                 const lbl = monthLabels.find((m) => m.idx === i)
                 return (
                   <div key={i} style={{ width: CELL + GAP, flexShrink: 0 }}>
-                    {lbl && <span className="text-[10px] font-semibold text-gray-400">{lbl.label}</span>}
+                    {lbl && <span className="text-[10px] font-semibold text-slate-600">{lbl.label}</span>}
                   </div>
                 )
               })}
@@ -1883,7 +1881,7 @@ function TradeHeatmap({ trades }: { trades: Trade[] }) {
             {/* 5 rows: Mon–Fri */}
             {[1, 2, 3, 4, 5].map((targetDow) => (
               <div key={targetDow} className="flex items-center" style={{ marginBottom: GAP }}>
-                <span className="text-[9px] font-medium text-gray-300 w-8 flex-shrink-0">
+                <span className="text-[9px] font-medium text-slate-700 w-8 flex-shrink-0">
                   {["", "Mon", "Tue", "Wed", "Thu", "Fri"][targetDow]}
                 </span>
                 {weeks.map((wk, wi) => {
@@ -1899,7 +1897,7 @@ function TradeHeatmap({ trades }: { trades: Trade[] }) {
                     <div
                       key={wi}
                       style={{ width: CELL, height: CELL, marginRight: GAP, flexShrink: 0 }}
-                      className={`rounded-sm transition-colors cursor-pointer ${bg} ${isToday ? "ring-1 ring-blue-400 ring-offset-[1.5px]" : ""}`}
+                      className={`rounded-sm transition-colors cursor-pointer ${bg} ${isToday ? "ring-1 ring-indigo-500 ring-offset-[1.5px] ring-offset-[#0d1528]" : ""}`}
                       onMouseEnter={(e) => {
                         const r = (e.target as HTMLElement).getBoundingClientRect()
                         setTooltip({ text: tooltipText, x: r.left + r.width / 2, y: r.top })
@@ -1917,11 +1915,11 @@ function TradeHeatmap({ trades }: { trades: Trade[] }) {
       {/* Tooltip — fixed, not clipped by overflow */}
       {tooltip && (
         <div
-          className="fixed z-[999] bg-gray-900 text-white text-xs px-2.5 py-1.5 rounded-lg pointer-events-none shadow-xl whitespace-nowrap"
+          className="fixed z-[999] bg-[#0d1528] border border-[#1c2e4a] text-slate-200 text-xs px-2.5 py-1.5 rounded-lg pointer-events-none shadow-xl whitespace-nowrap"
           style={{ left: tooltip.x, top: tooltip.y - 6, transform: "translateX(-50%) translateY(-100%)" }}
         >
           {tooltip.text}
-          <div className="absolute top-full left-1/2 -translate-x-1/2 border-[5px] border-transparent border-t-gray-900" />
+          <div className="absolute top-full left-1/2 -translate-x-1/2 border-[5px] border-transparent border-t-[#0d1528]" />
         </div>
       )}
     </>
@@ -1931,16 +1929,16 @@ function TradeHeatmap({ trades }: { trades: Trade[] }) {
 function EmptyChart() {
   return (
     <div className="flex flex-col items-center justify-center h-48 gap-3">
-      <div className="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center">
-        <svg className="w-6 h-6 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <div className="w-12 h-12 rounded-2xl bg-indigo-950/50 border border-indigo-900/50 flex items-center justify-center">
+        <svg className="w-6 h-6 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" />
         </svg>
       </div>
       <div className="text-center">
-        <p className="text-sm font-medium text-gray-700">No chart data yet</p>
-        <p className="text-xs text-gray-400 mt-1">Your P&L curve will appear after your first trade</p>
+        <p className="text-sm font-medium text-slate-300">No chart data yet</p>
+        <p className="text-xs text-slate-500 mt-1">Your P&L curve will appear after your first trade</p>
       </div>
-      <a href="/upload" className="text-xs font-semibold text-blue-600 hover:text-blue-700 bg-blue-50 hover:bg-blue-100 px-3 py-1.5 rounded-lg transition-colors">
+      <a href="/upload" className="text-xs font-semibold text-indigo-400 hover:text-indigo-300 bg-indigo-950/40 hover:bg-indigo-950/60 border border-indigo-900/50 px-3 py-1.5 rounded-lg transition-colors">
         Upload first trade →
       </a>
     </div>
@@ -1950,16 +1948,16 @@ function EmptyChart() {
 function EmptyTrades() {
   return (
     <div className="flex flex-col items-center justify-center h-44 gap-3">
-      <div className="w-12 h-12 rounded-2xl bg-gray-50 border border-gray-100 flex items-center justify-center">
-        <svg className="w-6 h-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <div className="w-12 h-12 rounded-2xl bg-[#162035] border border-[#1c2e4a] flex items-center justify-center">
+        <svg className="w-6 h-6 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
         </svg>
       </div>
       <div className="text-center">
-        <p className="text-sm font-medium text-gray-700">No trades logged</p>
-        <p className="text-xs text-gray-400 mt-1">Upload a screenshot to get AI coaching on your first trade</p>
+        <p className="text-sm font-medium text-slate-300">No trades logged</p>
+        <p className="text-xs text-slate-500 mt-1">Upload a screenshot to get AI coaching on your first trade</p>
       </div>
-      <a href="/upload" className="text-xs font-semibold text-blue-600 hover:text-blue-700 bg-blue-50 hover:bg-blue-100 px-3 py-1.5 rounded-lg transition-colors">
+      <a href="/upload" className="text-xs font-semibold text-indigo-400 hover:text-indigo-300 bg-indigo-950/40 hover:bg-indigo-950/60 border border-indigo-900/50 px-3 py-1.5 rounded-lg transition-colors">
         Upload first trade →
       </a>
     </div>

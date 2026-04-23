@@ -38,7 +38,7 @@ function ProductMockup() {
           <div className="flex gap-1.5">
             {["#ef4444","#f59e0b","#22c55e"].map(c => <div key={c} className="w-3 h-3 rounded-full" style={{ background: c }} />)}
           </div>
-          <span className="text-xs font-medium ml-1" style={{ color: "rgba(255,255,255,0.22)" }}>edgejournal.in / my-trades</span>
+          <span className="text-xs font-medium ml-1" style={{ color: "rgba(255,255,255,0.22)" }}>tradersdiary.in / my-trades</span>
         </div>
         <div className="flex items-center gap-1.5"><div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" /><span className="text-[10px]" style={{ color: "rgba(255,255,255,0.28)" }}>Live</span></div>
       </div>
@@ -100,22 +100,21 @@ function ProductMockup() {
 
 /* ─── Feature card ───────────────────────────────────────────────────────── */
 function FeatureCard({ icon, title, desc, color, wide = false }: { icon: string; title: string; desc: string; color: string; wide?: boolean }) {
-  const tints: Record<string, { bg: string; border: string; iconBg: string; iconText: string }> = {
-    indigo: { bg: "#eef2ff", border: "#c7d2fe", iconBg: "#4f46e5", iconText: "#ffffff" },
-    violet: { bg: "#f5f3ff", border: "#ddd6fe", iconBg: "#7c3aed", iconText: "#ffffff" },
-    sky:    { bg: "#f0f9ff", border: "#bae6fd", iconBg: "#0284c7", iconText: "#ffffff" },
-    emerald:{ bg: "#ecfdf5", border: "#a7f3d0", iconBg: "#059669", iconText: "#ffffff" },
-    amber:  { bg: "#fffbeb", border: "#fde68a", iconBg: "#d97706", iconText: "#ffffff" },
-    rose:   { bg: "#fff1f2", border: "#fecdd3", iconBg: "#e11d48", iconText: "#ffffff" },
+  const accents: Record<string, { iconBg: string; glow: string }> = {
+    indigo:  { iconBg: "bg-indigo-600",  glow: "group-hover:shadow-indigo-500/20" },
+    violet:  { iconBg: "bg-violet-600",  glow: "group-hover:shadow-violet-500/20" },
+    sky:     { iconBg: "bg-sky-600",     glow: "group-hover:shadow-sky-500/20"    },
+    emerald: { iconBg: "bg-emerald-600", glow: "group-hover:shadow-emerald-500/20"},
+    amber:   { iconBg: "bg-amber-600",   glow: "group-hover:shadow-amber-500/20"  },
+    rose:    { iconBg: "bg-rose-600",    glow: "group-hover:shadow-rose-500/20"   },
   }
-  const t = tints[color]
+  const a = accents[color] ?? accents.indigo
   return (
-    <div className={`rounded-2xl p-6 ${wide ? "sm:col-span-2" : ""}`}
-      style={{ background: t.bg, border: `1px solid ${t.border}` }}>
-      <div className="w-10 h-10 rounded-xl flex items-center justify-center text-lg mb-4" style={{ background: t.iconBg }}>
+    <div className={`group rounded-2xl p-6 bg-[#0d1528] border border-[#1c2e4a] hover:border-[#2a4570] transition-all duration-200 hover:shadow-xl ${a.glow} ${wide ? "sm:col-span-2" : ""}`}>
+      <div className={`w-10 h-10 rounded-xl flex items-center justify-center text-lg mb-4 ${a.iconBg}`}>
         <span>{icon}</span>
       </div>
-      <h3 className="text-slate-900 font-bold text-base mb-2">{title}</h3>
+      <h3 className="text-slate-100 font-bold text-base mb-2">{title}</h3>
       <p className="text-slate-500 text-sm leading-relaxed">{desc}</p>
     </div>
   )
@@ -124,11 +123,11 @@ function FeatureCard({ icon, title, desc, color, wide = false }: { icon: string;
 /* ─── FAQ ────────────────────────────────────────────────────────────────── */
 const FAQS = [
   { q: "Is my trade data private?", a: "Yes — completely. Trades are stored in your private account only. Nobody else can see your journal. We never share or sell data." },
-  { q: "Does this give buy/sell recommendations?", a: "No. EdgeJournal is an educational trade journal. The AI reviews your past trades only — never tells you what to buy or sell. All outputs end with 'Not investment advice.'" },
+  { q: "Does this give buy/sell recommendations?", a: "No. Traders Diary is an educational trade journal. The AI reviews your past trades only — never tells you what to buy or sell. All outputs end with 'Not investment advice.'" },
   { q: "Which brokers are supported?", a: "Screenshot upload works with any Indian broker (Zerodha Kite, Upstox Pro, Angel One, Groww, Dhan, etc.). CSV import supports Zerodha Tax P&L and Tradebook formats." },
   { q: "How does the AI coaching work?", a: "Each trade is analysed with live data — VIX, DTE, Greeks, OTM/ATM/ITM classification, NIFTY trend — generating 5 specific insights grounded in your actual numbers. You get 10 AI analyses free; after that, upgrade to Pro for unlimited." },
-  { q: "What are behaviour patterns?", a: "After enough trades, EdgeJournal automatically detects your personal patterns: days you overtrade, revenge trading spirals after losses, expiry day win rates, best underlying symbols, best time slots. These are shown on your dashboard — no extra steps needed." },
-  { q: "Is it SEBI compliant?", a: "Yes. EdgeJournal is a journaling and analytics tool, not an investment adviser. It analyses trades you have already made — retrospective only. No SEBI IA registration required for this use case." },
+  { q: "What are behaviour patterns?", a: "After enough trades, Traders Diary automatically detects your personal patterns: days you overtrade, revenge trading spirals after losses, expiry day win rates, best underlying symbols, best time slots. These are shown on your dashboard — no extra steps needed." },
+  { q: "Is it SEBI compliant?", a: "Yes. Traders Diary is a journaling and analytics tool, not an investment adviser. It analyses trades you have already made — retrospective only. No SEBI IA registration required for this use case." },
 ]
 
 const BROKERS = [
@@ -150,7 +149,7 @@ export default function LandingPage() {
   }, [router])
 
   return (
-    <div className="flex flex-col overflow-x-hidden bg-white">
+    <div className="flex flex-col overflow-x-hidden bg-[#060c18]">
 
       {/* ══════════════════════════════════════════════════════════════════
           HERO — Rich indigo/purple gradient
@@ -200,7 +199,7 @@ export default function LandingPage() {
 
           {/* Subheading */}
           <p className="animate-fade-up delay-200 text-lg leading-relaxed max-w-2xl mx-auto mb-10 text-white/60">
-            EdgeJournal spots{" "}
+            Traders Diary spots{" "}
             <span className="text-white/90 font-medium">overtrading patterns, revenge trading, expiry day edge</span>
             {" "}— and gives AI coaching grounded in your actual numbers. Not generic advice.
           </p>
@@ -245,31 +244,31 @@ export default function LandingPage() {
           </div>
         </div>
 
-        {/* Gradient fade into white */}
+        {/* Gradient fade into dark bg */}
         <div className="absolute bottom-0 left-0 right-0 h-20 pointer-events-none"
-          style={{ background: "linear-gradient(to bottom, transparent, #ffffff)" }} />
+          style={{ background: "linear-gradient(to bottom, transparent, #060c18)" }} />
       </section>
 
       {/* ══════════════════════════════════════════════════════════════════
-          BROKER STRIP — white
+          BROKER STRIP — dark
       ══════════════════════════════════════════════════════════════════ */}
-      <div className="bg-white py-5 overflow-hidden border-b border-slate-100">
-        <p className="text-center text-[10px] uppercase tracking-[0.2em] font-semibold text-slate-400 mb-4">
+      <div className="bg-[#060c18] py-5 overflow-hidden border-y border-white/[0.05]">
+        <p className="text-center text-[10px] uppercase tracking-[0.2em] font-semibold text-slate-600 mb-4">
           Works with all major Indian brokers
         </p>
         <div className="flex">
           <div className="flex gap-12 animate-marquee whitespace-nowrap">
             {BROKERS.map((b, i) => (
-              <span key={i} className="text-sm font-semibold text-slate-400 flex-shrink-0">{b}</span>
+              <span key={i} className="text-sm font-semibold text-slate-500 flex-shrink-0">{b}</span>
             ))}
           </div>
         </div>
       </div>
 
       {/* ══════════════════════════════════════════════════════════════════
-          STATS — white
+          STATS — dark
       ══════════════════════════════════════════════════════════════════ */}
-      <section className="bg-white py-20 px-6">
+      <section className="bg-[#060c18] py-20 px-6">
         <div className="mx-auto max-w-4xl grid grid-cols-2 sm:grid-cols-4 gap-8 text-center">
           {[
             { val: "F&O",  label: "Native support",       sub: "CE/PE, lot sizes, weekly expiry, DTE" },
@@ -278,43 +277,42 @@ export default function LandingPage() {
             { val: "100%", label: "Private",               sub: "Your journal, only yours" },
           ].map(({ val, label, sub }) => (
             <div key={val}>
-              <p className="text-4xl font-black text-indigo-600 mb-1">{val}</p>
-              <p className="text-slate-900 font-bold text-sm mb-1">{label}</p>
-              <p className="text-slate-400 text-xs">{sub}</p>
+              <p className="text-4xl font-black text-indigo-400 mb-1">{val}</p>
+              <p className="text-slate-200 font-bold text-sm mb-1">{label}</p>
+              <p className="text-slate-500 text-xs">{sub}</p>
             </div>
           ))}
         </div>
       </section>
 
       {/* ══════════════════════════════════════════════════════════════════
-          FEATURES — light slate bg
+          FEATURES — dark
       ══════════════════════════════════════════════════════════════════ */}
-      <section className="bg-slate-50 py-24 px-6">
+      <section className="bg-[#0a1220] py-24 px-6">
         <div className="mx-auto max-w-5xl">
           <div className="mb-14">
-            <p className="text-xs font-bold uppercase tracking-widest text-indigo-500 mb-3">Features</p>
-            <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight leading-tight">
+            <p className="text-xs font-bold uppercase tracking-widest text-indigo-400 mb-3">Features</p>
+            <h2 className="text-3xl sm:text-4xl font-black text-slate-100 tracking-tight leading-tight">
               More than a journal.<br />
-              <span className="text-slate-400">A complete trade intelligence platform.</span>
+              <span className="text-slate-500">A complete trade intelligence platform.</span>
             </h2>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
 
             {/* Wide — AI coaching */}
-            <div className="sm:col-span-2 rounded-2xl p-7 relative overflow-hidden"
-              style={{ background: "#eef2ff", border: "1px solid #c7d2fe" }}>
+            <div className="sm:col-span-2 rounded-2xl p-7 relative overflow-hidden bg-[#0d1528] border border-[#1c2e4a] hover:border-indigo-500/30 transition-all duration-200">
               <div className="absolute top-0 right-0 w-64 h-64 pointer-events-none"
-                style={{ background: "radial-gradient(circle at top right, rgba(79,70,229,0.15), transparent 60%)" }} />
-              <div className="w-11 h-11 rounded-xl flex items-center justify-center text-xl mb-5" style={{ background: "#4f46e5" }}>🧠</div>
+                style={{ background: "radial-gradient(circle at top right, rgba(79,70,229,0.12), transparent 60%)" }} />
+              <div className="w-11 h-11 rounded-xl flex items-center justify-center text-xl mb-5 bg-indigo-600">🧠</div>
               <p className="text-[10px] font-bold uppercase tracking-widest text-indigo-400 mb-2">AI Coaching</p>
-              <h3 className="text-slate-900 font-black text-xl mb-3 leading-tight">5 analyst-grade insights. Every single trade.</h3>
+              <h3 className="text-slate-100 font-black text-xl mb-3 leading-tight">5 analyst-grade insights. Every single trade.</h3>
               <p className="text-slate-500 text-sm leading-relaxed mb-5">
                 Not generic advice — actual numbers. Entry vs EMA-20, unrealized P&L, 52W range, sector win rate. Powered by Claude AI.
               </p>
               <div className="flex flex-wrap gap-2">
                 {["Position sizing","Entry quality vs EMA","Sector context","Risk-reward","52W range","Trend structure"].map(t => (
-                  <span key={t} className="text-xs px-3 py-1 rounded-full font-medium" style={{ background: "#e0e7ff", color: "#4338ca" }}>{t}</span>
+                  <span key={t} className="text-xs px-3 py-1 rounded-full font-medium bg-indigo-950/60 text-indigo-300 border border-indigo-800/50">{t}</span>
                 ))}
               </div>
             </div>
@@ -332,11 +330,12 @@ export default function LandingPage() {
               desc="See how your P&L changes as trade count increases each day. Know your personal cut-off point." />
 
             {/* Wide — Dashboard */}
-            <div className="sm:col-span-2 rounded-2xl p-7 relative overflow-hidden"
-              style={{ background: "#f5f3ff", border: "1px solid #ddd6fe" }}>
-              <div className="w-11 h-11 rounded-xl flex items-center justify-center text-xl mb-5" style={{ background: "#7c3aed" }}>📊</div>
+            <div className="sm:col-span-2 rounded-2xl p-7 relative overflow-hidden bg-[#0d1528] border border-[#1c2e4a] hover:border-violet-500/30 transition-all duration-200">
+              <div className="absolute top-0 right-0 w-64 h-64 pointer-events-none"
+                style={{ background: "radial-gradient(circle at top right, rgba(124,58,237,0.1), transparent 60%)" }} />
+              <div className="w-11 h-11 rounded-xl flex items-center justify-center text-xl mb-5 bg-violet-600">📊</div>
               <p className="text-[10px] font-bold uppercase tracking-widest text-violet-400 mb-2">Pattern Dashboard</p>
-              <h3 className="text-slate-900 font-black text-xl mb-3 leading-tight">See where your real edge is.</h3>
+              <h3 className="text-slate-100 font-black text-xl mb-3 leading-tight">See where your real edge is.</h3>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                 {[
                   { label: "Expiry day edge", val: "+18%" },
@@ -344,9 +343,9 @@ export default function LandingPage() {
                   { label: "Best time slot", val: "9:30–10am" },
                   { label: "OTM win rate", val: "38%" },
                 ].map(({ label, val }) => (
-                  <div key={label} className="rounded-xl px-4 py-3 bg-white border border-violet-100">
-                    <p className="text-[10px] text-slate-400 mb-1">{label}</p>
-                    <p className="text-lg font-black text-slate-900">{val}</p>
+                  <div key={label} className="rounded-xl px-4 py-3 bg-[#0a1220] border border-[#1c2e4a]">
+                    <p className="text-[10px] text-slate-500 mb-1">{label}</p>
+                    <p className="text-lg font-black text-slate-100">{val}</p>
                   </div>
                 ))}
               </div>
@@ -361,33 +360,33 @@ export default function LandingPage() {
       </section>
 
       {/* ══════════════════════════════════════════════════════════════════
-          BUILT FOR INDIA — white
+          BUILT FOR INDIA — dark
       ══════════════════════════════════════════════════════════════════ */}
-      <section className="bg-white py-24 px-6">
+      <section className="bg-[#060c18] py-24 px-6">
         <div className="mx-auto max-w-5xl">
           <div className="mb-14 text-center">
-            <p className="text-xs font-bold uppercase tracking-widest text-cyan-500 mb-3">Built for India</p>
-            <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight mb-3">
+            <p className="text-xs font-bold uppercase tracking-widest text-cyan-400 mb-3">Built for India</p>
+            <h2 className="text-3xl sm:text-4xl font-black text-slate-100 tracking-tight mb-3">
               The only journal that speaks NSE natively.
             </h2>
             <p className="text-slate-500 text-sm max-w-md mx-auto">
-              Every other tool is built for US stocks. EdgeJournal is built from scratch for F&O, NSE, and ₹.
+              Every other tool is built for US stocks. Traders Diary is built from scratch for F&O, NSE, and ₹.
             </p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {[
-              { icon: "⚡", title: "F&O aware",       desc: "CE/PE, lot sizes, weekly expiry, DTE, theta decay. Not adapted — native.",    c: "bg-amber-50 border-amber-200" },
-              { icon: "📉", title: "VIX + Greeks",    desc: "India VIX, Delta/Gamma/Theta/Vega computed at exact trade time via Black-Scholes.", c: "bg-rose-50 border-rose-200" },
-              { icon: "💹", title: "Index options",   desc: "NIFTY, BANKNIFTY, FINNIFTY, SENSEX — underlying trend and EMA structure included.", c: "bg-sky-50 border-sky-200" },
-              { icon: "₹",  title: "INR native",      desc: "All P&L in rupees. Lot-based calculations. ₹ throughout — not a USD tool adapted.", c: "bg-emerald-50 border-emerald-200" },
-              { icon: "📅", title: "Expiry intelligence", desc: "Day-of-week win rates + Thursday week-of-month breakdown. Know your expiry edge cold.", c: "bg-violet-50 border-violet-200" },
-              { icon: "🗂️", title: "Zerodha import",  desc: "Upload Tax P&L Excel directly. Full history loaded — open + closed positions.",   c: "bg-indigo-50 border-indigo-200" },
+              { icon: "⚡", title: "F&O aware",           desc: "CE/PE, lot sizes, weekly expiry, DTE, theta decay. Not adapted — native."             },
+              { icon: "📉", title: "VIX + Greeks",         desc: "India VIX, Delta/Gamma/Theta/Vega computed at exact trade time via Black-Scholes."    },
+              { icon: "💹", title: "Index options",        desc: "NIFTY, BANKNIFTY, FINNIFTY, SENSEX — underlying trend and EMA structure included."    },
+              { icon: "₹",  title: "INR native",           desc: "All P&L in rupees. Lot-based calculations. ₹ throughout — not a USD tool adapted."    },
+              { icon: "📅", title: "Expiry intelligence",  desc: "Day-of-week win rates + Thursday week-of-month breakdown. Know your expiry edge cold." },
+              { icon: "🗂️", title: "Zerodha import",       desc: "Upload Tax P&L Excel directly. Full history loaded — open + closed positions."        },
             ].map(f => (
-              <div key={f.title} className={`rounded-2xl p-5 flex gap-4 border ${f.c}`}>
-                <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-lg flex-shrink-0 shadow-sm border border-white">{f.icon}</div>
+              <div key={f.title} className="rounded-2xl p-5 flex gap-4 bg-[#0d1528] border border-[#1c2e4a] hover:border-[#2a4570] transition-colors">
+                <div className="w-10 h-10 rounded-xl bg-[#0a1220] border border-[#1c2e4a] flex items-center justify-center text-lg flex-shrink-0">{f.icon}</div>
                 <div>
-                  <p className="text-slate-900 font-semibold text-sm mb-1">{f.title}</p>
+                  <p className="text-slate-200 font-semibold text-sm mb-1">{f.title}</p>
                   <p className="text-slate-500 text-xs leading-relaxed">{f.desc}</p>
                 </div>
               </div>
@@ -397,13 +396,13 @@ export default function LandingPage() {
       </section>
 
       {/* ══════════════════════════════════════════════════════════════════
-          HOW IT WORKS — slate-50
+          HOW IT WORKS — dark
       ══════════════════════════════════════════════════════════════════ */}
-      <section className="bg-slate-50 py-24 px-6">
+      <section className="bg-[#0a1220] py-24 px-6">
         <div className="mx-auto max-w-2xl">
           <div className="mb-14 text-center">
-            <p className="text-xs font-bold uppercase tracking-widest text-violet-500 mb-3">How it works</p>
-            <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">
+            <p className="text-xs font-bold uppercase tracking-widest text-violet-400 mb-3">How it works</p>
+            <h2 className="text-3xl sm:text-4xl font-black text-slate-100 tracking-tight">
               Screenshot to insight in 10 seconds.
             </h2>
           </div>
@@ -415,15 +414,15 @@ export default function LandingPage() {
               { n:"04", title:"Read your AI coaching",           body:"5 numbered insights grounded in your actual numbers — entry quality, timing, risk-reward, what to fix.",  tag:"5 insights"   },
               { n:"05", title:"Spot behaviour patterns",         body:"Dashboard flags overtrading days, revenge trade spirals, expiry day edge, best underlying. Your blind spots revealed.", tag:"Patterns" },
             ].map(({ n, title, body, tag }) => (
-              <div key={n} className="flex gap-4 bg-white rounded-2xl p-5 border border-slate-200 shadow-sm">
+              <div key={n} className="flex gap-4 bg-[#0d1528] rounded-2xl p-5 border border-[#1c2e4a] hover:border-[#2a4570] transition-colors">
                 <div className="w-10 h-10 rounded-xl flex items-center justify-center text-xs font-black text-white flex-shrink-0"
-                  style={{ background: "linear-gradient(135deg,#4f46e5,#7c3aed)", boxShadow: "0 4px 12px rgba(79,70,229,0.3)" }}>
+                  style={{ background: "linear-gradient(135deg,#4f46e5,#7c3aed)", boxShadow: "0 4px 16px rgba(79,70,229,0.35)" }}>
                   {n}
                 </div>
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-1 flex-wrap">
-                    <p className="text-slate-900 font-bold text-sm">{title}</p>
-                    <span className="text-[10px] px-2 py-0.5 rounded-full font-semibold bg-indigo-50 text-indigo-600 border border-indigo-200">{tag}</span>
+                    <p className="text-slate-100 font-bold text-sm">{title}</p>
+                    <span className="text-[10px] px-2 py-0.5 rounded-full font-semibold bg-indigo-950/60 text-indigo-300 border border-indigo-800/50">{tag}</span>
                   </div>
                   <p className="text-slate-500 text-sm leading-relaxed">{body}</p>
                 </div>
@@ -434,26 +433,26 @@ export default function LandingPage() {
       </section>
 
       {/* ══════════════════════════════════════════════════════════════════
-          PRICING — white
+          PRICING — dark
       ══════════════════════════════════════════════════════════════════ */}
-      <section className="bg-white py-24 px-6">
+      <section className="bg-[#060c18] py-24 px-6">
         <div className="mx-auto max-w-3xl">
           <div className="text-center mb-14">
-            <p className="text-xs font-bold uppercase tracking-widest text-emerald-500 mb-3">Pricing</p>
-            <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight mb-3">
+            <p className="text-xs font-bold uppercase tracking-widest text-emerald-400 mb-3">Pricing</p>
+            <h2 className="text-3xl sm:text-4xl font-black text-slate-100 tracking-tight mb-3">
               Start free. No card needed.
             </h2>
-            <p className="text-slate-400 text-sm">Upgrade when you&apos;re ready to go unlimited.</p>
+            <p className="text-slate-500 text-sm">Upgrade when you&apos;re ready to go unlimited.</p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             {/* Free */}
-            <div className="rounded-2xl p-8 border-2 border-slate-200">
-              <p className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-3">Free</p>
+            <div className="rounded-2xl p-8 bg-[#0d1528] border-2 border-[#1c2e4a]">
+              <p className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-3">Free</p>
               <div className="flex items-baseline gap-1 mb-1">
-                <span className="text-5xl font-black text-slate-900">₹0</span>
+                <span className="text-5xl font-black text-slate-100">₹0</span>
               </div>
-              <p className="text-slate-400 text-sm mb-8">Always free · No card</p>
+              <p className="text-slate-500 text-sm mb-8">Always free · No card</p>
               <ul className="space-y-3 mb-8">
                 {[
                   "10 AI trade analyses free",
@@ -463,7 +462,7 @@ export default function LandingPage() {
                   "Overtrading & revenge trading detection",
                   "Expiry day intelligence + Options patterns",
                 ].map(f => (
-                  <li key={f} className="flex items-center gap-3 text-sm text-slate-600">
+                  <li key={f} className="flex items-center gap-3 text-sm text-slate-400">
                     <svg className="w-4 h-4 text-emerald-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"/>
                     </svg>
@@ -472,13 +471,13 @@ export default function LandingPage() {
                 ))}
               </ul>
               <button onClick={signInWithGoogle}
-                className="w-full rounded-xl py-3 text-sm font-bold border-2 border-slate-200 text-slate-600 hover:border-indigo-300 hover:text-indigo-600 transition-all flex items-center justify-center gap-2">
+                className="w-full rounded-xl py-3 text-sm font-bold border border-[#1c2e4a] text-slate-400 hover:border-indigo-500/50 hover:text-indigo-300 transition-all flex items-center justify-center gap-2">
                 <GoogleIcon size={14} />
                 Get started free
               </button>
             </div>
 
-            {/* Pro — dark card */}
+            {/* Pro */}
             <div className="rounded-2xl p-8 relative overflow-hidden text-white"
               style={{
                 background: "linear-gradient(135deg, #1e1b4b 0%, #2e1065 50%, #1e3a5f 100%)",
@@ -524,26 +523,26 @@ export default function LandingPage() {
       </section>
 
       {/* ══════════════════════════════════════════════════════════════════
-          FAQ — slate-50
+          FAQ — dark
       ══════════════════════════════════════════════════════════════════ */}
-      <section className="bg-slate-50 py-24 px-6">
+      <section className="bg-[#0a1220] py-24 px-6">
         <div className="mx-auto max-w-2xl">
           <div className="text-center mb-12">
-            <p className="text-xs font-bold uppercase tracking-widest text-indigo-500 mb-3">FAQ</p>
-            <h2 className="text-3xl font-black text-slate-900 tracking-tight">Common questions</h2>
+            <p className="text-xs font-bold uppercase tracking-widest text-indigo-400 mb-3">FAQ</p>
+            <h2 className="text-3xl font-black text-slate-100 tracking-tight">Common questions</h2>
           </div>
           <div className="space-y-3">
             {FAQS.map((faq, i) => (
               <div key={i}
-                className="rounded-2xl overflow-hidden cursor-pointer bg-white border transition-all duration-200"
-                style={{ borderColor: openFaq === i ? "#a5b4fc" : "#e2e8f0", boxShadow: openFaq === i ? "0 0 0 3px rgba(165,180,252,0.15)" : "none" }}
+                className="rounded-2xl overflow-hidden cursor-pointer bg-[#0d1528] border transition-all duration-200"
+                style={{ borderColor: openFaq === i ? "#6366f1" : "#1c2e4a", boxShadow: openFaq === i ? "0 0 0 1px rgba(99,102,241,0.2)" : "none" }}
                 onClick={() => setOpenFaq(openFaq === i ? null : i)}>
                 <div className="flex items-center justify-between px-6 py-4">
-                  <p className="text-sm font-semibold text-slate-800 pr-4">{faq.q}</p>
+                  <p className="text-sm font-semibold text-slate-200 pr-4">{faq.q}</p>
                   <div className="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 transition-colors"
-                    style={{ background: openFaq === i ? "#4f46e5" : "#f1f5f9" }}>
+                    style={{ background: openFaq === i ? "#4f46e5" : "#162035" }}>
                     <svg className="w-3.5 h-3.5 transition-transform duration-200"
-                      style={{ color: openFaq === i ? "white" : "#94a3b8", transform: openFaq === i ? "rotate(180deg)" : "none" }}
+                      style={{ color: openFaq === i ? "white" : "#475569", transform: openFaq === i ? "rotate(180deg)" : "none" }}
                       fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7"/>
                     </svg>

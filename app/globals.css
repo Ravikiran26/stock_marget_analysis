@@ -1,9 +1,21 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-  --primary: #2563EB;
+  --background: #060c18;
+  --foreground: #e2e8f0;
+  --primary: #6366f1;
+
+  /* Dark surface tokens */
+  --surface-1: #0d1528;
+  --surface-2: #0a1220;
+  --surface-3: #111d33;
+  --border-1: #1c2e4a;
+  --border-2: #162035;
+
+  /* Text tokens */
+  --text-primary: #e2e8f0;
+  --text-secondary: #94a3b8;
+  --text-muted: #475569;
 }
 
 @theme inline {
@@ -22,16 +34,27 @@ body {
 }
 
 /* Premium scrollbar */
-::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar { width: 5px; height: 5px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 999px; }
-::-webkit-scrollbar-thumb:hover { background: #9ca3af; }
+::-webkit-scrollbar-thumb { background: #1c2e4a; border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: #2a4570; }
 
 /* Selection */
-::selection { background: #dbeafe; color: #1e3a8a; }
+::selection { background: rgba(99,102,241,0.25); color: #e2e8f0; }
 
 /* Tabular numbers for financial data */
 .tabular-nums { font-variant-numeric: tabular-nums; }
+
+/* Dark card utility */
+.td-card {
+  background: var(--surface-1);
+  border: 1px solid var(--border-1);
+}
+
+.td-card-2 {
+  background: var(--surface-2);
+  border: 1px solid var(--border-2);
+}
 
 @keyframes marquee {
   0%   { transform: translateX(0); }
