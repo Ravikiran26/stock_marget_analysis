@@ -291,16 +291,23 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {isNewUser && <WelcomeModal />}
 
         {/* ── Footer ─────────────────────────────────────────────────────── */}
-        <footer className="py-8 bg-[#020817] border-t border-white/[0.05]">
-          <div className="max-w-4xl mx-auto px-6 flex flex-col items-center gap-3">
+        <footer className="py-10 bg-[#020817] border-t border-white/[0.05]">
+          <div className="max-w-4xl mx-auto px-6 flex flex-col items-center gap-5">
+            {/* Support — prominent */}
+            <div className="flex items-center gap-2.5 px-4 py-2.5 rounded-xl border border-white/[0.07] bg-white/[0.03]">
+              <svg className="w-3.5 h-3.5 text-indigo-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+              <span className="text-xs text-slate-400">Questions or issues?</span>
+              <a href="mailto:support@tradersdiary.in" className="text-xs font-semibold text-indigo-400 hover:text-indigo-300 transition-colors">
+                support@tradersdiary.in
+              </a>
+            </div>
+            {/* Legal links */}
             <div className="flex flex-wrap items-center justify-center gap-4 text-xs text-slate-600">
               <a href="/privacy" className="hover:text-slate-400 transition-colors">Privacy Policy</a>
               <span>·</span>
               <a href="/terms" className="hover:text-slate-400 transition-colors">Terms of Service</a>
               <span>·</span>
               <a href="/terms#6" className="hover:text-slate-400 transition-colors">Refund Policy</a>
-              <span>·</span>
-              <a href="mailto:support@tradersdiary.in" className="hover:text-slate-400 transition-colors">support@tradersdiary.in</a>
             </div>
             <p className="text-xs text-slate-700 text-center">
               © {new Date().getFullYear()} TradersDiary.in · Not investment advice · For educational use only
