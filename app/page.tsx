@@ -394,49 +394,8 @@ export default function LandingPage() {
       </section>
 
       {/* ══════════════════════════════════════════════════════════════════
-          DEMO SCREENSHOTS
+          DEMO — placeholder until screenshots/video are ready
       ══════════════════════════════════════════════════════════════════ */}
-      <section className="bg-[#0a1220] py-20 px-6 border-t border-white/[0.04]">
-        <div className="mx-auto max-w-5xl">
-          <div className="text-center mb-10">
-            <p className="text-xs font-bold uppercase tracking-widest text-violet-400 mb-3">See it in action</p>
-            <h2 className="text-3xl sm:text-4xl font-black text-slate-100 tracking-tight mb-3">
-              Your journal. Your AI coach.
-            </h2>
-            <p className="text-slate-500 text-sm">Dashboard overview + AI coaching on every trade — all in one place.</p>
-          </div>
-
-          {/* Dashboard — full width */}
-          <div className="rounded-2xl overflow-hidden border border-[#1c2e4a] mb-4"
-            style={{ boxShadow: "0 8px 40px rgba(0,0,0,0.5)" }}>
-            <div className="px-4 py-2.5 bg-[#0d1528] border-b border-[#1c2e4a] flex items-center gap-1.5">
-              <div className="w-2.5 h-2.5 rounded-full bg-red-500/60" />
-              <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/60" />
-              <div className="w-2.5 h-2.5 rounded-full bg-green-500/60" />
-              <span className="text-[10px] text-slate-600 ml-2">tradersdiary.in — Dashboard</span>
-            </div>
-            <div className="h-72 sm:h-96 overflow-hidden">
-              <img src="/demo-dashboard.png" alt="Traders Diary dashboard"
-                className="w-full object-cover object-top" />
-            </div>
-          </div>
-
-          {/* AI Coach — full width */}
-          <div className="rounded-2xl overflow-hidden border border-[#1c2e4a]"
-            style={{ boxShadow: "0 8px 40px rgba(0,0,0,0.5)" }}>
-            <div className="px-4 py-2.5 bg-[#0d1528] border-b border-[#1c2e4a] flex items-center gap-1.5">
-              <div className="w-2.5 h-2.5 rounded-full bg-red-500/60" />
-              <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/60" />
-              <div className="w-2.5 h-2.5 rounded-full bg-green-500/60" />
-              <span className="text-[10px] text-slate-600 ml-2">tradersdiary.in — AI Coach Review</span>
-            </div>
-            <div className="h-72 sm:h-96 overflow-hidden">
-              <img src="/demo-coaching.png" alt="AI Coach trade review"
-                className="w-full object-cover object-top" />
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* ══════════════════════════════════════════════════════════════════
           PRICING — dark
