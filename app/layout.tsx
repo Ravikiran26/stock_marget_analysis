@@ -12,6 +12,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import WelcomeModal from "@/components/WelcomeModal"
 import AuthModal from "@/components/AuthModal"
+import { Analytics } from "@vercel/analytics/react"
 
 const geist = Geist({ subsets: ["latin"], variable: "--font-geist-sans" })
 
@@ -102,6 +103,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23060c18'/%3E%3Cpolyline points='4,22 10,14 16,18 22,8 28,12' fill='none' stroke='%236366f1' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='28' cy='12' r='2' fill='%2322c55e'/%3E%3C/svg%3E" />
         <script src="https://checkout.razorpay.com/v1/checkout.js" async />
       </head>
+      <Analytics />
       <body className="min-h-full flex flex-col bg-[#060c18] text-slate-200 antialiased">
 
         {/* ── Navbar ────────────────────────────────────────────────────── */}
