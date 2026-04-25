@@ -310,6 +310,23 @@ export default function DashboardPage() {
           </div>
         </div>
 
+        {/* ── First-time onboarding banner ── */}
+        {!loadingData && trades.length === 0 && (
+          <div className="rounded-2xl border border-indigo-500/30 bg-indigo-950/30 p-6 flex flex-col sm:flex-row items-start sm:items-center gap-5">
+            <div className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl flex-shrink-0"
+              style={{ background: "linear-gradient(135deg,#4f46e5,#7c3aed)" }}>🚀</div>
+            <div className="flex-1 min-w-0">
+              <p className="font-bold text-slate-100 text-base mb-1">Welcome! Upload your first trade to get started</p>
+              <p className="text-slate-400 text-sm">Upload a screenshot or CSV from Zerodha, Upstox, or Dhan — AI will analyse it and your dashboard will come alive.</p>
+            </div>
+            <a href="/upload"
+              className="flex-shrink-0 inline-flex items-center gap-2 rounded-xl px-5 py-2.5 text-sm font-bold text-white transition-all hover:opacity-90"
+              style={{ background: "linear-gradient(135deg,#4f46e5,#7c3aed)" }}>
+              Upload first trade →
+            </a>
+          </div>
+        )}
+
         {/* ── AI usage indicator (only shown when nearing/hitting limit) ── */}
         <AiUsageBanner />
 

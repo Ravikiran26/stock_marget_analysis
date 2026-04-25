@@ -88,10 +88,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta property="og:title" content="Traders Diary — AI Trade Journal for Indian Traders" />
-        <meta
-          property="og:description"
-          content="Analyse every NSE/BSE trade with live EMAs, VIX, fundamentals and AI coaching. Built for F&O and equity swing traders."
-        />
+        <meta property="og:description" content="Upload your Zerodha, Upstox or Dhan trades. AI analyses every trade, flags overtrading and revenge trading patterns. Free to start." />
+        <meta property="og:url" content="https://tradersdiary.in" />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://tradersdiary.in/og-image.png" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Traders Diary — AI Trade Journal for Indian Traders" />
+        <meta name="twitter:description" content="Upload your Zerodha, Upstox or Dhan trades. AI analyses every trade, flags overtrading and revenge trading patterns. Free to start." />
+        <meta name="twitter:image" content="https://tradersdiary.in/og-image.png" />
         <meta name="theme-color" content="#060c18" />
         <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23060c18'/%3E%3Cpolyline points='4,22 10,14 16,18 22,8 28,12' fill='none' stroke='%236366f1' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='28' cy='12' r='2' fill='%2322c55e'/%3E%3C/svg%3E" />
         <script src="https://checkout.razorpay.com/v1/checkout.js" async />
