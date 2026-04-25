@@ -101,6 +101,7 @@ export default function DashboardPage() {
   const [weeklyReport, setWeeklyReport] = useState<WeeklyReport | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [activeTab, setActiveTab] = useState<Tab>("all")
+  const [proStatus, setProStatus] = useState<{ is_pro: boolean; pro_expires_at: string | null } | null>(null)
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
@@ -115,6 +116,10 @@ export default function DashboardPage() {
   async function loadDashboard() {
     setLoadingData(true)
     setError(null)
+    // Load pro status in background
+    import("@/lib/api").then(({ getProStatus }) =>
+      getProStatus().then(s => setProStatus(s)).catch(() => {})
+    )
     try {
       const [t, s, op] = await Promise.all([
         fetchMyTrades(),
@@ -326,6 +331,35 @@ export default function DashboardPage() {
             </a>
           </div>
         )}
+
+        {/* ── Pro status + renewal info ── */}
+        {proStatus?.is_pro && proStatus.pro_expires_at && (() => {
+          const expiry = new Date(proStatus.pro_expires_at)
+          const daysLeft = Math.ceil((expiry.getTime() - Date.now()) / 86400000)
+          const expiryStr = expiry.toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })
+          const isUrgent = daysLeft <= 7
+          return (
+            <div className={`rounded-2xl border p-4 flex flex-col sm:flex-row sm:items-center gap-3 ${isUrgent ? "border-amber-800/50 bg-amber-950/20" : "border-[#1c2e4a] bg-[#0d1528]"}`}>
+              <div className="flex items-center gap-3 flex-1">
+                <span className="text-lg">{isUrgent ? "⚠️" : "✅"}</span>
+                <div>
+                  <p className={`text-sm font-semibold ${isUrgent ? "text-amber-300" : "text-slate-200"}`}>
+                    Pro plan active — expires {expiryStr}
+                    {isUrgent && <span className="ml-2 text-amber-400">({daysLeft} day{daysLeft !== 1 ? "s" : ""} left)</span>}
+                  </p>
+                  <p className="text-xs text-slate-500 mt-0.5">Your subscription does not auto-renew. Renew manually before expiry to keep unlimited access.</p>
+                </div>
+              </div>
+              {isUrgent && (
+                <a href="/?checkout=pro"
+                  className="flex-shrink-0 text-xs font-bold px-4 py-2 rounded-xl text-white"
+                  style={{ background: "linear-gradient(135deg,#4f46e5,#7c3aed)" }}>
+                  Renew now →
+                </a>
+              )}
+            </div>
+          )
+        })()}
 
         {/* ── AI usage indicator (only shown when nearing/hitting limit) ── */}
         <AiUsageBanner />
