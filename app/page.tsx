@@ -394,42 +394,48 @@ export default function LandingPage() {
       </section>
 
       {/* ══════════════════════════════════════════════════════════════════
-          DEMO SCREENSHOT
+          DEMO SCREENSHOTS
       ══════════════════════════════════════════════════════════════════ */}
       <section className="bg-[#0a1220] py-20 px-6 border-t border-white/[0.04]">
-        <div className="mx-auto max-w-4xl">
+        <div className="mx-auto max-w-5xl">
           <div className="text-center mb-10">
             <p className="text-xs font-bold uppercase tracking-widest text-violet-400 mb-3">See it in action</p>
             <h2 className="text-3xl sm:text-4xl font-black text-slate-100 tracking-tight mb-3">
-              AI coach review on every trade.
+              Your journal. Your AI coach.
             </h2>
-            <p className="text-slate-500 text-sm">Upload your trade — get specific, numbered insights grounded in your actual data.</p>
+            <p className="text-slate-500 text-sm">Dashboard overview + AI coaching on every trade — all in one place.</p>
           </div>
 
-          <div className="relative rounded-2xl overflow-hidden border border-[#1c2e4a]"
-            style={{ boxShadow: "0 0 0 1px rgba(99,102,241,0.15), 0 32px 80px rgba(0,0,0,0.7)" }}>
-            {/* Glow behind image */}
-            <div className="absolute inset-0 pointer-events-none"
-              style={{ background: "radial-gradient(ellipse 80% 50% at 50% 0%, rgba(99,102,241,0.12), transparent 70%)" }} />
-            <img
-              src="/demo-screenshot.png"
-              alt="AI Coach Review — position sizing risk, exit discipline, DTE management analysis"
-              className="w-full h-auto block"
-            />
-          </div>
-
-          <div className="flex flex-wrap items-center justify-center gap-6 mt-8">
-            {[
-              { icon: "🤖", text: "AI reads your actual trade data" },
-              { icon: "📋", text: "Numbered insights, not generic tips" },
-              { icon: "⚠️", text: "Risk flags — position size, stop loss" },
-              { icon: "📅", text: "DTE, Greeks, exit discipline review" },
-            ].map(({ icon, text }) => (
-              <div key={text} className="flex items-center gap-2 text-slate-500 text-xs">
-                <span>{icon}</span>
-                <span>{text}</span>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {/* Dashboard */}
+            <div className="rounded-2xl overflow-hidden border border-[#1c2e4a] flex flex-col"
+              style={{ boxShadow: "0 8px 40px rgba(0,0,0,0.5)" }}>
+              <div className="px-4 py-2.5 bg-[#0d1528] border-b border-[#1c2e4a] flex items-center gap-1.5">
+                <div className="w-2.5 h-2.5 rounded-full bg-red-500/60" />
+                <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/60" />
+                <div className="w-2.5 h-2.5 rounded-full bg-green-500/60" />
+                <span className="text-[10px] text-slate-600 ml-2">Dashboard</span>
               </div>
-            ))}
+              <div className="h-64 overflow-hidden">
+                <img src="/demo-dashboard.png" alt="Traders Diary dashboard"
+                  className="w-full object-cover object-top" />
+              </div>
+            </div>
+
+            {/* AI Coach */}
+            <div className="rounded-2xl overflow-hidden border border-[#1c2e4a] flex flex-col"
+              style={{ boxShadow: "0 8px 40px rgba(0,0,0,0.5)" }}>
+              <div className="px-4 py-2.5 bg-[#0d1528] border-b border-[#1c2e4a] flex items-center gap-1.5">
+                <div className="w-2.5 h-2.5 rounded-full bg-red-500/60" />
+                <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/60" />
+                <div className="w-2.5 h-2.5 rounded-full bg-green-500/60" />
+                <span className="text-[10px] text-slate-600 ml-2">AI Coach Review</span>
+              </div>
+              <div className="h-64 overflow-hidden">
+                <img src="/demo-coaching.png" alt="AI Coach trade review"
+                  className="w-full object-cover object-top" />
+              </div>
+            </div>
           </div>
         </div>
       </section>
