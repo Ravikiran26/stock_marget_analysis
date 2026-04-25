@@ -474,7 +474,7 @@ export async function verifyPayment(payload: {
   return data
 }
 
-export async function getProStatus(): Promise<{ is_pro: boolean; pro_plan: string | null }> {
+export async function getProStatus(): Promise<{ is_pro: boolean; pro_plan: string | null; pro_expires_at: string | null }> {
   const { data } = await api.get("/payments/status")
   return data
 }
