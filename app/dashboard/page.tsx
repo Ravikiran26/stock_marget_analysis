@@ -6,9 +6,9 @@ import { supabase } from "@/lib/supabase"
 import {
   fetchMyTrades, fetchTradeStats, getOpenPositions, getSwingPatterns, getOptionsPatterns,
   getPatternInsights, getExpiryStats, getOptionsDepthStats, getUsage, getIntradayPatterns,
-  getStreak, getWeeklyReport,
+  getStreak, getWeeklyReport, getWeeklyCoach,
   setUserId, Trade, TradeStats, OpenPosition, SwingPatterns, OptionsPatterns, PatternInsight, ExpiryStats, OptionsDepthStats, UsageInfo, IntradayPatterns,
-  StreakInfo, WeeklyReport,
+  StreakInfo, WeeklyReport, WeeklyCoach,
 } from "@/lib/api"
 import OpenPositionsCard from "@/components/OpenPositionsCard"
 import MonthlyShareCard from "@/components/MonthlyShareCard"
@@ -76,6 +76,126 @@ function buildChartData(trades: Trade[]) {
   })
 }
 
+/* ─── Weekly AI Coach ────────────────────────────────────────────────────── */
+function WeeklyCoachSection({ coach, loading }: { coach: WeeklyCoach | null; loading: boolean }) {
+  if (loading) {
+    return (
+      <div className="rounded-2xl bg-[#0d1528] border border-[#1c2e4a] p-6 animate-pulse">
+        <div className="h-4 bg-[#162035] rounded w-40 mb-4" />
+        <div className="space-y-3">
+          {[1,2,3].map(i => <div key={i} className="h-16 bg-[#162035] rounded-xl" />)}
+        </div>
+      </div>
+    )
+  }
+
+  // Not enough trades — show progress bar
+  if (!coach || !coach.ready) {
+    const count = coach?.closed_count ?? 0
+    const min   = coach?.min_trades ?? 15
+    const pct   = Math.min(Math.round((count / min) * 100), 100)
+    return (
+      <div className="rounded-2xl bg-[#0d1528] border border-[#1c2e4a] p-6">
+        <div className="flex items-center gap-3 mb-4">
+          <div className="w-9 h-9 rounded-xl flex items-center justify-center text-lg"
+            style={{ background: "linear-gradient(135deg,#4f46e5,#7c3aed)" }}>🧠</div>
+          <div>
+            <p className="text-sm font-bold text-slate-200">AI Coach</p>
+            <p className="text-xs text-slate-500">Unlocks after {min} closed trades</p>
+          </div>
+        </div>
+        <div className="mb-2 flex justify-between text-xs text-slate-500">
+          <span>{count} trades logged</span>
+          <span>{min - count} more to unlock</span>
+        </div>
+        <div className="w-full h-2 rounded-full bg-[#162035] overflow-hidden">
+          <div className="h-full rounded-full transition-all duration-500"
+            style={{ width: `${pct}%`, background: "linear-gradient(90deg,#4f46e5,#7c3aed)" }} />
+        </div>
+        <p className="text-xs text-slate-600 mt-3">
+          Upload more trades to unlock 3 mistakes, 3 rules, and a do-not-trade warning personalised to your data.
+        </p>
+      </div>
+    )
+  }
+
+  const { mistakes = [], rules = [], do_not_trade } = coach
+
+  return (
+    <div className="rounded-2xl border overflow-hidden"
+      style={{ background: "#0a0f1e", borderColor: "rgba(79,70,229,0.3)" }}>
+
+      {/* Header */}
+      <div className="flex items-center gap-3 px-6 py-4 border-b"
+        style={{ borderColor: "rgba(79,70,229,0.2)", background: "rgba(79,70,229,0.08)" }}>
+        <div className="w-9 h-9 rounded-xl flex items-center justify-center text-lg flex-shrink-0"
+          style={{ background: "linear-gradient(135deg,#4f46e5,#7c3aed)" }}>🧠</div>
+        <div>
+          <p className="text-sm font-bold text-slate-100">AI Coach · This Week</p>
+          <p className="text-xs text-slate-500">Based on your full trade history</p>
+        </div>
+        <span className="ml-auto text-[10px] px-2 py-0.5 rounded-full font-semibold border"
+          style={{ background: "rgba(79,70,229,0.15)", borderColor: "rgba(79,70,229,0.35)", color: "#a5b4fc" }}>
+          ⚠️ Not investment advice
+        </span>
+      </div>
+
+      <div className="p-6 space-y-6">
+
+        {/* 3 Mistakes */}
+        {mistakes.length > 0 && (
+          <div>
+            <p className="text-[10px] font-bold uppercase tracking-widest text-red-400 mb-3">
+              🔴 Your 3 Biggest Mistakes
+            </p>
+            <div className="space-y-3">
+              {mistakes.map((m, i) => (
+                <div key={i} className="rounded-xl px-4 py-3 border"
+                  style={{ background: "rgba(239,68,68,0.05)", borderColor: "rgba(239,68,68,0.15)" }}>
+                  <p className="text-sm font-semibold text-red-300 mb-1">{m.title}</p>
+                  <p className="text-xs text-slate-400 leading-relaxed">{m.body}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* 3 Rules */}
+        {rules.length > 0 && (
+          <div>
+            <p className="text-[10px] font-bold uppercase tracking-widest text-emerald-400 mb-3">
+              ✅ 3 Rules For Next Week
+            </p>
+            <div className="space-y-2">
+              {rules.map((rule, i) => (
+                <div key={i} className="flex items-start gap-3 rounded-xl px-4 py-3 border"
+                  style={{ background: "rgba(16,185,129,0.05)", borderColor: "rgba(16,185,129,0.15)" }}>
+                  <span className="w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-black text-white flex-shrink-0 mt-0.5"
+                    style={{ background: "linear-gradient(135deg,#059669,#10b981)" }}>{i + 1}</span>
+                  <p className="text-xs text-slate-300 leading-relaxed">{rule}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Do Not Trade */}
+        {do_not_trade && (
+          <div className="rounded-xl px-4 py-3 border flex items-start gap-3"
+            style={{ background: "rgba(245,158,11,0.06)", borderColor: "rgba(245,158,11,0.25)" }}>
+            <span className="text-lg flex-shrink-0">🚫</span>
+            <div>
+              <p className="text-[10px] font-bold uppercase tracking-widest text-amber-400 mb-1">Do Not Trade</p>
+              <p className="text-xs text-slate-300 leading-relaxed">{do_not_trade}</p>
+            </div>
+          </div>
+        )}
+
+      </div>
+    </div>
+  )
+}
+
 export default function DashboardPage() {
   const router = useRouter()
   const [checking, setChecking] = useState(true)
@@ -99,6 +219,8 @@ export default function DashboardPage() {
   const [loadingInsights, setLoadingInsights] = useState(false)
   const [streakInfo, setStreakInfo] = useState<StreakInfo | null>(null)
   const [weeklyReport, setWeeklyReport] = useState<WeeklyReport | null>(null)
+  const [weeklyCoach, setWeeklyCoach] = useState<WeeklyCoach | null>(null)
+  const [loadingCoach, setLoadingCoach] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [activeTab, setActiveTab] = useState<Tab>("all")
   const [proStatus, setProStatus] = useState<{ is_pro: boolean; pro_expires_at: string | null } | null>(null)
@@ -129,14 +251,27 @@ export default function DashboardPage() {
       setTrades(t)
       setStats(s)
       setOpenPositions(op)
-      // Load insights + streak + weekly report in background
+      // Load insights + streak + weekly report + coach in background
       loadInsights()
       getStreak().then(setStreakInfo).catch(() => {})
       getWeeklyReport().then(setWeeklyReport).catch(() => {})
+      loadWeeklyCoach()
     } catch {
       setError("Could not load your trading data. Make sure the backend is running.")
     } finally {
       setLoadingData(false)
+    }
+  }
+
+  async function loadWeeklyCoach() {
+    setLoadingCoach(true)
+    try {
+      const result = await getWeeklyCoach()
+      setWeeklyCoach(result)
+    } catch {
+      // coach failing silently is fine
+    } finally {
+      setLoadingCoach(false)
     }
   }
 
@@ -517,6 +652,9 @@ export default function DashboardPage() {
             />
           </div>
         )}
+
+        {/* ── AI Coach ── */}
+        <WeeklyCoachSection coach={weeklyCoach} loading={loadingCoach} />
 
         {/* ── AI Pattern Insights ── */}
         <PatternInsightsSection

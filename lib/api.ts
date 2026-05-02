@@ -450,6 +450,25 @@ export async function getWeeklyReport(): Promise<WeeklyReport> {
   return data
 }
 
+export interface CoachMistake {
+  title: string
+  body: string
+}
+
+export interface WeeklyCoach {
+  ready: boolean
+  closed_count?: number
+  min_trades?: number
+  mistakes?: CoachMistake[]
+  rules?: string[]
+  do_not_trade?: string
+}
+
+export async function getWeeklyCoach(): Promise<WeeklyCoach> {
+  const { data } = await api.get<WeeklyCoach>("/trades/ai-coach")
+  return data
+}
+
 // ── Payments ──────────────────────────────────────────────────────────────────
 
 export interface RazorpayOrder {
