@@ -618,6 +618,75 @@ export default function LandingPage() {
       </section>
 
       {/* ══════════════════════════════════════════════════════════════════
+          TOP 3 FLAGS — dark
+      ══════════════════════════════════════════════════════════════════ */}
+      <section className="bg-[#0a1220] py-24 px-6">
+        <div className="mx-auto max-w-5xl">
+          <div className="text-center mb-14">
+            <p className="text-xs font-bold uppercase tracking-widest text-rose-400 mb-3">Behaviour Flags</p>
+            <h2 className="text-3xl sm:text-4xl font-black text-slate-100 tracking-tight mb-3">
+              3 patterns that drain most F&amp;O accounts
+            </h2>
+            <p className="text-slate-500 text-sm max-w-md mx-auto">
+              Traders Diary flags each one automatically — with your own numbers, not generic advice.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+
+            {/* Overtrading */}
+            <div className="rounded-2xl p-7 bg-[#0d1528] border border-[#1c2e4a] hover:border-amber-500/30 transition-all duration-200 flex flex-col gap-4">
+              <div className="w-11 h-11 rounded-xl flex items-center justify-center text-xl bg-amber-500/10 border border-amber-500/20">⚠️</div>
+              <div>
+                <p className="text-[10px] font-bold uppercase tracking-widest text-amber-400 mb-2">Overtrading</p>
+                <h3 className="text-slate-100 font-black text-lg mb-2 leading-tight">Your P&L by trade number per day</h3>
+                <p className="text-slate-500 text-sm leading-relaxed">
+                  Trade 1 and 2 are profitable. Trade 5+ are not. We plot this for you so you can see exactly where to stop each day.
+                </p>
+              </div>
+              <div className="mt-auto rounded-xl px-4 py-3 bg-[#0a1220] border border-amber-800/30">
+                <p className="text-[10px] text-amber-400/70 mb-1">Typical finding</p>
+                <p className="text-sm font-bold text-slate-200">&ldquo;Your win rate drops from 62% → 28% after trade 3&rdquo;</p>
+              </div>
+            </div>
+
+            {/* Revenge trading */}
+            <div className="rounded-2xl p-7 bg-[#0d1528] border border-[#1c2e4a] hover:border-rose-500/30 transition-all duration-200 flex flex-col gap-4">
+              <div className="w-11 h-11 rounded-xl flex items-center justify-center text-xl bg-rose-500/10 border border-rose-500/20">🔁</div>
+              <div>
+                <p className="text-[10px] font-bold uppercase tracking-widest text-rose-400 mb-2">Revenge Trading</p>
+                <h3 className="text-slate-100 font-black text-lg mb-2 leading-tight">Post-loss win rate vs your baseline</h3>
+                <p className="text-slate-500 text-sm leading-relaxed">
+                  Detects every trade placed within 15 minutes of a loss. Compares that win rate to your normal. Exposes the spiral.
+                </p>
+              </div>
+              <div className="mt-auto rounded-xl px-4 py-3 bg-[#0a1220] border border-rose-800/30">
+                <p className="text-[10px] text-rose-400/70 mb-1">Typical finding</p>
+                <p className="text-sm font-bold text-slate-200">&ldquo;Post-loss trades win 19% vs your 54% baseline&rdquo;</p>
+              </div>
+            </div>
+
+            {/* Expiry edge */}
+            <div className="rounded-2xl p-7 bg-[#0d1528] border border-[#1c2e4a] hover:border-violet-500/30 transition-all duration-200 flex flex-col gap-4">
+              <div className="w-11 h-11 rounded-xl flex items-center justify-center text-xl bg-violet-500/10 border border-violet-500/20">📅</div>
+              <div>
+                <p className="text-[10px] font-bold uppercase tracking-widest text-violet-400 mb-2">Expiry Day Analysis</p>
+                <h3 className="text-slate-100 font-black text-lg mb-2 leading-tight">Thursday win rate vs rest of week</h3>
+                <p className="text-slate-500 text-sm leading-relaxed">
+                  Most F&amp;O traders lose more on expiry day. We show your day-by-day breakdown and Thursday week-of-month data.
+                </p>
+              </div>
+              <div className="mt-auto rounded-xl px-4 py-3 bg-[#0a1220] border border-violet-800/30">
+                <p className="text-[10px] text-violet-400/70 mb-1">Typical finding</p>
+                <p className="text-sm font-bold text-slate-200">&ldquo;Thursday: 31% win rate vs Monday: 61%&rdquo;</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════════════════════
           PRICING — dark
       ══════════════════════════════════════════════════════════════════ */}
       <section className="bg-[#060c18] py-24 px-6">
@@ -777,79 +846,6 @@ export default function LandingPage() {
             <FeatureCard icon="🔁" title="Revenge trading flag" color="rose"
               desc="Detects when you trade emotionally after a loss. Shows post-loss win rate vs normal win rate." />
 
-          </div>
-        </div>
-      </section>
-
-      {/* ══════════════════════════════════════════════════════════════════
-          BUILT FOR INDIA — dark
-      ══════════════════════════════════════════════════════════════════ */}
-      <section className="bg-[#060c18] py-24 px-6">
-        <div className="mx-auto max-w-5xl">
-          <div className="mb-14 text-center">
-            <p className="text-xs font-bold uppercase tracking-widest text-cyan-400 mb-3">Built for India</p>
-            <h2 className="text-3xl sm:text-4xl font-black text-slate-100 tracking-tight mb-3">
-              The only journal that speaks NSE natively.
-            </h2>
-            <p className="text-slate-500 text-sm max-w-md mx-auto">
-              Every other tool is built for US stocks. Traders Diary is built from scratch for F&O, NSE, and ₹.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {[
-              { icon: "⚡", title: "F&O aware",           desc: "CE/PE, lot sizes, weekly expiry, DTE, theta decay. Not adapted — native."             },
-              { icon: "📉", title: "VIX + Greeks",         desc: "India VIX, Delta/Gamma/Theta/Vega computed at exact trade time via Black-Scholes."    },
-              { icon: "💹", title: "Index options",        desc: "NIFTY, BANKNIFTY, FINNIFTY, SENSEX — underlying trend and EMA structure included."    },
-              { icon: "₹",  title: "INR native",           desc: "All P&L in rupees. Lot-based calculations. ₹ throughout — not a USD tool adapted."    },
-              { icon: "📅", title: "Expiry intelligence",  desc: "Day-of-week win rates + Thursday week-of-month breakdown. Know your expiry edge cold." },
-              { icon: "🗂️", title: "CSV import",             desc: "Upload P&L reports from Zerodha, Upstox, Angel One, or Dhan directly. Full history loaded in seconds." },
-            ].map(f => (
-              <div key={f.title} className="rounded-2xl p-5 flex gap-4 bg-[#0d1528] border border-[#1c2e4a] hover:border-[#2a4570] transition-colors">
-                <div className="w-10 h-10 rounded-xl bg-[#0a1220] border border-[#1c2e4a] flex items-center justify-center text-lg flex-shrink-0">{f.icon}</div>
-                <div>
-                  <p className="text-slate-200 font-semibold text-sm mb-1">{f.title}</p>
-                  <p className="text-slate-500 text-xs leading-relaxed">{f.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ══════════════════════════════════════════════════════════════════
-          HOW IT WORKS — dark
-      ══════════════════════════════════════════════════════════════════ */}
-      <section className="bg-[#0a1220] py-24 px-6">
-        <div className="mx-auto max-w-2xl">
-          <div className="mb-14 text-center">
-            <p className="text-xs font-bold uppercase tracking-widest text-violet-400 mb-3">How it works</p>
-            <h2 className="text-3xl sm:text-4xl font-black text-slate-100 tracking-tight">
-              Screenshot to insight in 10 seconds.
-            </h2>
-          </div>
-          <div className="space-y-5">
-            {[
-              { n:"01", title:"Upload a screenshot or CSV",      body:"Drag from Zerodha Kite, Upstox, Angel One, or Dhan — or import your P&L report. Takes 10 seconds.",         tag:"Quick import" },
-              { n:"02", title:"AI extracts every field",         body:"Symbol, action, CE/PE, strike, lot size, entry, exit, P&L — all read automatically. Zero manual entry.", tag:"Zero effort"  },
-              { n:"03", title:"Live F&O context attached",       body:"VIX, DTE, Greeks, NIFTY trend, OTM/ATM/ITM classification — fetched automatically at trade time.",       tag:"Real-time"    },
-              { n:"04", title:"Read your AI trade review",           body:"5 numbered insights grounded in your actual numbers — entry quality, timing, risk-reward, what to fix.",  tag:"5 insights"   },
-              { n:"05", title:"Spot behaviour patterns",         body:"Dashboard flags overtrading days, revenge trade spirals, expiry day edge, best underlying. Your blind spots revealed.", tag:"Patterns" },
-            ].map(({ n, title, body, tag }) => (
-              <div key={n} className="flex gap-4 bg-[#0d1528] rounded-2xl p-5 border border-[#1c2e4a] hover:border-[#2a4570] transition-colors">
-                <div className="w-10 h-10 rounded-xl flex items-center justify-center text-xs font-black text-white flex-shrink-0"
-                  style={{ background: "linear-gradient(135deg,#4f46e5,#7c3aed)", boxShadow: "0 4px 16px rgba(79,70,229,0.35)" }}>
-                  {n}
-                </div>
-                <div className="flex-1">
-                  <div className="flex items-center gap-2 mb-1 flex-wrap">
-                    <p className="text-slate-100 font-bold text-sm">{title}</p>
-                    <span className="text-[10px] px-2 py-0.5 rounded-full font-semibold bg-indigo-950/60 text-indigo-300 border border-indigo-800/50">{tag}</span>
-                  </div>
-                  <p className="text-slate-500 text-sm leading-relaxed">{body}</p>
-                </div>
-              </div>
-            ))}
           </div>
         </div>
       </section>
