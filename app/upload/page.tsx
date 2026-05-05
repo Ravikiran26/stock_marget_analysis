@@ -36,10 +36,12 @@ type TradeDirection = "open" | "close"
 type UploadMode = "screenshot" | "csv"
 
 const BROKERS = [
-  { value: "zerodha",  label: "Zerodha",  note: "Tradebook / P&L CSV" },
-  { value: "upstox",   label: "Upstox",   note: "Trade history CSV" },
-  { value: "groww",    label: "Groww",    note: "P&L or transaction CSV" },
-  { value: "dhan",     label: "Dhan",     note: "P&L Report (XLS)" },
+  { value: "auto",      label: "Auto-detect", note: "AI reads your columns automatically" },
+  { value: "zerodha",   label: "Zerodha",     note: "Tradebook / P&L CSV" },
+  { value: "upstox",    label: "Upstox",      note: "Trade history CSV" },
+  { value: "angelone",  label: "Angel One",   note: "Net Position / P&L XLS" },
+  { value: "groww",     label: "Groww",       note: "P&L or transaction CSV" },
+  { value: "dhan",      label: "Dhan",        note: "P&L Report (XLS)" },
 ]
 
 const INSTRUMENTS: { value: Instrument; label: string; sub: string; icon: string }[] = [
@@ -457,8 +459,10 @@ function UploadPageInner() {
                 <div className="rounded-xl bg-amber-50 border border-amber-100 px-4 py-3 text-xs text-amber-700 flex gap-2">
                   <span className="mt-0.5">💡</span>
                   <span>
+                    {csvBroker === "auto" && "Upload any broker CSV — AI will read the column names and map them automatically. Works with any broker."}
                     {csvBroker === "zerodha" && "In Zerodha Console → Reports → Tradebook → select date range → Download CSV"}
                     {csvBroker === "upstox" && "In Upstox → Reports → Trade History → select date range → Export to CSV"}
+                    {csvBroker === "angelone" && "In Angel One → Smart Back Office → Reports → Net Position Report → select date range → Download Excel"}
                     {csvBroker === "groww" && "In Groww → P&L → Download P&L Report or Transaction Statement (CSV)"}
                     {csvBroker === "dhan" && "In Dhan → Reports → P&L Report → select date range → Download Report"}
                   </span>
