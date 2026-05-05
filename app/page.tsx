@@ -127,7 +127,7 @@ const FAQS = [
   { q: "Is my trade data private?", a: "Yes — completely. Trades are stored in your private account only. Nobody else can see your journal. We never share or sell data." },
   { q: "Does this give buy/sell recommendations?", a: "No. Traders Diary is an educational trade journal. The AI reviews your past trades only — never tells you what to buy or sell. All outputs end with 'Not investment advice.'" },
   { q: "Which brokers are supported?", a: "CSV import is supported for Zerodha (Tax P&L / Tradebook), Upstox, Angel One (Net Position Report), and Dhan (P&L Report). Screenshot upload works with any broker — AI reads the image directly." },
-  { q: "How does the AI trade review work?", a: "Each trade is analysed with live data — VIX, DTE, Greeks, OTM/ATM/ITM classification, NIFTY trend — generating 5 specific insights grounded in your actual numbers. You get 10 free trade autopsies to start; after that, upgrade to Pro for unlimited." },
+  { q: "How does the AI trade review work?", a: "Each trade is analysed with live data — VIX, DTE, Greeks, OTM/ATM/ITM classification, NIFTY trend — generating 5 specific insights grounded in your actual numbers. You get 50 free trade autopsies to start; after that, upgrade to Pro for unlimited." },
   { q: "What are behaviour patterns?", a: "After enough trades, Traders Diary automatically detects your personal patterns: days you overtrade, revenge trading spirals after losses, expiry day win rates, best underlying symbols, best time slots. These are shown on your dashboard — no extra steps needed." },
   { q: "Is this a SEBI registered investment adviser?", a: "No — and it does not need to be. Traders Diary is a journaling and analytics tool. It only reviews trades you have already completed — retrospective analysis only. It never tells you what to buy or sell. All outputs end with 'Not investment advice.'" },
 ]
@@ -369,22 +369,39 @@ export default function LandingPage() {
 
           {/* Headline */}
           <h1 className="animate-fade-up delay-100 font-black tracking-tight leading-[1.06] mb-6 text-white"
-            style={{ fontSize: "clamp(2.8rem, 5.5vw, 5rem)" }}>
-            Fix Revenge Trading<br />
+            style={{ fontSize: "clamp(2.4rem, 5vw, 4.6rem)" }}>
+            Upload a Zerodha Screenshot.<br />
             <span style={{
               background: "linear-gradient(135deg, #c4b5fd 0%, #a78bfa 35%, #818cf8 65%, #67e8f9 100%)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               backgroundClip: "text",
-            }}>Before It Wipes Your Account.</span>
+            }}>AI Flags Your Revenge Trades.</span>
           </h1>
 
           {/* Subheading */}
-          <p className="animate-fade-up delay-200 text-lg leading-relaxed max-w-2xl mx-auto mb-10 text-white/60">
-            Upload Zerodha or Upstox screenshots — AI runs a full{" "}
-            <span className="text-white/90 font-medium">trade autopsy, flags overtrading, expiry mistakes, and revenge trading patterns</span>
-            {" "}grounded in your actual numbers. Past trades only — no future signals.
+          <p className="animate-fade-up delay-200 text-lg leading-relaxed max-w-2xl mx-auto mb-8 text-white/60">
+            Drop any broker screenshot — AI runs a full{" "}
+            <span className="text-white/90 font-medium">trade autopsy in 10 seconds: overtrading pattern, expiry mistakes, revenge spirals</span>
+            {" "}— grounded in your numbers. Past trades only. No future signals.
           </p>
+
+          {/* Broker logos */}
+          <div className="animate-fade-up delay-250 flex flex-wrap items-center justify-center gap-3 mb-8">
+            <span className="text-[10px] uppercase tracking-widest text-white/25 mr-1">Works with</span>
+            {[
+              { name: "Zerodha",    color: "#387ed1", bg: "rgba(56,126,209,0.12)",  border: "rgba(56,126,209,0.25)"  },
+              { name: "Upstox",     color: "#7e57f4", bg: "rgba(126,87,244,0.12)", border: "rgba(126,87,244,0.25)"  },
+              { name: "Angel One",  color: "#e63946", bg: "rgba(230,57,70,0.10)",  border: "rgba(230,57,70,0.22)"   },
+              { name: "Dhan",       color: "#00b4d8", bg: "rgba(0,180,216,0.10)",  border: "rgba(0,180,216,0.22)"   },
+            ].map(({ name, color, bg, border }) => (
+              <span key={name} className="text-xs font-bold px-3 py-1.5 rounded-lg"
+                style={{ color, background: bg, border: `1px solid ${border}` }}>
+                {name}
+              </span>
+            ))}
+            <span className="text-[10px] text-white/20">+ any screenshot</span>
+          </div>
 
           {/* CTAs */}
           <div className="animate-fade-up delay-300 flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
@@ -406,7 +423,7 @@ export default function LandingPage() {
                 <svg className="w-3.5 h-3.5 text-emerald-400" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/>
                 </svg>
-                10 free trade autopsies · No card needed
+                50 free trade autopsies · No card needed
               </div>
               <div className="flex items-center gap-1.5 text-white/25 text-xs">
                 <svg className="w-3 h-3 text-white/30" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
@@ -477,7 +494,7 @@ export default function LandingPage() {
       <section className="bg-[#060c18] py-20 px-6">
         <div className="mx-auto max-w-4xl grid grid-cols-2 sm:grid-cols-4 gap-8 text-center">
           {[
-            { val: "₹0",   label: "To start",               sub: "10 free AI trade autopsies, no card" },
+            { val: "₹0",   label: "To start",               sub: "50 free AI trade autopsies, no card" },
             { val: "Thursday", label: "Expiry analysis",  sub: "Win rate by week-of-month breakdown" },
             { val: "CE/PE", label: "Options native",      sub: "Lot sizes, DTE, Greeks, OTM/ATM/ITM" },
             { val: "4",    label: "Brokers supported",    sub: "Zerodha · Upstox · Angel One · Dhan" },
@@ -611,9 +628,58 @@ export default function LandingPage() {
               <GoogleIcon size={16} />
               Get your own trade autopsy free
             </button>
-            <p className="text-xs text-slate-600 mt-3">Upload any broker screenshot · 10 free autopsies · No card needed</p>
+            <p className="text-xs text-slate-600 mt-3">Upload any broker screenshot · 50 free autopsies · No card needed</p>
           </div>
 
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════════════════════
+          TESTIMONIALS — dark
+      ══════════════════════════════════════════════════════════════════ */}
+      <section className="bg-[#060c18] py-20 px-6 border-t border-white/[0.03]">
+        <div className="mx-auto max-w-5xl">
+          <p className="text-center text-[10px] uppercase tracking-[0.2em] font-semibold text-slate-600 mb-10">
+            What beta traders found in their data
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+            {[
+              {
+                quote: "Found out I was revenge trading every Thursday after expiry losses. Just stopping that one pattern — up ₹18k this month.",
+                name: "R.K.", city: "Pune", broker: "Zerodha",
+                color: "#387ed1",
+              },
+              {
+                quote: "My expiry day win rate was 31%. Non-expiry was 58%. I had no idea. That single number changed how I trade Thursdays.",
+                name: "A.M.", city: "Mumbai", broker: "Upstox",
+                color: "#7e57f4",
+              },
+              {
+                quote: "Used to take 7–8 trades a day. The overtrading chart showed I was profitable only on trade 1 and 2. Everything after that was giving it back.",
+                name: "S.P.", city: "Hyderabad", broker: "Angel One",
+                color: "#e63946",
+              },
+            ].map(({ quote, name, city, broker, color }) => (
+              <div key={name} className="rounded-2xl p-6 bg-[#0d1528] border border-[#1c2e4a] flex flex-col gap-4">
+                <div className="flex gap-0.5">
+                  {[...Array(5)].map((_,i) => (
+                    <svg key={i} className="w-3.5 h-3.5 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                    </svg>
+                  ))}
+                </div>
+                <p className="text-slate-300 text-sm leading-relaxed flex-1">&ldquo;{quote}&rdquo;</p>
+                <div className="flex items-center gap-2.5 pt-2 border-t border-[#1c2e4a]">
+                  <div className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-black text-white"
+                    style={{ background: color }}>{name[0]}</div>
+                  <div>
+                    <p className="text-slate-300 text-xs font-semibold">{name}, {city}</p>
+                    <p className="text-[10px] font-medium" style={{ color }}>{broker} · Beta user</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -714,7 +780,7 @@ export default function LandingPage() {
               <p className="text-slate-500 text-xs mb-6">Forever · No card needed</p>
               <ul className="space-y-2.5 mb-6 flex-1">
                 {[
-                  { label: "10 free trade autopsies (lifetime)", on: true },
+                  { label: "50 free trade autopsies (lifetime)", on: true },
                   { label: "Screenshot upload", on: true },
                   { label: "Zerodha · Upstox · Angel One · Dhan CSV", on: true },
                   { label: "Basic P&L dashboard", on: true },

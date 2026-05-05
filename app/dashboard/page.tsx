@@ -1895,7 +1895,7 @@ function AiUsageBanner() {
           </div>
           <div>
             <p className="text-sm font-bold text-violet-200">You&apos;ve used all {ai_analyses_limit} free AI analyses</p>
-            <p className="text-xs text-violet-400 mt-0.5">Journaling &amp; all dashboards remain free forever. Upgrade for unlimited AI coaching.</p>
+            <p className="text-xs text-violet-400 mt-0.5">Journaling &amp; all dashboards remain free forever. Upgrade for unlimited AI trade reviews.</p>
           </div>
         </div>
         <div className="flex items-center gap-2 flex-shrink-0">
@@ -2144,7 +2144,7 @@ function EmptyTrades() {
       </div>
       <div className="text-center">
         <p className="text-sm font-medium text-slate-300">No trades logged</p>
-        <p className="text-xs text-slate-500 mt-1">Upload a screenshot to get AI coaching on your first trade</p>
+        <p className="text-xs text-slate-500 mt-1">Upload a screenshot to get an AI trade review on your first trade</p>
       </div>
       <a href="/upload" className="text-xs font-semibold text-indigo-400 hover:text-indigo-300 bg-indigo-950/40 hover:bg-indigo-950/60 border border-indigo-900/50 px-3 py-1.5 rounded-lg transition-colors">
         Upload first trade →
