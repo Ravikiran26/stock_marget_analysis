@@ -127,7 +127,7 @@ const FAQS = [
   { q: "Is my trade data private?", a: "Yes — completely. Trades are stored in your private account only. Nobody else can see your journal. We never share or sell data." },
   { q: "Does this give buy/sell recommendations?", a: "No. Traders Diary is an educational trade journal. The AI reviews your past trades only — never tells you what to buy or sell. All outputs end with 'Not investment advice.'" },
   { q: "Which brokers are supported?", a: "CSV import is supported for Zerodha (Tax P&L / Tradebook), Upstox, Angel One (Net Position Report), and Dhan (P&L Report). Screenshot upload works with any broker — AI reads the image directly." },
-  { q: "How does the AI coaching work?", a: "Each trade is analysed with live data — VIX, DTE, Greeks, OTM/ATM/ITM classification, NIFTY trend — generating 5 specific insights grounded in your actual numbers. You get 10 AI analyses free; after that, upgrade to Pro for unlimited." },
+  { q: "How does the AI coaching work?", a: "Each trade is analysed with live data — VIX, DTE, Greeks, OTM/ATM/ITM classification, NIFTY trend — generating 5 specific insights grounded in your actual numbers. You get 10 free trade autopsies to start; after that, upgrade to Pro for unlimited." },
   { q: "What are behaviour patterns?", a: "After enough trades, Traders Diary automatically detects your personal patterns: days you overtrade, revenge trading spirals after losses, expiry day win rates, best underlying symbols, best time slots. These are shown on your dashboard — no extra steps needed." },
   { q: "Is this a SEBI registered investment adviser?", a: "No — and it does not need to be. Traders Diary is a journaling and analytics tool. It only reviews trades you have already completed — retrospective analysis only. It never tells you what to buy or sell. All outputs end with 'Not investment advice.'" },
 ]
@@ -139,6 +139,76 @@ const BROKERS = [
   "Zerodha","Upstox","Angel One","Dhan",
   "Zerodha","Upstox","Angel One","Dhan",
 ]
+
+/* ─── Pro Annual card ────────────────────────────────────────────────────── */
+function ProAnnualCard() {
+  const [loading, setLoading] = useState(false)
+  const [status, setStatus] = useState<"idle" | "success" | "error">("idle")
+
+  async function handleUpgrade() {
+    const { data: { session } } = await supabase.auth.getSession()
+    if (!session) {
+      track("signup_clicked", { source: "pricing_annual" })
+      await signInWithGoogle("/?checkout=pro_yearly")
+      return
+    }
+    setLoading(true)
+    track("upgrade_started", { plan: "yearly" })
+    try {
+      const result = await startProCheckout("yearly")
+      if (result === "success") { setStatus("success"); track("upgrade_completed", { plan: "yearly" }) }
+      else setStatus("error")
+    } catch { setStatus("error") }
+    finally { setLoading(false) }
+  }
+
+  return (
+    <div className="rounded-2xl p-7 relative overflow-hidden text-white flex flex-col border"
+      style={{ background: "#0d1528", borderColor: "#1c2e4a" }}>
+      <div className="absolute top-4 right-4 text-[10px] font-bold px-2 py-0.5 rounded-full"
+        style={{ background: "rgba(16,185,129,0.2)", border: "1px solid rgba(16,185,129,0.35)", color: "#6ee7b7" }}>
+        Save ₹2,489/yr
+      </div>
+      <p className="text-xs font-bold uppercase tracking-widest text-emerald-400 mb-3">Pro · Annual</p>
+      <div className="flex items-baseline gap-1 mb-0.5">
+        <span className="text-4xl font-black text-slate-100">₹291</span>
+        <span className="text-sm text-white/50 mb-1">/mo</span>
+      </div>
+      <p className="text-slate-500 text-xs mb-1">Billed as ₹3,499/year</p>
+      <p className="text-emerald-400 text-xs font-semibold mb-6">vs ₹5,988 if paid monthly</p>
+      <ul className="space-y-2.5 mb-6 flex-1">
+        {[
+          "Everything in Pro",
+          "Best value — 2 months free",
+          "Unlimited AI trade autopsies",
+          "Full pattern dashboard",
+          "Overtrading + revenge flags",
+          "Expiry day edge reports",
+          "All brokers supported",
+        ].map(f => (
+          <li key={f} className="flex items-center gap-2.5 text-xs text-white/70">
+            <svg className="w-3.5 h-3.5 text-emerald-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"/>
+            </svg>
+            {f}
+          </li>
+        ))}
+      </ul>
+      {status === "success" ? (
+        <div className="w-full rounded-xl py-2.5 text-xs font-bold text-center text-emerald-300 bg-emerald-950/40 border border-emerald-800/40">
+          Payment successful! You&apos;re now Pro.
+        </div>
+      ) : (
+        <button onClick={handleUpgrade} disabled={loading}
+          className="w-full rounded-xl py-2.5 text-xs font-bold text-white transition-all hover:opacity-90 disabled:opacity-60 flex items-center justify-center gap-2 border border-emerald-700/50"
+          style={{ background: "linear-gradient(135deg,#065f46,#047857)" }}>
+          {loading ? <><span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />Processing…</> : "Get Annual Plan →"}
+        </button>
+      )}
+      {status === "error" && <p className="text-xs text-red-400 text-center mt-3">Payment failed. Please try again.</p>}
+    </div>
+  )
+}
 
 /* ─── Pro pricing card with live Razorpay checkout ──────────────────────── */
 function ProCard() {
@@ -329,11 +399,17 @@ export default function LandingPage() {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7"/>
               </svg>
             </button>
-            <div className="flex items-center gap-2 text-white/40 text-sm">
-              <svg className="w-3.5 h-3.5 text-emerald-400" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/>
-              </svg>
-              Find your biggest mistake pattern · No card needed
+            <div className="flex flex-col items-center gap-1.5 text-sm">
+              <div className="flex items-center gap-2 text-white/40">
+                <svg className="w-3.5 h-3.5 text-emerald-400" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/>
+                </svg>
+                10 free trade autopsies · No card needed
+              </div>
+              <div className="flex items-center gap-1.5 text-white/25 text-xs">
+                <svg className="w-3 h-3 text-white/30" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                Your data is never shared with your broker
+              </div>
             </div>
           </div>
 
@@ -546,7 +622,11 @@ export default function LandingPage() {
             <h2 className="text-3xl sm:text-4xl font-black text-slate-100 tracking-tight mb-3">
               Start free. No card needed.
             </h2>
-            <p className="text-slate-500 text-sm">Upgrade when you&apos;re ready to go unlimited.</p>
+            <p className="text-slate-500 text-sm mb-4">Upgrade when you&apos;re ready to go unlimited.</p>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold"
+              style={{ background: "rgba(16,185,129,0.1)", border: "1px solid rgba(16,185,129,0.2)", color: "#6ee7b7" }}>
+              💸 ₹499/month = cost of one bad revenge trade. One fix pays for a year.
+            </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
@@ -560,7 +640,7 @@ export default function LandingPage() {
               <p className="text-slate-500 text-xs mb-6">Forever · No card needed</p>
               <ul className="space-y-2.5 mb-6 flex-1">
                 {[
-                  { label: "10 AI analyses (lifetime)", on: true },
+                  { label: "10 free trade autopsies (lifetime)", on: true },
                   { label: "Screenshot upload", on: true },
                   { label: "Zerodha · Upstox · Angel One · Dhan CSV", on: true },
                   { label: "Basic P&L dashboard", on: true },
@@ -588,44 +668,8 @@ export default function LandingPage() {
             {/* Pro */}
             <ProCard />
 
-            {/* Elite — coming soon */}
-            <div className="rounded-2xl p-7 relative overflow-hidden text-white flex flex-col"
-              style={{
-                background: "linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)",
-                border: "1px solid rgba(99,102,241,0.25)",
-              }}>
-              <div className="absolute top-4 right-4 text-[10px] font-bold px-2 py-0.5 rounded-full"
-                style={{ background: "rgba(99,102,241,0.15)", border: "1px solid rgba(99,102,241,0.3)", color: "#a5b4fc" }}>
-                Coming soon
-              </div>
-              <p className="text-xs font-bold uppercase tracking-widest text-indigo-300 mb-3">Elite</p>
-              <div className="flex items-baseline gap-1 mb-1">
-                <span className="text-4xl font-black">₹999</span>
-                <span className="text-sm text-white/50 mb-1">/mo</span>
-              </div>
-              <p className="text-white/30 text-xs mb-6">Coming soon</p>
-              <ul className="space-y-2.5 mb-6 flex-1">
-                {[
-                  "Everything in Pro",
-                  "Weekly AI review report",
-                  "Priority support",
-                  "Advanced sector analytics",
-                  "Custom trade tags & notes",
-                  "Export to PDF/Excel",
-                  "Early access to features",
-                ].map(f => (
-                  <li key={f} className="flex items-center gap-2.5 text-xs text-white/50">
-                    <svg className="w-3.5 h-3.5 text-indigo-400/60 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"/></svg>
-                    {f}
-                  </li>
-                ))}
-              </ul>
-              <button disabled
-                className="w-full rounded-xl py-2.5 text-xs font-bold text-white/30 cursor-not-allowed"
-                style={{ background: "rgba(99,102,241,0.1)", border: "1px solid rgba(99,102,241,0.2)" }}>
-                Launching soon
-              </button>
-            </div>
+            {/* Pro Annual */}
+            <ProAnnualCard />
 
           </div>
         </div>
