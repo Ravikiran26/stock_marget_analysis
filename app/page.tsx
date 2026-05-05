@@ -127,7 +127,7 @@ const FAQS = [
   { q: "Is my trade data private?", a: "Yes — completely. Trades are stored in your private account only. Nobody else can see your journal. We never share or sell data." },
   { q: "Does this give buy/sell recommendations?", a: "No. Traders Diary is an educational trade journal. The AI reviews your past trades only — never tells you what to buy or sell. All outputs end with 'Not investment advice.'" },
   { q: "Which brokers are supported?", a: "CSV import is supported for Zerodha (Tax P&L / Tradebook), Upstox, Angel One (Net Position Report), and Dhan (P&L Report). Screenshot upload works with any broker — AI reads the image directly." },
-  { q: "How does the AI trade review work?", a: "Each trade is analysed with live data — VIX, DTE, Greeks, OTM/ATM/ITM classification, NIFTY trend — generating 5 specific insights grounded in your actual numbers. You get 50 free trade autopsies to start; after that, upgrade to Pro for unlimited." },
+  { q: "How does the AI trade review work?", a: "Each trade is analysed with live data — VIX, DTE, Greeks, OTM/ATM/ITM classification, NIFTY trend — generating 5 specific insights grounded in your actual numbers. You get 10 free trade autopsies to start; after that, upgrade to Pro for unlimited." },
   { q: "What are behaviour patterns?", a: "After enough trades, Traders Diary automatically detects your personal patterns: days you overtrade, revenge trading spirals after losses, expiry day win rates, best underlying symbols, best time slots. These are shown on your dashboard — no extra steps needed." },
   { q: "Is this a SEBI registered investment adviser?", a: "No — and it does not need to be. Traders Diary is a journaling and analytics tool. It only reviews trades you have already completed — retrospective analysis only. It never tells you what to buy or sell. All outputs end with 'Not investment advice.'" },
 ]
@@ -423,7 +423,7 @@ export default function LandingPage() {
                 <svg className="w-3.5 h-3.5 text-emerald-400" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/>
                 </svg>
-                50 free trade autopsies · No card needed
+                10 free trade autopsies · No card needed
               </div>
               <div className="flex items-center gap-1.5 text-white/25 text-xs">
                 <svg className="w-3 h-3 text-white/30" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
@@ -494,7 +494,7 @@ export default function LandingPage() {
       <section className="bg-[#060c18] py-20 px-6">
         <div className="mx-auto max-w-4xl grid grid-cols-2 sm:grid-cols-4 gap-8 text-center">
           {[
-            { val: "₹0",   label: "To start",               sub: "50 free AI trade autopsies, no card" },
+            { val: "₹0",   label: "To start",               sub: "10 free AI trade autopsies, no card" },
             { val: "Thursday", label: "Expiry analysis",  sub: "Win rate by week-of-month breakdown" },
             { val: "CE/PE", label: "Options native",      sub: "Lot sizes, DTE, Greeks, OTM/ATM/ITM" },
             { val: "4",    label: "Brokers supported",    sub: "Zerodha · Upstox · Angel One · Dhan" },
@@ -628,7 +628,7 @@ export default function LandingPage() {
               <GoogleIcon size={16} />
               Get your own trade autopsy free
             </button>
-            <p className="text-xs text-slate-600 mt-3">Upload any broker screenshot · 50 free autopsies · No card needed</p>
+            <p className="text-xs text-slate-600 mt-3">Upload any broker screenshot · 10 free autopsies · No card needed</p>
           </div>
 
         </div>
@@ -780,7 +780,7 @@ export default function LandingPage() {
               <p className="text-slate-500 text-xs mb-6">Forever · No card needed</p>
               <ul className="space-y-2.5 mb-6 flex-1">
                 {[
-                  { label: "50 free trade autopsies (lifetime)", on: true },
+                  { label: "10 free trade autopsies (lifetime)", on: true },
                   { label: "Screenshot upload", on: true },
                   { label: "Zerodha · Upstox · Angel One · Dhan CSV", on: true },
                   { label: "Basic P&L dashboard", on: true },
