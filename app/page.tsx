@@ -127,7 +127,7 @@ const FAQS = [
   { q: "Is my trade data private?", a: "Yes — completely. Trades are stored in your private account only. Nobody else can see your journal. We never share or sell data." },
   { q: "Does this give buy/sell recommendations?", a: "No. Traders Diary is an educational trade journal. The AI reviews your past trades only — never tells you what to buy or sell. All outputs end with 'Not investment advice.'" },
   { q: "Which brokers are supported?", a: "CSV import is supported for Zerodha (Tax P&L / Tradebook), Upstox, Angel One (Net Position Report), and Dhan (P&L Report). Screenshot upload works with any broker — AI reads the image directly." },
-  { q: "How does the AI coaching work?", a: "Each trade is analysed with live data — VIX, DTE, Greeks, OTM/ATM/ITM classification, NIFTY trend — generating 5 specific insights grounded in your actual numbers. You get 10 free trade autopsies to start; after that, upgrade to Pro for unlimited." },
+  { q: "How does the AI trade review work?", a: "Each trade is analysed with live data — VIX, DTE, Greeks, OTM/ATM/ITM classification, NIFTY trend — generating 5 specific insights grounded in your actual numbers. You get 10 free trade autopsies to start; after that, upgrade to Pro for unlimited." },
   { q: "What are behaviour patterns?", a: "After enough trades, Traders Diary automatically detects your personal patterns: days you overtrade, revenge trading spirals after losses, expiry day win rates, best underlying symbols, best time slots. These are shown on your dashboard — no extra steps needed." },
   { q: "Is this a SEBI registered investment adviser?", a: "No — and it does not need to be. Traders Diary is a journaling and analytics tool. It only reviews trades you have already completed — retrospective analysis only. It never tells you what to buy or sell. All outputs end with 'Not investment advice.'" },
 ]
@@ -282,7 +282,7 @@ function ProCard() {
           "Overtrading detection",
           "Revenge trading flag",
           "Expiry day edge reports",
-          "Live market context",
+          "Market data at trade time",
           "All brokers supported",
         ].map(f => (
           <li key={f} className="flex items-center gap-2.5 text-xs text-white/70">
@@ -381,7 +381,7 @@ export default function LandingPage() {
           <p className="animate-fade-up delay-200 text-lg leading-relaxed max-w-2xl mx-auto mb-10 text-white/60">
             Upload Zerodha or Upstox screenshots — AI runs a full{" "}
             <span className="text-white/90 font-medium">trade autopsy, flags overtrading, expiry mistakes, and revenge trading patterns</span>
-            {" "}grounded in your actual numbers. Educational, not advisory.
+            {" "}grounded in your actual numbers. Past trades only — no future signals.
           </p>
 
           {/* CTAs */}
@@ -409,6 +409,9 @@ export default function LandingPage() {
               <div className="flex items-center gap-1.5 text-white/25 text-xs">
                 <svg className="w-3 h-3 text-white/30" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
                 Your data is never shared with your broker
+              </div>
+              <div className="text-[11px] text-white/20 text-center max-w-xs">
+                Educational tool only · Reviews past trades only · No future signals · Not investment advice
               </div>
             </div>
           </div>
@@ -717,12 +720,12 @@ export default function LandingPage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
 
-            {/* Wide — AI coaching */}
+            {/* Wide — AI trade review */}
             <div className="sm:col-span-2 rounded-2xl p-7 relative overflow-hidden bg-[#0d1528] border border-[#1c2e4a] hover:border-indigo-500/30 transition-all duration-200">
               <div className="absolute top-0 right-0 w-64 h-64 pointer-events-none"
                 style={{ background: "radial-gradient(circle at top right, rgba(79,70,229,0.12), transparent 60%)" }} />
               <div className="w-11 h-11 rounded-xl flex items-center justify-center text-xl mb-5 bg-indigo-600">🧠</div>
-              <p className="text-[10px] font-bold uppercase tracking-widest text-indigo-400 mb-2">AI Coaching</p>
+              <p className="text-[10px] font-bold uppercase tracking-widest text-indigo-400 mb-2">AI Trade Review</p>
               <h3 className="text-slate-100 font-black text-xl mb-3 leading-tight">5 analyst-grade insights. Every single trade.</h3>
               <p className="text-slate-500 text-sm leading-relaxed mb-5">
                 Not generic advice — actual numbers. Entry vs EMA-20, unrealized P&L, 52W range, sector win rate. Powered by Claude AI.
@@ -739,8 +742,8 @@ export default function LandingPage() {
               desc="Drop any broker screenshot. AI reads every field in seconds. Zero manual entry ever." />
 
             {/* Live data */}
-            <FeatureCard icon="📡" title="Live market context" color="sky"
-              desc="Current price, EMA-20/50/200, VIX, NIFTY trend, 52-week range — fetched live for open positions." />
+            <FeatureCard icon="📡" title="Market data at trade time" color="sky"
+              desc="VIX, EMA-20/50/200, NIFTY trend, 52-week range — fetched at the time of your past trade. No future signals." />
 
             {/* Overtrading */}
             <FeatureCard icon="⚠️" title="Overtrading detection" color="amber"
@@ -828,7 +831,7 @@ export default function LandingPage() {
               { n:"01", title:"Upload a screenshot or CSV",      body:"Drag from Zerodha Kite, Upstox, Angel One, or Dhan — or import your P&L report. Takes 10 seconds.",         tag:"Quick import" },
               { n:"02", title:"AI extracts every field",         body:"Symbol, action, CE/PE, strike, lot size, entry, exit, P&L — all read automatically. Zero manual entry.", tag:"Zero effort"  },
               { n:"03", title:"Live F&O context attached",       body:"VIX, DTE, Greeks, NIFTY trend, OTM/ATM/ITM classification — fetched automatically at trade time.",       tag:"Real-time"    },
-              { n:"04", title:"Read your AI coaching",           body:"5 numbered insights grounded in your actual numbers — entry quality, timing, risk-reward, what to fix.",  tag:"5 insights"   },
+              { n:"04", title:"Read your AI trade review",           body:"5 numbered insights grounded in your actual numbers — entry quality, timing, risk-reward, what to fix.",  tag:"5 insights"   },
               { n:"05", title:"Spot behaviour patterns",         body:"Dashboard flags overtrading days, revenge trade spirals, expiry day edge, best underlying. Your blind spots revealed.", tag:"Patterns" },
             ].map(({ n, title, body, tag }) => (
               <div key={n} className="flex gap-4 bg-[#0d1528] rounded-2xl p-5 border border-[#1c2e4a] hover:border-[#2a4570] transition-colors">
