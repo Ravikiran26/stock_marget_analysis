@@ -291,7 +291,7 @@ export default function LandingPage() {
           <div className="animate-fade-up inline-flex items-center gap-2 px-4 py-2 rounded-full mb-8"
             style={{ background: "rgba(255,255,255,0.1)", border: "1px solid rgba(255,255,255,0.2)", backdropFilter: "blur(12px)" }}>
             <span>🇮🇳</span>
-            <span className="text-xs font-semibold text-white/80">Built for Indian F&O & Intraday Options Traders</span>
+            <span className="text-xs font-semibold text-white/80">NSE F&O · Weekly Expiry · CE/PE · ₹ P&L · Zerodha · Upstox</span>
             <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: "rgba(139,92,246,0.4)", color: "#ddd6fe" }}>Beta</span>
           </div>
 
@@ -337,6 +337,21 @@ export default function LandingPage() {
             </div>
           </div>
 
+          {/* Who this is for */}
+          <div className="animate-fade-up delay-350 flex flex-wrap items-center justify-center gap-2 mb-8">
+            {[
+              { icon: "✅", text: "Full-time F&O traders" },
+              { icon: "✅", text: "50+ trades/month" },
+              { icon: "✅", text: "₹50k+ monthly drawdowns" },
+              { icon: "❌", text: "Beginners wanting tips" },
+            ].map(({ icon, text }) => (
+              <span key={text} className="inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full font-medium"
+                style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)", color: icon === "✅" ? "rgba(255,255,255,0.7)" : "rgba(255,255,255,0.25)" }}>
+                {icon} {text}
+              </span>
+            ))}
+          </div>
+
           {/* Trust */}
           <div className="animate-fade-up delay-400 flex items-center justify-center gap-3 mb-16">
             <div className="flex -space-x-2">
@@ -345,7 +360,7 @@ export default function LandingPage() {
                   style={{ borderColor: "#1e1760", background: `hsl(${h},55%,35%)` }}>{n}</div>
               ))}
             </div>
-            <p className="text-sm text-white/35">Used by traders who import from Zerodha, Upstox, Angel One & Dhan</p>
+            <p className="text-sm text-white/35">F&O traders importing from Zerodha, Upstox, Angel One & Dhan</p>
           </div>
 
           {/* Product mockup */}
@@ -381,10 +396,10 @@ export default function LandingPage() {
       <section className="bg-[#060c18] py-20 px-6">
         <div className="mx-auto max-w-4xl grid grid-cols-2 sm:grid-cols-4 gap-8 text-center">
           {[
-            { val: "F&O",  label: "Native support",       sub: "CE/PE, lot sizes, weekly expiry, DTE" },
-            { val: "10",   label: "Free AI analyses",      sub: "No card needed to get started" },
-            { val: "4",    label: "Brokers supported",      sub: "Zerodha · Upstox · Angel One · Dhan" },
-            { val: "100%", label: "Private",               sub: "Your journal, only yours" },
+            { val: "₹0",   label: "To start",               sub: "10 free AI trade autopsies, no card" },
+            { val: "Thursday", label: "Expiry analysis",  sub: "Win rate by week-of-month breakdown" },
+            { val: "CE/PE", label: "Options native",      sub: "Lot sizes, DTE, Greeks, OTM/ATM/ITM" },
+            { val: "4",    label: "Brokers supported",    sub: "Zerodha · Upstox · Angel One · Dhan" },
           ].map(({ val, label, sub }) => (
             <div key={val}>
               <p className="text-4xl font-black text-indigo-400 mb-1">{val}</p>
