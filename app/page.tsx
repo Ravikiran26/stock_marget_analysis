@@ -298,20 +298,20 @@ export default function LandingPage() {
           {/* Headline */}
           <h1 className="animate-fade-up delay-100 font-black tracking-tight leading-[1.06] mb-6 text-white"
             style={{ fontSize: "clamp(2.8rem, 5.5vw, 5rem)" }}>
-            Stop trading blind.<br />
+            Fix Revenge Trading<br />
             <span style={{
               background: "linear-gradient(135deg, #c4b5fd 0%, #a78bfa 35%, #818cf8 65%, #67e8f9 100%)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               backgroundClip: "text",
-            }}>Understand every trade.</span>
+            }}>Before It Wipes Your Account.</span>
           </h1>
 
           {/* Subheading */}
           <p className="animate-fade-up delay-200 text-lg leading-relaxed max-w-2xl mx-auto mb-10 text-white/60">
-            Traders Diary analyses your trade history to surface{" "}
-            <span className="text-white/90 font-medium">overtrading patterns, revenge trading, and behavioural risks</span>
-            {" "}— with AI coaching grounded in your own data. Educational, not advisory.
+            Upload Zerodha or Upstox screenshots — AI runs a full{" "}
+            <span className="text-white/90 font-medium">trade autopsy, flags overtrading, expiry mistakes, and revenge trading patterns</span>
+            {" "}grounded in your actual numbers. Educational, not advisory.
           </p>
 
           {/* CTAs */}
@@ -718,13 +718,13 @@ export default function LandingPage() {
             backgroundSize: "28px 28px",
           }} />
         <div className="relative mx-auto max-w-2xl">
-          <p className="text-xs font-bold uppercase tracking-widest text-indigo-300 mb-5">Start your trade journal today</p>
+          <p className="text-xs font-bold uppercase tracking-widest text-indigo-300 mb-5">Stop the pattern. Start the fix.</p>
           <h2 className="font-black text-white tracking-tight leading-tight mb-5" style={{ fontSize: "clamp(2rem,4.5vw,3.5rem)" }}>
-            Upload your first trade.<br />
-            <span className="text-white/40">Review what happened.</span>
+            Your next expiry day<br />
+            <span className="text-white/40">doesn&apos;t have to hurt.</span>
           </h2>
           <p className="text-white/50 text-base mb-10 max-w-sm mx-auto leading-relaxed">
-            Free to start. Works with Zerodha, Upstox, Angel One, and Dhan.
+            Upload one screenshot. Get a full AI trade autopsy — free, no card needed.
           </p>
           <button
             onClick={() => signInWithGoogle()}
