@@ -411,8 +411,130 @@ export default function LandingPage() {
       </section>
 
       {/* ══════════════════════════════════════════════════════════════════
-          DEMO — placeholder until screenshots/video are ready
+          SAMPLE AI AUTOPSY — split screen mockup
       ══════════════════════════════════════════════════════════════════ */}
+      <section className="bg-[#060c18] py-24 px-6">
+        <div className="mx-auto max-w-5xl">
+
+          {/* Section header */}
+          <div className="text-center mb-12">
+            <p className="text-xs font-bold uppercase tracking-widest text-violet-400 mb-3">See it in action</p>
+            <h2 className="text-3xl sm:text-4xl font-black text-slate-100 tracking-tight mb-3">
+              Upload a screenshot.<br />
+              <span className="text-slate-500">Get this in 10 seconds.</span>
+            </h2>
+            <p className="text-slate-500 text-sm">Sample AI autopsy — based on a real losing NIFTY CE trade.</p>
+          </div>
+
+          {/* Split screen */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-stretch">
+
+            {/* LEFT — fake Zerodha order card */}
+            <div className="rounded-2xl overflow-hidden border border-[#1c2e4a]" style={{ background: "#0d1528" }}>
+              {/* Chrome bar */}
+              <div className="flex items-center gap-2 px-4 py-3 border-b border-[#1c2e4a]" style={{ background: "rgba(255,255,255,0.02)" }}>
+                <div className="flex gap-1.5">
+                  {["#ef4444","#f59e0b","#22c55e"].map(c => <div key={c} className="w-2.5 h-2.5 rounded-full" style={{ background: c }} />)}
+                </div>
+                <span className="text-[10px] text-slate-600 ml-2">Zerodha Kite · Order confirmation</span>
+                <span className="ml-auto text-[10px] font-semibold px-2 py-0.5 rounded-full" style={{ background: "rgba(239,68,68,0.15)", color: "#f87171" }}>Screenshot uploaded ✓</span>
+              </div>
+
+              <div className="p-6">
+                {/* Order header */}
+                <div className="flex items-start justify-between mb-5">
+                  <div>
+                    <p className="text-white font-black text-xl tracking-tight">NIFTY 22500 CE</p>
+                    <p className="text-slate-500 text-xs mt-0.5">NSE · Weekly Expiry · 25 Apr 2025</p>
+                  </div>
+                  <span className="text-xs font-bold px-2.5 py-1 rounded-lg" style={{ background: "rgba(239,68,68,0.15)", color: "#f87171", border: "1px solid rgba(239,68,68,0.25)" }}>SELL / EXIT</span>
+                </div>
+
+                {/* Order fields */}
+                <div className="space-y-3 mb-6">
+                  {[
+                    { label: "Product",     value: "MIS (Intraday)" },
+                    { label: "Qty",         value: "50 (1 lot)" },
+                    { label: "Avg Buy",     value: "₹185.00" },
+                    { label: "Avg Sell",    value: "₹97.50" },
+                    { label: "Entry Time",  value: "09:17 AM" },
+                    { label: "Exit Time",   value: "02:48 PM" },
+                  ].map(({ label, value }) => (
+                    <div key={label} className="flex justify-between items-center py-2 border-b border-[#1c2e4a]">
+                      <span className="text-xs text-slate-500">{label}</span>
+                      <span className="text-xs font-semibold text-slate-200">{value}</span>
+                    </div>
+                  ))}
+                </div>
+
+                {/* P&L */}
+                <div className="rounded-xl px-4 py-3 flex items-center justify-between" style={{ background: "rgba(239,68,68,0.08)", border: "1px solid rgba(239,68,68,0.2)" }}>
+                  <span className="text-xs font-bold text-red-400 uppercase tracking-wide">Realised P&L</span>
+                  <span className="text-xl font-black text-red-400 tabular-nums">−₹4,375</span>
+                </div>
+              </div>
+            </div>
+
+            {/* RIGHT — AI autopsy output */}
+            <div className="rounded-2xl overflow-hidden border flex flex-col" style={{ background: "#0a0f1e", borderColor: "rgba(79,70,229,0.35)" }}>
+              {/* Header */}
+              <div className="flex items-center gap-3 px-5 py-3 border-b" style={{ borderColor: "rgba(79,70,229,0.2)", background: "rgba(79,70,229,0.08)" }}>
+                <div className="w-7 h-7 rounded-lg flex items-center justify-center text-base flex-shrink-0"
+                  style={{ background: "linear-gradient(135deg,#4f46e5,#7c3aed)" }}>🧠</div>
+                <div>
+                  <p className="text-xs font-bold text-slate-100">AI Trade Autopsy</p>
+                  <p className="text-[10px] text-slate-500">3 insights · generated in 8s</p>
+                </div>
+                <span className="ml-auto text-[10px] px-2 py-0.5 rounded-full font-semibold" style={{ background: "rgba(239,68,68,0.15)", color: "#fca5a5", border: "1px solid rgba(239,68,68,0.25)" }}>Loss trade</span>
+              </div>
+
+              <div className="p-5 space-y-3 flex-1">
+                {/* Insight 1 */}
+                <div className="rounded-xl p-4 border" style={{ background: "rgba(239,68,68,0.05)", borderColor: "rgba(239,68,68,0.15)" }}>
+                  <p className="text-xs font-bold text-red-300 mb-1.5">1. You entered during the opening auction</p>
+                  <p className="text-[11px] text-slate-400 leading-relaxed">Entry at 09:17 AM — first 15 min is highest noise. VIX was 14.8, making options expensive. You paid a 12% premium over fair value at open.</p>
+                </div>
+
+                {/* Insight 2 */}
+                <div className="rounded-xl p-4 border" style={{ background: "rgba(239,68,68,0.05)", borderColor: "rgba(239,68,68,0.15)" }}>
+                  <p className="text-xs font-bold text-red-300 mb-1.5">2. Revenge trade detected</p>
+                  <p className="text-[11px] text-slate-400 leading-relaxed">This was your 3rd trade after 2 straight losses. Your data shows win rate drops to 24% in this pattern — vs 51% normally.</p>
+                </div>
+
+                {/* Insight 3 */}
+                <div className="rounded-xl p-4 border" style={{ background: "rgba(245,158,11,0.05)", borderColor: "rgba(245,158,11,0.15)" }}>
+                  <p className="text-xs font-bold text-amber-300 mb-1.5">3. Held 5× past your usual stop</p>
+                  <p className="text-[11px] text-slate-400 leading-relaxed">You typically exit at −25%. You held to −47% here, turning a ₹1,800 loss into ₹4,375. The extra ₹2,575 was avoidable.</p>
+                </div>
+
+                {/* Key mistake + do better */}
+                <div className="rounded-xl p-4 border space-y-2" style={{ background: "rgba(255,255,255,0.02)", borderColor: "rgba(255,255,255,0.07)" }}>
+                  <p className="text-[11px] text-slate-300"><span className="text-red-400 font-bold">🔴 Key Mistake:</span> Entered in first 15 min after two losses with elevated VIX.</p>
+                  <p className="text-[11px] text-slate-300"><span className="text-emerald-400 font-bold">✅ Do Better:</span> No trades before 09:30 AM. After 2 losses, stop for 30 minutes.</p>
+                  <p className="text-[10px] text-slate-600 pt-1">⚠️ Not investment advice.</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          {/* CTA below */}
+          <div className="text-center mt-10">
+            <button
+              onClick={() => signInWithGoogle()}
+              className="inline-flex items-center gap-2.5 rounded-xl px-7 py-3.5 text-sm font-bold text-white transition-all duration-200 hover:scale-[1.04] active:scale-[0.98]"
+              style={{
+                background: "linear-gradient(135deg, #4f46e5, #7c3aed)",
+                boxShadow: "0 0 0 1px rgba(165,180,252,0.3) inset, 0 8px 32px rgba(79,70,229,0.5)",
+              }}>
+              <GoogleIcon size={16} />
+              Get your own trade autopsy free
+            </button>
+            <p className="text-xs text-slate-600 mt-3">Upload any broker screenshot · 10 free autopsies · No card needed</p>
+          </div>
+
+        </div>
+      </section>
 
       {/* ══════════════════════════════════════════════════════════════════
           PRICING — dark
