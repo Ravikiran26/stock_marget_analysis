@@ -264,19 +264,14 @@ function ProCard() {
         border: "2px solid rgba(167,139,250,0.4)",
         boxShadow: "0 20px 60px rgba(79,70,229,0.3)",
       }}>
-      <div className="absolute top-4 right-4 text-[10px] font-bold px-2 py-0.5 rounded-full"
-        style={{ background: "rgba(251,191,36,0.2)", border: "1px solid rgba(251,191,36,0.4)", color: "#fde68a" }}>
-        🚀 Launch Offer
-      </div>
       <div className="absolute bottom-0 right-0 w-40 h-40 pointer-events-none"
         style={{ background: "radial-gradient(circle at bottom right, rgba(139,92,246,0.3), transparent 60%)" }} />
       <p className="text-xs font-bold uppercase tracking-widest text-violet-300 mb-3">Pro</p>
       <div className="flex items-baseline gap-2 mb-1">
-        <span className="text-4xl font-black">₹299</span>
+        <span className="text-4xl font-black">₹499</span>
         <span className="text-sm text-white/50 mb-1">/mo</span>
-        <span className="text-sm line-through text-white/25">₹499</span>
       </div>
-      <p className="text-white/40 text-xs mb-6">Launch price · Cancel anytime</p>
+      <p className="text-white/40 text-xs mb-6">Cancel anytime</p>
       <ul className="space-y-2.5 mb-6 flex-1">
         {[
           "Unlimited AI analyses",
@@ -765,7 +760,7 @@ export default function LandingPage() {
             <p className="text-slate-500 text-sm mb-4">Upgrade when you&apos;re ready to go unlimited.</p>
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold"
               style={{ background: "rgba(16,185,129,0.1)", border: "1px solid rgba(16,185,129,0.2)", color: "#6ee7b7" }}>
-              💸 ₹299/month = cost of one bad revenge trade. One fix pays for a year.
+              💸 ₹499/month = cost of one bad revenge trade. One fix pays for a year.
             </div>
           </div>
 
