@@ -36,8 +36,8 @@ export default function UpgradeButton({ plan = "monthly", className, children, o
         key:         order.key_id,
         amount:      order.amount,
         currency:    order.currency,
-        name:        "EdgeJournal",
-        description: plan === "yearly" ? "Pro Plan — Annual (₹3,499/yr)" : "Pro Plan — Monthly (₹499/mo)",
+        name:        "Traders Diary",
+        description: plan === "yearly" ? "Pro Plan — Annual (₹4,499/yr)" : "Pro Plan — Monthly (₹499/mo)",
         order_id:    order.order_id,
         prefill: {
           name:  user.user_metadata?.full_name ?? "",
@@ -52,7 +52,7 @@ export default function UpgradeButton({ plan = "monthly", className, children, o
               razorpay_signature:  response.razorpay_signature,
               plan,
             })
-            alert("🎉 You're now Pro! Unlimited AI coaching unlocked.")
+            alert("🎉 You're now Pro! Unlimited AI trade reviews unlocked.")
             onSuccess?.()
           } catch {
             alert("Payment verification failed. Contact support.")

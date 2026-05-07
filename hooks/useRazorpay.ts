@@ -57,7 +57,7 @@ export async function startProCheckout(plan: "monthly" | "yearly"): Promise<"suc
       currency,
       order_id,
       name: "Traders Diary",
-      description: `Pro Plan – ${plan === "monthly" ? "₹499/month" : "₹3,499/year"}`,
+      description: `Pro Plan – ${plan === "monthly" ? "₹499/month" : "₹4,499/year"}`,
       image: "https://www.tradersdiary.in/favicon.ico",
       prefill: {
         name: user?.user_metadata?.full_name ?? "",
