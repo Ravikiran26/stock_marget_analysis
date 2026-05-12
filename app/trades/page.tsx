@@ -564,69 +564,81 @@ function FeedbackDrawer({ trade, onClose, onTradeUpdated }: { trade: Trade; onCl
   // Use generated feedback as fallback if no stored feedback
   const effectiveFeedback = trade.ai_feedback ?? generatedFeedback ?? ""
 
-  // Parse AI feedback
-  const lines = effectiveFeedback.split("\n").map((l) => l.trim()).filter(Boolean)
-  const disclaimer = lines.find((l) => l.startsWith("⚠️") || l.toLowerCase().startsWith("not investment advice"))
-  const contentLines = lines
-    .filter((l) => l !== disclaimer && !l.startsWith("#"))
-    .map((l) => l.replace(/\*\*/g, "").replace(/\*/g, "").trim())
-    .filter(Boolean)
-  const heading = lines.find((l) => l.startsWith("#"))
-  const headingText = heading ? heading.replace(/^#{1,3}\s*/, "").replace(/\*\*/g, "").trim() : null
-  const isSessionFeedback = headingText?.toLowerCase().includes("session") || headingText?.toLowerCase().includes("trades")
-
-  const insights: { num: string; label: string | null; body: string }[] = []
+  const insights: { num: string; label: string | null; body: string; severity?: string }[] = []
   const plainLines: string[] = []
   let keyMistake: string | null = null
   let doBetter: string | null = null
+  let verdict: string | null = null
+  let isSessionFeedback = false
+  let disclaimer: string | null = null
 
-  // Multi-line aware parsing:
-  // Claude sometimes puts title on one line and body on the next
-  let pendingInsight: { num: string; label: string | null; bodyLines: string[] } | null = null
+  // ── Try JSON format first (swing/equity coaching returns structured JSON) ──
+  let parsedJson: Record<string, unknown> | null = null
+  try {
+    const trimmed = effectiveFeedback.trim()
+    if (trimmed.startsWith("{")) parsedJson = JSON.parse(trimmed)
+  } catch { /* not JSON, fall through */ }
 
-  const flushPending = () => {
-    if (pendingInsight) {
-      insights.push({
-        num: pendingInsight.num,
-        label: pendingInsight.label,
-        body: pendingInsight.bodyLines.join(" ").trim(),
+  if (parsedJson && Array.isArray(parsedJson.insights)) {
+    verdict = typeof parsedJson.verdict === "string" ? parsedJson.verdict : null
+    if (typeof parsedJson.summary === "string") plainLines.push(parsedJson.summary)
+    ;(parsedJson.insights as Array<{ severity?: string; title?: string; body?: string }>)
+      .forEach((ins, i) => {
+        insights.push({
+          num: String(i + 1),
+          label: ins.title ?? null,
+          body: ins.body ?? "",
+          severity: ins.severity,
+        })
       })
-      pendingInsight = null
-    }
-  }
+    keyMistake = typeof parsedJson.key_mistake === "string" ? parsedJson.key_mistake : null
+    doBetter   = typeof parsedJson.do_better   === "string" ? parsedJson.do_better   : null
+  } else {
+    // ── Legacy text format (options coaching, session feedback) ─────────────
+    const lines = effectiveFeedback.split("\n").map((l) => l.trim()).filter(Boolean)
+    disclaimer = lines.find((l) => l.startsWith("⚠️") || l.toLowerCase().startsWith("not investment advice")) ?? null
+    const contentLines = lines
+      .filter((l) => l !== disclaimer && !l.startsWith("#"))
+      .map((l) => l.replace(/\*\*/g, "").replace(/\*/g, "").trim())
+      .filter(Boolean)
+    const heading = lines.find((l) => l.startsWith("#"))
+    const headingText = heading ? heading.replace(/^#{1,3}\s*/, "").replace(/\*\*/g, "").trim() : null
+    isSessionFeedback = !!(headingText?.toLowerCase().includes("session") || headingText?.toLowerCase().includes("trades"))
 
-  contentLines.forEach((line) => {
-    // Skip separator lines
-    if (/^-{2,}$/.test(line)) return
-
-    if (line.startsWith("🔴") || /^Key Mistake:/i.test(line)) {
-      flushPending()
-      keyMistake = line.replace(/^🔴\s*/,"").replace(/^Key Mistake:\s*/i, "").trim()
-    } else if (line.startsWith("✅") || /^Do Better:/i.test(line)) {
-      flushPending()
-      doBetter = line.replace(/^✅\s*/,"").replace(/^Do Better:\s*/i, "").trim()
-    } else {
-      const m = line.match(/^(\d+)\.\s*(.+)$/)
-      if (m) {
-        flushPending()
-        // Check if body is inline: "1. Title: body text here"
-        const labelM = m[2].match(/^([A-Za-z][A-Za-z ]{1,30}):\s*(.+)$/)
-        if (labelM) {
-          // Inline format — complete insight on one line
-          insights.push({ num: m[1], label: labelM[1], body: labelM[2] })
-        } else {
-          // Title-only line — body may follow on next lines
-          pendingInsight = { num: m[1], label: m[2].trim(), bodyLines: [] }
-        }
-      } else if (pendingInsight) {
-        // Continuation line — append to current insight body
-        pendingInsight.bodyLines.push(line)
-      } else {
-        plainLines.push(line)
+    let pendingInsight: { num: string; label: string | null; bodyLines: string[] } | null = null
+    const flushPending = () => {
+      if (pendingInsight) {
+        insights.push({ num: pendingInsight.num, label: pendingInsight.label, body: pendingInsight.bodyLines.join(" ").trim() })
+        pendingInsight = null
       }
     }
-  })
-  flushPending()
+    contentLines.forEach((line) => {
+      if (/^-{2,}$/.test(line)) return
+      if (line.startsWith("🔴") || /^Key Mistake:/i.test(line)) {
+        flushPending()
+        keyMistake = line.replace(/^🔴\s*/, "").replace(/^Key Mistake:\s*/i, "").trim()
+      } else if (line.startsWith("✅") || /^Do Better:/i.test(line)) {
+        flushPending()
+        doBetter = line.replace(/^✅\s*/, "").replace(/^Do Better:\s*/i, "").trim()
+      } else {
+        const m = line.match(/^(\d+)\.\s*(.+)$/)
+        if (m) {
+          flushPending()
+          const labelM = m[2].match(/^([A-Za-z][A-Za-z ]{1,30}):\s*(.+)$/)
+          if (labelM) {
+            insights.push({ num: m[1], label: labelM[1], body: labelM[2] })
+          } else {
+            pendingInsight = { num: m[1], label: m[2].trim(), bodyLines: [] }
+          }
+        } else if (pendingInsight) {
+          pendingInsight.bodyLines.push(line)
+        } else {
+          plainLines.push(line)
+        }
+      }
+    })
+    flushPending()
+  }
 
   // Setup score for header accent
   const setup = mktCtx ? getSetupScore(mktCtx) : null
@@ -837,6 +849,23 @@ function FeedbackDrawer({ trade, onClose, onTradeUpdated }: { trade: Trade; onCl
                 </div>
               )}
 
+              {/* Verdict badge */}
+              {verdict && (
+                <div className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold border ${
+                  verdict.toLowerCase().includes("careful") || verdict.toLowerCase().includes("avoid") || verdict.toLowerCase().includes("bad")
+                    ? "bg-red-50 border-red-200 text-red-600"
+                    : verdict.toLowerCase().includes("good") || verdict.toLowerCase().includes("great") || verdict.toLowerCase().includes("excellent")
+                    ? "bg-emerald-50 border-emerald-200 text-emerald-700"
+                    : "bg-amber-50 border-amber-200 text-amber-700"
+                }`}>
+                  <span>{
+                    verdict.toLowerCase().includes("careful") || verdict.toLowerCase().includes("avoid") || verdict.toLowerCase().includes("bad") ? "⚠️" :
+                    verdict.toLowerCase().includes("good") || verdict.toLowerCase().includes("great") || verdict.toLowerCase().includes("excellent") ? "✅" : "ℹ️"
+                  }</span>
+                  {verdict}
+                </div>
+              )}
+
               {/* Intro lines */}
               {plainLines.map((line, i) => (
                 <p key={i} className="text-sm text-slate-500 px-1 leading-relaxed">{line}</p>
@@ -844,8 +873,15 @@ function FeedbackDrawer({ trade, onClose, onTradeUpdated }: { trade: Trade; onCl
 
               {/* Insight cards */}
               <div className="space-y-2.5">
-                {insights.map(({ num, label, body }, i) => {
-                  const c = ACCENT_COLORS[i % ACCENT_COLORS.length]
+                {insights.map(({ num, label, body, severity }, i) => {
+                  const sev = severity?.toLowerCase()
+                  const c = sev === "critical"
+                    ? { border: "border-l-red-500",     num: "bg-red-500",     title: "text-red-700"     }
+                    : sev === "warning"
+                    ? { border: "border-l-amber-500",   num: "bg-amber-500",   title: "text-amber-700"   }
+                    : sev === "positive"
+                    ? { border: "border-l-emerald-500", num: "bg-emerald-600", title: "text-emerald-700" }
+                    : ACCENT_COLORS[i % ACCENT_COLORS.length]
                   return (
                     <div key={i} className={`bg-white rounded-2xl border border-slate-100 border-l-4 ${c.border} px-4 py-4 shadow-sm`}>
                       <div className="flex items-start gap-3">
