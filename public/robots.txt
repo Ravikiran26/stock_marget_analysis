@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /dashboard
+Disallow: /upload
+Disallow: /trades
+Disallow: /positions
+Disallow: /auth/
+
+Sitemap: https://tradersdiary.in/sitemap.xml
