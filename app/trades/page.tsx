@@ -512,16 +512,6 @@ function FeedbackDrawer({ trade, onClose, onTradeUpdated }: { trade: Trade; onCl
       .catch(() => setFundamentals(null))
   }, [trade.id, trade.instrument_type])
 
-  // Auto-generate coaching on open:
-  // - Always regenerate for open positions (live price/EMA data changes daily)
-  // - Generate once for closed trades that have no coaching yet
-  useEffect(() => {
-    if (!trade.id || coachingLoading) return
-    const isOpen = trade.status === "open"
-    if (!isOpen && trade.ai_feedback) return  // closed + already has coaching → skip
-    handleGenerateCoaching()
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [trade.id])
 
   async function handleGenerateCoaching() {
     if (!trade.id || coachingLoading) return
@@ -809,35 +799,34 @@ function FeedbackDrawer({ trade, onClose, onTradeUpdated }: { trade: Trade; onCl
             </div>
           ) : !effectiveFeedback ? (
             <div className="flex flex-col items-center justify-center py-12 gap-4 text-slate-400">
-              <div className="w-14 h-14 rounded-2xl bg-slate-100 flex items-center justify-center text-3xl">💭</div>
+              <div className="w-14 h-14 rounded-2xl bg-slate-100 flex items-center justify-center text-3xl">🤖</div>
               <div className="text-center">
-                <p className="text-sm font-medium text-slate-600">Coaching unavailable</p>
-                <p className="text-xs text-slate-400 mt-1">Tap below to retry</p>
+                <p className="text-sm font-semibold text-slate-700">AI Coaching</p>
+                <p className="text-xs text-slate-400 mt-1">Click to get personalized feedback on this trade</p>
               </div>
               <button
                 onClick={handleGenerateCoaching}
-                className="flex items-center gap-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 text-sm font-semibold transition-colors"
+                disabled={coachingLoading}
+                className="flex items-center gap-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 text-sm font-semibold transition-colors disabled:opacity-50"
               >
-                🤖 Generate AI Coaching
+                🤖 Get AI Coaching
               </button>
             </div>
           ) : (
             <div className="space-y-3">
               <div className="flex items-center justify-between">
                 <SectionLabel icon="🎯" title={isSessionFeedback ? "Session Coaching" : "Trade Coaching"} />
-                {trade.status === "open" && (
-                  <button
-                    onClick={handleGenerateCoaching}
-                    disabled={coachingLoading}
-                    className="flex items-center gap-1.5 text-xs text-slate-400 hover:text-blue-600 transition-colors disabled:opacity-40"
-                    title="Refresh with today's live data"
-                  >
-                    <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                    </svg>
-                    Refresh
-                  </button>
-                )}
+                <button
+                  onClick={handleGenerateCoaching}
+                  disabled={coachingLoading}
+                  className="flex items-center gap-1.5 text-xs text-slate-400 hover:text-blue-600 transition-colors disabled:opacity-40"
+                  title="Regenerate coaching"
+                >
+                  <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                  </svg>
+                  Refresh
+                </button>
               </div>
 
               {/* Session context banner */}
