@@ -3,6 +3,7 @@ import { supabase } from "@/lib/supabase"
 
 const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000",
+  timeout: 30000,
 })
 
 // Attach the Supabase JWT to every request automatically.
@@ -496,4 +497,8 @@ export async function verifyPayment(payload: {
 export async function getProStatus(): Promise<{ is_pro: boolean; pro_plan: string | null; pro_expires_at: string | null }> {
   const { data } = await api.get("/payments/status")
   return data
+}
+
+export async function sendWelcomeEmail(): Promise<void> {
+  await api.post("/auth/welcome")
 }

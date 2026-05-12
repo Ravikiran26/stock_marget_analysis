@@ -6,12 +6,13 @@ import Link from "next/link"
 import { useEffect, useRef, useState } from "react"
 import { usePathname, useRouter } from "next/navigation"
 import { supabase, signInWithGoogle, signOut } from "@/lib/supabase"
-import { setUserId } from "@/lib/api"
+import { setUserId, sendWelcomeEmail } from "@/lib/api"
 import type { Session } from "@supabase/supabase-js"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import WelcomeModal from "@/components/WelcomeModal"
 import AuthModal from "@/components/AuthModal"
+import BackendWakeupBanner from "@/components/BackendWakeupBanner"
 import { Analytics } from "@vercel/analytics/react"
 
 const geist = Geist({ subsets: ["latin"], variable: "--font-geist-sans" })
@@ -56,9 +57,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     const { data: listener } = supabase.auth.onAuthStateChange((event, s) => {
       setSession(s)
       if (s?.user?.id) setUserId(s.user.id)
-      if (event === "SIGNED_IN") {
+      if (event === "SIGNED_IN" && s) {
         const welcomed = localStorage.getItem("tradfy_welcomed")
         if (!welcomed) setIsNewUser(true)
+        // Send welcome email only on genuine new signups (account < 5 min old)
+        const createdAt = new Date(s.user.created_at).getTime()
+        if (Date.now() - createdAt < 5 * 60 * 1000) {
+          sendWelcomeEmail().catch(() => {})
+        }
       }
       if (event === "SIGNED_OUT") router.push("/")
     })
@@ -297,6 +303,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
         {/* ── Welcome modal (new users only) ─────────────────────────────── */}
         {isNewUser && <WelcomeModal />}
+
+        {/* ── Cold start banner (logged-in users only) ───────────────────── */}
+        {user && <BackendWakeupBanner />}
 
         {/* ── Footer ─────────────────────────────────────────────────────── */}
         <footer className="py-10 bg-[#020817] border-t border-white/[0.05]">
