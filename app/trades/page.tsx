@@ -571,6 +571,7 @@ function FeedbackDrawer({ trade, onClose, onTradeUpdated }: { trade: Trade; onCl
   let verdict: string | null = null
   let isSessionFeedback = false
   let disclaimer: string | null = null
+  let headingText: string | null = null
 
   // ── Try JSON format first (swing/equity coaching returns structured JSON) ──
   let parsedJson: Record<string, unknown> | null = null
@@ -602,7 +603,7 @@ function FeedbackDrawer({ trade, onClose, onTradeUpdated }: { trade: Trade; onCl
       .map((l) => l.replace(/\*\*/g, "").replace(/\*/g, "").trim())
       .filter(Boolean)
     const heading = lines.find((l) => l.startsWith("#"))
-    const headingText = heading ? heading.replace(/^#{1,3}\s*/, "").replace(/\*\*/g, "").trim() : null
+    headingText = heading ? heading.replace(/^#{1,3}\s*/, "").replace(/\*\*/g, "").trim() : null
     isSessionFeedback = !!(headingText?.toLowerCase().includes("session") || headingText?.toLowerCase().includes("trades"))
 
     let pendingInsight: { num: string; label: string | null; bodyLines: string[] } | null = null
