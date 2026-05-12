@@ -11,27 +11,6 @@ function fmt(n: number) {
   return `₹${n.toLocaleString("en-IN", { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`
 }
 
-function DaysHeldBadge({ days }: { days: number }) {
-  if (days > 15) {
-    return (
-      <span className="inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-lg bg-red-50 text-red-600 border border-red-100">
-        ⚠️ {days}d — dead money
-      </span>
-    )
-  }
-  if (days >= 7) {
-    return (
-      <span className="inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-lg bg-amber-50 text-amber-600 border border-amber-100">
-        {days}d
-      </span>
-    )
-  }
-  return (
-    <span className="inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-lg bg-green-50 text-green-700 border border-green-100">
-      {days}d
-    </span>
-  )
-}
 
 export default function OpenPositionsCard({ positions }: OpenPositionsCardProps) {
   const router = useRouter()
@@ -77,13 +56,12 @@ export default function OpenPositionsCard({ positions }: OpenPositionsCardProps)
               <th className="text-left text-xs font-medium text-gray-400 px-6 py-3">Symbol</th>
               <th className="text-left text-xs font-medium text-gray-400 px-3 py-3">Type</th>
               <th className="text-left text-xs font-medium text-gray-400 px-3 py-3">Entry</th>
-              <th className="text-left text-xs font-medium text-gray-400 px-3 py-3">Days held</th>
               <th className="text-left text-xs font-medium text-gray-400 px-3 py-3">Sector</th>
               <th className="px-6 py-3" />
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-50">
-            {positions.map(({ trade, days_held }) => (
+            {positions.map(({ trade }) => (
               <tr key={trade.id} className="hover:bg-gray-50/50 transition-colors">
                 <td className="px-6 py-3.5">
                   <p className="font-semibold text-gray-900">{trade.symbol ?? "—"}</p>
@@ -96,9 +74,6 @@ export default function OpenPositionsCard({ positions }: OpenPositionsCardProps)
                 </td>
                 <td className="px-3 py-3.5 text-gray-700 font-medium">
                   {trade.entry_price != null ? fmt(trade.entry_price) : "—"}
-                </td>
-                <td className="px-3 py-3.5">
-                  <DaysHeldBadge days={days_held} />
                 </td>
                 <td className="px-3 py-3.5">
                   {trade.sector ? (
@@ -129,12 +104,11 @@ export default function OpenPositionsCard({ positions }: OpenPositionsCardProps)
 
       {/* mobile list */}
       <div className="sm:hidden divide-y divide-gray-50">
-        {positions.map(({ trade, days_held }) => (
+        {positions.map(({ trade }) => (
           <div key={trade.id} className="px-4 py-4 flex items-center justify-between gap-3">
             <div className="min-w-0">
               <p className="font-semibold text-gray-900 text-sm truncate">{trade.symbol ?? "—"}</p>
               <div className="flex items-center gap-2 mt-1">
-                <DaysHeldBadge days={days_held} />
                 {trade.sector && (
                   <span className="text-xs text-gray-400">{trade.sector}</span>
                 )}

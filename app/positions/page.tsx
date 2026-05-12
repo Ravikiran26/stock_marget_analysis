@@ -16,27 +16,6 @@ function fmtDate(d?: string | null) {
   return new Date(d).toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" })
 }
 
-function DaysHeldPill({ days }: { days: number }) {
-  if (days > 15) {
-    return (
-      <span className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1 rounded-full bg-red-50 text-red-600 border border-red-100">
-        ⚠️ {days} days · dead money
-      </span>
-    )
-  }
-  if (days >= 7) {
-    return (
-      <span className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1 rounded-full bg-amber-50 text-amber-600 border border-amber-100">
-        🕐 {days} days
-      </span>
-    )
-  }
-  return (
-    <span className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1 rounded-full bg-green-50 text-green-700 border border-green-100">
-      ✓ {days} days
-    </span>
-  )
-}
 
 function PositionCard({
   position,
@@ -45,7 +24,7 @@ function PositionCard({
   position: OpenPosition
   onClose: (id: string, symbol: string) => void
 }) {
-  const { trade, days_held } = position
+  const { trade } = position
   const [notes, setNotes] = useState("")
   const [editingNotes, setEditingNotes] = useState(false)
   const [draft, setDraft] = useState("")
@@ -102,7 +81,6 @@ function PositionCard({
             <p className="text-xs text-gray-400 mt-0.5">{trade.broker ?? ""}</p>
           </div>
         </div>
-        <DaysHeldPill days={days_held} />
       </div>
 
       {/* metrics grid */}
