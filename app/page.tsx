@@ -359,7 +359,7 @@ export default function LandingPage() {
           {/* Headline */}
           <h1 className="animate-fade-up delay-100 font-black tracking-tight leading-[1.06] mb-6 text-white"
             style={{ fontSize: "clamp(2.4rem, 5vw, 4.6rem)" }}>
-            Upload a Zerodha Screenshot.<br />
+            Upload Any Broker Screenshot or CSV.<br />
             <span style={{
               background: "linear-gradient(135deg, #c4b5fd 0%, #a78bfa 35%, #818cf8 65%, #67e8f9 100%)",
               WebkitBackgroundClip: "text",
@@ -377,7 +377,7 @@ export default function LandingPage() {
 
           {/* Broker logos */}
           <div className="animate-fade-up delay-250 flex flex-wrap items-center justify-center gap-3 mb-8">
-            <span className="text-[10px] uppercase tracking-widest text-white/25 mr-1">Works with</span>
+            <span className="text-[10px] uppercase tracking-widest text-white/40 mr-1">Screenshot or CSV —</span>
             {[
               { name: "Zerodha",    color: "#387ed1", bg: "rgba(56,126,209,0.12)",  border: "rgba(56,126,209,0.25)"  },
               { name: "Upstox",     color: "#7e57f4", bg: "rgba(126,87,244,0.12)", border: "rgba(126,87,244,0.25)"  },
@@ -389,7 +389,10 @@ export default function LandingPage() {
                 {name}
               </span>
             ))}
-            <span className="text-[10px] text-white/20">+ any screenshot</span>
+            <span className="text-xs font-bold px-3 py-1.5 rounded-lg"
+              style={{ color: "#4ade80", background: "rgba(74,222,128,0.10)", border: "1px solid rgba(74,222,128,0.25)" }}>
+              + any broker
+            </span>
           </div>
 
           {/* CTAs */}
@@ -507,10 +510,27 @@ export default function LandingPage() {
           <div className="text-center mb-12">
             <p className="text-xs font-bold uppercase tracking-widest text-violet-400 mb-3">See it in action</p>
             <h2 className="text-3xl sm:text-4xl font-black text-slate-100 tracking-tight mb-3">
-              Upload a screenshot.<br />
+              Upload a screenshot or CSV.<br />
               <span className="text-slate-500">Get this in 10 seconds.</span>
             </h2>
-            <p className="text-slate-500 text-sm">Sample AI autopsy — based on a real losing NIFTY CE trade.</p>
+            <p className="text-slate-500 text-sm mb-6">Sample AI autopsy — based on a real losing NIFTY CE trade.</p>
+
+            {/* Upload method toggle pills */}
+            <div className="inline-flex items-center gap-2 bg-white/[0.04] border border-white/[0.08] rounded-full px-2 py-1.5">
+              <span className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-violet-600 text-white text-xs font-semibold">
+                <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                Screenshot
+              </span>
+              <span className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-600 text-white text-xs font-semibold">
+                <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+                CSV Import
+              </span>
+              <span className="text-[10px] text-slate-500 px-2">Zerodha · Upstox · Angel One · Dhan · Any broker</span>
+            </div>
           </div>
 
           {/* Split screen */}
