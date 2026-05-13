@@ -323,12 +323,10 @@ export default function LandingPage() {
     <div className="flex flex-col overflow-x-hidden bg-[#060c18]">
 
       {/* ══════════════════════════════════════════════════════════════════
-          HERO — Rich indigo/purple gradient
+          HERO
       ══════════════════════════════════════════════════════════════════ */}
       <section className="relative overflow-hidden flex flex-col items-center text-center px-6 pt-20 pb-0"
-        style={{
-          background: "linear-gradient(160deg, #0f0b28 0%, #1e1760 30%, #2d1b8a 55%, #1a1550 75%, #0b0920 100%)",
-        }}>
+        style={{ background: "linear-gradient(160deg, #0f0b28 0%, #1e1760 30%, #2d1b8a 55%, #1a1550 75%, #0b0920 100%)" }}>
 
         {/* Glow orbs */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] pointer-events-none"
@@ -338,14 +336,10 @@ export default function LandingPage() {
         <div className="absolute top-1/4 -right-40 w-[400px] h-[400px] pointer-events-none"
           style={{ background: "radial-gradient(circle, rgba(236,72,153,0.2) 0%, transparent 65%)", filter: "blur(70px)" }} />
 
-        {/* Subtle dot grid */}
+        {/* Dot grid */}
         <div className="absolute inset-0 pointer-events-none opacity-[0.15]"
-          style={{
-            backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.6) 1px, transparent 1px)",
-            backgroundSize: "28px 28px",
-          }} />
+          style={{ backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.6) 1px, transparent 1px)", backgroundSize: "28px 28px" }} />
 
-        {/* Content */}
         <div className="relative z-10 max-w-4xl mx-auto">
 
           {/* Badge */}
@@ -353,41 +347,38 @@ export default function LandingPage() {
             style={{ background: "rgba(255,255,255,0.1)", border: "1px solid rgba(255,255,255,0.2)", backdropFilter: "blur(12px)" }}>
             <span>🇮🇳</span>
             <span className="text-xs font-semibold text-white/80">NSE F&O · Weekly Expiry · CE/PE · ₹ P&L · Zerodha · Upstox</span>
-            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: "rgba(139,92,246,0.4)", color: "#ddd6fe" }}>Beta</span>
           </div>
 
           {/* Headline */}
           <h1 className="animate-fade-up delay-100 font-black tracking-tight leading-[1.06] mb-6 text-white"
             style={{ fontSize: "clamp(2.4rem, 5vw, 4.6rem)" }}>
-            Upload Any Broker Screenshot or CSV.<br />
+            Every F&amp;O Loss Has a Pattern.<br />
             <span style={{
               background: "linear-gradient(135deg, #c4b5fd 0%, #a78bfa 35%, #818cf8 65%, #67e8f9 100%)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               backgroundClip: "text",
-            }}>AI Flags Your Revenge Trades.</span>
+            }}>Find Yours Before Next Expiry.</span>
           </h1>
 
           {/* Subheading */}
           <p className="animate-fade-up delay-200 text-lg leading-relaxed max-w-2xl mx-auto mb-8 text-white/60">
-            Drop any broker screenshot — AI runs a full{" "}
-            <span className="text-white/90 font-medium">trade autopsy in 10 seconds: overtrading pattern, expiry mistakes, revenge spirals</span>
-            {" "}— grounded in your numbers. Past trades only. No future signals.
+            Upload any broker screenshot or CSV — AI runs a full{" "}
+            <span className="text-white/90 font-medium">trade autopsy in 10 seconds: overtrading, expiry mistakes, revenge spirals</span>
+            {" "}— grounded in your own numbers. Past trades only. No future signals.
           </p>
 
-          {/* Broker logos */}
+          {/* Broker pills */}
           <div className="animate-fade-up delay-250 flex flex-wrap items-center justify-center gap-3 mb-8">
-            <span className="text-[10px] uppercase tracking-widest text-white/40 mr-1">Screenshot or CSV —</span>
+            <span className="text-xs uppercase tracking-widest text-white/40 mr-1">Screenshot or CSV —</span>
             {[
-              { name: "Zerodha",    color: "#387ed1", bg: "rgba(56,126,209,0.12)",  border: "rgba(56,126,209,0.25)"  },
-              { name: "Upstox",     color: "#7e57f4", bg: "rgba(126,87,244,0.12)", border: "rgba(126,87,244,0.25)"  },
-              { name: "Angel One",  color: "#e63946", bg: "rgba(230,57,70,0.10)",  border: "rgba(230,57,70,0.22)"   },
-              { name: "Dhan",       color: "#00b4d8", bg: "rgba(0,180,216,0.10)",  border: "rgba(0,180,216,0.22)"   },
+              { name: "Zerodha",   color: "#387ed1", bg: "rgba(56,126,209,0.12)",  border: "rgba(56,126,209,0.25)"  },
+              { name: "Upstox",    color: "#7e57f4", bg: "rgba(126,87,244,0.12)", border: "rgba(126,87,244,0.25)"  },
+              { name: "Angel One", color: "#e63946", bg: "rgba(230,57,70,0.10)",  border: "rgba(230,57,70,0.22)"   },
+              { name: "Dhan",      color: "#00b4d8", bg: "rgba(0,180,216,0.10)",  border: "rgba(0,180,216,0.22)"   },
             ].map(({ name, color, bg, border }) => (
               <span key={name} className="text-xs font-bold px-3 py-1.5 rounded-lg"
-                style={{ color, background: bg, border: `1px solid ${border}` }}>
-                {name}
-              </span>
+                style={{ color, background: bg, border: `1px solid ${border}` }}>{name}</span>
             ))}
             <span className="text-xs font-bold px-3 py-1.5 rounded-lg"
               style={{ color: "#4ade80", background: "rgba(74,222,128,0.10)", border: "1px solid rgba(74,222,128,0.25)" }}>
@@ -395,7 +386,7 @@ export default function LandingPage() {
             </span>
           </div>
 
-          {/* CTAs */}
+          {/* CTA */}
           <div className="animate-fade-up delay-300 flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
             <button
               onClick={() => signInWithGoogle()}
@@ -410,43 +401,35 @@ export default function LandingPage() {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7"/>
               </svg>
             </button>
-            <div className="flex flex-col items-center gap-1.5 text-sm">
-              <div className="flex items-center gap-2 text-white/40">
+            <div className="flex flex-col items-center gap-1.5">
+              <div className="flex items-center gap-2 text-sm text-white/40">
                 <svg className="w-3.5 h-3.5 text-emerald-400" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/>
                 </svg>
                 10 free trade autopsies · No card needed
               </div>
-              <div className="flex items-center gap-1.5 text-white/25 text-xs">
+              <div className="flex items-center gap-1.5 text-xs text-white/25">
                 <svg className="w-3 h-3 text-white/30" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
-                Your data is never shared with your broker
-              </div>
-              <div className="text-[11px] text-white/20 text-center max-w-xs">
-                Educational tool only · Reviews past trades only · No future signals · Not investment advice
+                Your trade data is never shared
               </div>
             </div>
           </div>
 
           {/* Who this is for */}
           <div className="animate-fade-up delay-350 flex flex-wrap items-center justify-center gap-2 mb-8">
-            {[
-              { icon: "✅", text: "Full-time F&O traders" },
-              { icon: "✅", text: "50+ trades/month" },
-              { icon: "✅", text: "₹50k+ monthly drawdowns" },
-              { icon: "❌", text: "Beginners wanting tips" },
-            ].map(({ icon, text }) => (
+            {["Full-time F&O traders", "50+ trades/month", "₹50k+ monthly drawdowns"].map(text => (
               <span key={text} className="inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full font-medium"
-                style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)", color: icon === "✅" ? "rgba(255,255,255,0.7)" : "rgba(255,255,255,0.25)" }}>
-                {icon} {text}
+                style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)", color: "rgba(255,255,255,0.7)" }}>
+                ✅ {text}
               </span>
             ))}
           </div>
 
-          {/* Trust */}
+          {/* Social proof avatars */}
           <div className="animate-fade-up delay-400 flex items-center justify-center gap-3 mb-16">
             <div className="flex -space-x-2">
               {[["RK",200],["AM",240],["SP",270],["VG",310],["NK",180],["PJ",220]].map(([n,h],i) => (
-                <div key={i} className="w-7 h-7 rounded-full border-2 flex items-center justify-center text-[9px] font-bold text-white"
+                <div key={i} className="w-7 h-7 rounded-full border-2 flex items-center justify-center text-[10px] font-bold text-white"
                   style={{ borderColor: "#1e1760", background: `hsl(${h},55%,35%)` }}>{n}</div>
               ))}
             </div>
@@ -459,16 +442,15 @@ export default function LandingPage() {
           </div>
         </div>
 
-        {/* Gradient fade into dark bg */}
         <div className="absolute bottom-0 left-0 right-0 h-20 pointer-events-none"
           style={{ background: "linear-gradient(to bottom, transparent, #060c18)" }} />
       </section>
 
       {/* ══════════════════════════════════════════════════════════════════
-          BROKER STRIP — dark
+          BROKER STRIP
       ══════════════════════════════════════════════════════════════════ */}
       <div className="bg-[#060c18] py-5 overflow-hidden border-y border-white/[0.05]">
-        <p className="text-center text-[10px] uppercase tracking-[0.2em] font-semibold text-slate-600 mb-4">
+        <p className="text-center text-xs uppercase tracking-widest font-semibold text-slate-600 mb-4">
           CSV import supported for
         </p>
         <div className="flex">
@@ -481,32 +463,10 @@ export default function LandingPage() {
       </div>
 
       {/* ══════════════════════════════════════════════════════════════════
-          STATS — dark
-      ══════════════════════════════════════════════════════════════════ */}
-      <section className="bg-[#060c18] py-20 px-6">
-        <div className="mx-auto max-w-4xl grid grid-cols-2 sm:grid-cols-4 gap-8 text-center">
-          {[
-            { val: "₹0",   label: "To start",               sub: "10 free AI trade autopsies, no card" },
-            { val: "Thursday", label: "Expiry analysis",  sub: "Win rate by week-of-month breakdown" },
-            { val: "CE/PE", label: "Options native",      sub: "Lot sizes, DTE, Greeks, OTM/ATM/ITM" },
-            { val: "4",    label: "Brokers supported",    sub: "Zerodha · Upstox · Angel One · Dhan" },
-          ].map(({ val, label, sub }) => (
-            <div key={val}>
-              <p className="text-4xl font-black text-indigo-400 mb-1">{val}</p>
-              <p className="text-slate-200 font-bold text-sm mb-1">{label}</p>
-              <p className="text-slate-500 text-xs">{sub}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ══════════════════════════════════════════════════════════════════
-          SAMPLE AI AUTOPSY — split screen mockup
+          SAMPLE AI AUTOPSY — split screen
       ══════════════════════════════════════════════════════════════════ */}
       <section className="bg-[#060c18] py-24 px-6">
         <div className="mx-auto max-w-5xl">
-
-          {/* Section header */}
           <div className="text-center mb-12">
             <p className="text-xs font-bold uppercase tracking-widest text-violet-400 mb-3">See it in action</p>
             <h2 className="text-3xl sm:text-4xl font-black text-slate-100 tracking-tight mb-3">
@@ -514,8 +474,6 @@ export default function LandingPage() {
               <span className="text-slate-500">Get this in 10 seconds.</span>
             </h2>
             <p className="text-slate-500 text-sm mb-6">Sample AI autopsy — based on a real losing NIFTY CE trade.</p>
-
-            {/* Upload method toggle pills */}
             <div className="inline-flex items-center gap-2 bg-white/[0.04] border border-white/[0.08] rounded-full px-2 py-1.5">
               <span className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-violet-600 text-white text-xs font-semibold">
                 <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -529,26 +487,21 @@ export default function LandingPage() {
                 </svg>
                 CSV Import
               </span>
-              <span className="text-[10px] text-slate-500 px-2">Zerodha · Upstox · Angel One · Dhan · Any broker</span>
+              <span className="text-xs text-slate-500 px-2">Any broker</span>
             </div>
           </div>
 
-          {/* Split screen */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-stretch">
-
-            {/* LEFT — fake Zerodha order card */}
+            {/* LEFT — broker order card */}
             <div className="rounded-2xl overflow-hidden border border-[#1c2e4a]" style={{ background: "#0d1528" }}>
-              {/* Chrome bar */}
               <div className="flex items-center gap-2 px-4 py-3 border-b border-[#1c2e4a]" style={{ background: "rgba(255,255,255,0.02)" }}>
                 <div className="flex gap-1.5">
                   {["#ef4444","#f59e0b","#22c55e"].map(c => <div key={c} className="w-2.5 h-2.5 rounded-full" style={{ background: c }} />)}
                 </div>
-                <span className="text-[10px] text-slate-600 ml-2">Zerodha Kite · Order confirmation</span>
-                <span className="ml-auto text-[10px] font-semibold px-2 py-0.5 rounded-full" style={{ background: "rgba(239,68,68,0.15)", color: "#f87171" }}>Screenshot uploaded ✓</span>
+                <span className="text-xs text-slate-600 ml-2">Zerodha Kite · Order confirmation</span>
+                <span className="ml-auto text-xs font-semibold px-2 py-0.5 rounded-full" style={{ background: "rgba(239,68,68,0.15)", color: "#f87171" }}>Screenshot uploaded ✓</span>
               </div>
-
               <div className="p-6">
-                {/* Order header */}
                 <div className="flex items-start justify-between mb-5">
                   <div>
                     <p className="text-white font-black text-xl tracking-tight">NIFTY 22500 CE</p>
@@ -556,16 +509,14 @@ export default function LandingPage() {
                   </div>
                   <span className="text-xs font-bold px-2.5 py-1 rounded-lg" style={{ background: "rgba(239,68,68,0.15)", color: "#f87171", border: "1px solid rgba(239,68,68,0.25)" }}>SELL / EXIT</span>
                 </div>
-
-                {/* Order fields */}
                 <div className="space-y-3 mb-6">
                   {[
-                    { label: "Product",     value: "MIS (Intraday)" },
-                    { label: "Qty",         value: "50 (1 lot)" },
-                    { label: "Avg Buy",     value: "₹185.00" },
-                    { label: "Avg Sell",    value: "₹97.50" },
-                    { label: "Entry Time",  value: "09:17 AM" },
-                    { label: "Exit Time",   value: "02:48 PM" },
+                    { label: "Product",    value: "MIS (Intraday)" },
+                    { label: "Qty",        value: "50 (1 lot)" },
+                    { label: "Avg Buy",    value: "₹185.00" },
+                    { label: "Avg Sell",   value: "₹97.50" },
+                    { label: "Entry Time", value: "09:17 AM" },
+                    { label: "Exit Time",  value: "02:48 PM" },
                   ].map(({ label, value }) => (
                     <div key={label} className="flex justify-between items-center py-2 border-b border-[#1c2e4a]">
                       <span className="text-xs text-slate-500">{label}</span>
@@ -573,8 +524,6 @@ export default function LandingPage() {
                     </div>
                   ))}
                 </div>
-
-                {/* P&L */}
                 <div className="rounded-xl px-4 py-3 flex items-center justify-between" style={{ background: "rgba(239,68,68,0.08)", border: "1px solid rgba(239,68,68,0.2)" }}>
                   <span className="text-xs font-bold text-red-400 uppercase tracking-wide">Realised P&L</span>
                   <span className="text-xl font-black text-red-400 tabular-nums">−₹4,375</span>
@@ -582,118 +531,53 @@ export default function LandingPage() {
               </div>
             </div>
 
-            {/* RIGHT — AI autopsy output */}
+            {/* RIGHT — AI autopsy */}
             <div className="rounded-2xl overflow-hidden border flex flex-col" style={{ background: "#0a0f1e", borderColor: "rgba(79,70,229,0.35)" }}>
-              {/* Header */}
               <div className="flex items-center gap-3 px-5 py-3 border-b" style={{ borderColor: "rgba(79,70,229,0.2)", background: "rgba(79,70,229,0.08)" }}>
                 <div className="w-7 h-7 rounded-lg flex items-center justify-center text-base flex-shrink-0"
                   style={{ background: "linear-gradient(135deg,#4f46e5,#7c3aed)" }}>🧠</div>
                 <div>
                   <p className="text-xs font-bold text-slate-100">AI Trade Autopsy</p>
-                  <p className="text-[10px] text-slate-500">3 insights · generated in 8s</p>
+                  <p className="text-xs text-slate-500">3 insights · generated in 8s</p>
                 </div>
-                <span className="ml-auto text-[10px] px-2 py-0.5 rounded-full font-semibold" style={{ background: "rgba(239,68,68,0.15)", color: "#fca5a5", border: "1px solid rgba(239,68,68,0.25)" }}>Loss trade</span>
+                <span className="ml-auto text-xs px-2 py-0.5 rounded-full font-semibold" style={{ background: "rgba(239,68,68,0.15)", color: "#fca5a5", border: "1px solid rgba(239,68,68,0.25)" }}>Loss trade</span>
               </div>
-
               <div className="p-5 space-y-3 flex-1">
-                {/* Insight 1 */}
                 <div className="rounded-xl p-4 border" style={{ background: "rgba(239,68,68,0.05)", borderColor: "rgba(239,68,68,0.15)" }}>
                   <p className="text-xs font-bold text-red-300 mb-1.5">1. You entered during the opening auction</p>
-                  <p className="text-[11px] text-slate-400 leading-relaxed">Entry at 09:17 AM — first 15 min is highest noise. VIX was 14.8, making options expensive. You paid a 12% premium over fair value at open.</p>
+                  <p className="text-xs text-slate-400 leading-relaxed">Entry at 09:17 AM — first 15 min is highest noise. VIX was 14.8, making options expensive. You paid a 12% premium over fair value at open.</p>
                 </div>
-
-                {/* Insight 2 */}
                 <div className="rounded-xl p-4 border" style={{ background: "rgba(239,68,68,0.05)", borderColor: "rgba(239,68,68,0.15)" }}>
                   <p className="text-xs font-bold text-red-300 mb-1.5">2. Revenge trade detected</p>
-                  <p className="text-[11px] text-slate-400 leading-relaxed">This was your 3rd trade after 2 straight losses. Your data shows win rate drops to 24% in this pattern — vs 51% normally.</p>
+                  <p className="text-xs text-slate-400 leading-relaxed">This was your 3rd trade after 2 straight losses. Your data shows win rate drops to 24% in this pattern — vs 51% normally.</p>
                 </div>
-
-                {/* Insight 3 */}
                 <div className="rounded-xl p-4 border" style={{ background: "rgba(245,158,11,0.05)", borderColor: "rgba(245,158,11,0.15)" }}>
                   <p className="text-xs font-bold text-amber-300 mb-1.5">3. Held 5× past your usual stop</p>
-                  <p className="text-[11px] text-slate-400 leading-relaxed">You typically exit at −25%. You held to −47% here, turning a ₹1,800 loss into ₹4,375. The extra ₹2,575 was avoidable.</p>
+                  <p className="text-xs text-slate-400 leading-relaxed">You typically exit at −25%. You held to −47% here, turning a ₹1,800 loss into ₹4,375. The extra ₹2,575 was avoidable.</p>
                 </div>
-
-                {/* Key mistake + do better */}
                 <div className="rounded-xl p-4 border space-y-2" style={{ background: "rgba(255,255,255,0.02)", borderColor: "rgba(255,255,255,0.07)" }}>
-                  <p className="text-[11px] text-slate-300"><span className="text-red-400 font-bold">🔴 Key Mistake:</span> Entered in first 15 min after two losses with elevated VIX.</p>
-                  <p className="text-[11px] text-slate-300"><span className="text-emerald-400 font-bold">✅ Do Better:</span> No trades before 09:30 AM. After 2 losses, stop for 30 minutes.</p>
-                  <p className="text-[10px] text-slate-600 pt-1">⚠️ Not investment advice.</p>
+                  <p className="text-xs text-slate-300"><span className="text-red-400 font-bold">🔴 Key Mistake:</span> Entered in first 15 min after two losses with elevated VIX.</p>
+                  <p className="text-xs text-slate-300"><span className="text-emerald-400 font-bold">✅ Do Better:</span> No trades before 09:30 AM. After 2 losses, stop for 30 minutes.</p>
+                  <p className="text-xs text-slate-600 pt-1">⚠️ Not investment advice.</p>
                 </div>
               </div>
             </div>
-
           </div>
 
-          {/* CTA below */}
           <div className="text-center mt-10">
-            <button
-              onClick={() => signInWithGoogle()}
+            <button onClick={() => signInWithGoogle()}
               className="inline-flex items-center gap-2.5 rounded-xl px-7 py-3.5 text-sm font-bold text-white transition-all duration-200 hover:scale-[1.04] active:scale-[0.98]"
-              style={{
-                background: "linear-gradient(135deg, #4f46e5, #7c3aed)",
-                boxShadow: "0 0 0 1px rgba(165,180,252,0.3) inset, 0 8px 32px rgba(79,70,229,0.5)",
-              }}>
+              style={{ background: "linear-gradient(135deg, #4f46e5, #7c3aed)", boxShadow: "0 0 0 1px rgba(165,180,252,0.3) inset, 0 8px 32px rgba(79,70,229,0.5)" }}>
               <GoogleIcon size={16} />
               Get your own trade autopsy free
             </button>
             <p className="text-xs text-slate-600 mt-3">Upload any broker screenshot · 10 free autopsies · No card needed</p>
           </div>
-
         </div>
       </section>
 
       {/* ══════════════════════════════════════════════════════════════════
-          TESTIMONIALS — dark
-      ══════════════════════════════════════════════════════════════════ */}
-      <section className="bg-[#060c18] py-20 px-6 border-t border-white/[0.03]">
-        <div className="mx-auto max-w-5xl">
-          <p className="text-center text-[10px] uppercase tracking-[0.2em] font-semibold text-slate-600 mb-10">
-            What beta traders found in their data
-          </p>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
-            {[
-              {
-                quote: "Found out I was revenge trading every Thursday after expiry losses. Just stopping that one pattern — up ₹18k this month.",
-                name: "R.K.", city: "Pune", broker: "Zerodha",
-                color: "#387ed1",
-              },
-              {
-                quote: "My expiry day win rate was 31%. Non-expiry was 58%. I had no idea. That single number changed how I trade Thursdays.",
-                name: "A.M.", city: "Mumbai", broker: "Upstox",
-                color: "#7e57f4",
-              },
-              {
-                quote: "Used to take 7–8 trades a day. The overtrading chart showed I was profitable only on trade 1 and 2. Everything after that was giving it back.",
-                name: "S.P.", city: "Hyderabad", broker: "Angel One",
-                color: "#e63946",
-              },
-            ].map(({ quote, name, city, broker, color }) => (
-              <div key={name} className="rounded-2xl p-6 bg-[#0d1528] border border-[#1c2e4a] flex flex-col gap-4">
-                <div className="flex gap-0.5">
-                  {[...Array(5)].map((_,i) => (
-                    <svg key={i} className="w-3.5 h-3.5 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
-                    </svg>
-                  ))}
-                </div>
-                <p className="text-slate-300 text-sm leading-relaxed flex-1">&ldquo;{quote}&rdquo;</p>
-                <div className="flex items-center gap-2.5 pt-2 border-t border-[#1c2e4a]">
-                  <div className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-black text-white"
-                    style={{ background: color }}>{name[0]}</div>
-                  <div>
-                    <p className="text-slate-300 text-xs font-semibold">{name}, {city}</p>
-                    <p className="text-[10px] font-medium" style={{ color }}>{broker} · Beta user</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ══════════════════════════════════════════════════════════════════
-          TOP 3 FLAGS — dark
+          TOP 3 FLAGS
       ══════════════════════════════════════════════════════════════════ */}
       <section className="bg-[#0a1220] py-24 px-6">
         <div className="mx-auto max-w-5xl">
@@ -706,65 +590,167 @@ export default function LandingPage() {
               Traders Diary flags each one automatically — with your own numbers, not generic advice.
             </p>
           </div>
-
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-
-            {/* Overtrading */}
             <div className="rounded-2xl p-7 bg-[#0d1528] border border-[#1c2e4a] hover:border-amber-500/30 transition-all duration-200 flex flex-col gap-4">
               <div className="w-11 h-11 rounded-xl flex items-center justify-center text-xl bg-amber-500/10 border border-amber-500/20">⚠️</div>
               <div>
-                <p className="text-[10px] font-bold uppercase tracking-widest text-amber-400 mb-2">Overtrading</p>
+                <p className="text-xs font-bold uppercase tracking-widest text-amber-400 mb-2">Overtrading</p>
                 <h3 className="text-slate-100 font-black text-lg mb-2 leading-tight">Your P&L by trade number per day</h3>
-                <p className="text-slate-500 text-sm leading-relaxed">
-                  Trade 1 and 2 are profitable. Trade 5+ are not. We plot this for you so you can see exactly where to stop each day.
-                </p>
+                <p className="text-slate-500 text-sm leading-relaxed">Trade 1 and 2 are profitable. Trade 5+ are not. We plot this for you so you can see exactly where to stop each day.</p>
               </div>
               <div className="mt-auto rounded-xl px-4 py-3 bg-[#0a1220] border border-amber-800/30">
-                <p className="text-[10px] text-amber-400/70 mb-1">Typical finding</p>
-                <p className="text-sm font-bold text-slate-200">&ldquo;Your win rate drops from 62% → 28% after trade 3&rdquo;</p>
+                <p className="text-xs text-amber-400/70 mb-1">Typical finding</p>
+                <p className="text-sm font-bold text-slate-200">&ldquo;Win rate drops from 62% → 28% after trade 3&rdquo;</p>
               </div>
             </div>
-
-            {/* Revenge trading */}
             <div className="rounded-2xl p-7 bg-[#0d1528] border border-[#1c2e4a] hover:border-rose-500/30 transition-all duration-200 flex flex-col gap-4">
               <div className="w-11 h-11 rounded-xl flex items-center justify-center text-xl bg-rose-500/10 border border-rose-500/20">🔁</div>
               <div>
-                <p className="text-[10px] font-bold uppercase tracking-widest text-rose-400 mb-2">Revenge Trading</p>
+                <p className="text-xs font-bold uppercase tracking-widest text-rose-400 mb-2">Revenge Trading</p>
                 <h3 className="text-slate-100 font-black text-lg mb-2 leading-tight">Post-loss win rate vs your baseline</h3>
-                <p className="text-slate-500 text-sm leading-relaxed">
-                  Detects every trade placed within 15 minutes of a loss. Compares that win rate to your normal. Exposes the spiral.
-                </p>
+                <p className="text-slate-500 text-sm leading-relaxed">Detects every trade placed within 15 minutes of a loss. Compares that win rate to your normal. Exposes the spiral.</p>
               </div>
               <div className="mt-auto rounded-xl px-4 py-3 bg-[#0a1220] border border-rose-800/30">
-                <p className="text-[10px] text-rose-400/70 mb-1">Typical finding</p>
+                <p className="text-xs text-rose-400/70 mb-1">Typical finding</p>
                 <p className="text-sm font-bold text-slate-200">&ldquo;Post-loss trades win 19% vs your 54% baseline&rdquo;</p>
               </div>
             </div>
-
-            {/* Expiry edge */}
             <div className="rounded-2xl p-7 bg-[#0d1528] border border-[#1c2e4a] hover:border-violet-500/30 transition-all duration-200 flex flex-col gap-4">
               <div className="w-11 h-11 rounded-xl flex items-center justify-center text-xl bg-violet-500/10 border border-violet-500/20">📅</div>
               <div>
-                <p className="text-[10px] font-bold uppercase tracking-widest text-violet-400 mb-2">Expiry Day Analysis</p>
+                <p className="text-xs font-bold uppercase tracking-widest text-violet-400 mb-2">Expiry Day Analysis</p>
                 <h3 className="text-slate-100 font-black text-lg mb-2 leading-tight">Thursday win rate vs rest of week</h3>
-                <p className="text-slate-500 text-sm leading-relaxed">
-                  Most F&amp;O traders lose more on expiry day. We show your day-by-day breakdown and Thursday week-of-month data.
-                </p>
+                <p className="text-slate-500 text-sm leading-relaxed">Most F&amp;O traders lose more on expiry day. We show your day-by-day breakdown and Thursday week-of-month data.</p>
               </div>
               <div className="mt-auto rounded-xl px-4 py-3 bg-[#0a1220] border border-violet-800/30">
-                <p className="text-[10px] text-violet-400/70 mb-1">Typical finding</p>
+                <p className="text-xs text-violet-400/70 mb-1">Typical finding</p>
                 <p className="text-sm font-bold text-slate-200">&ldquo;Thursday: 31% win rate vs Monday: 61%&rdquo;</p>
               </div>
             </div>
-
           </div>
         </div>
       </section>
 
       {/* ══════════════════════════════════════════════════════════════════
-          PRICING — dark
+          FEATURES
       ══════════════════════════════════════════════════════════════════ */}
       <section className="bg-[#060c18] py-24 px-6">
+        <div className="mx-auto max-w-5xl">
+          <div className="mb-14">
+            <p className="text-xs font-bold uppercase tracking-widest text-indigo-400 mb-3">Features</p>
+            <h2 className="text-3xl sm:text-4xl font-black text-slate-100 tracking-tight leading-tight">
+              More than a journal.<br />
+              <span className="text-slate-500">A complete trade intelligence platform.</span>
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="sm:col-span-2 rounded-2xl p-7 relative overflow-hidden bg-[#0d1528] border border-[#1c2e4a] hover:border-indigo-500/30 transition-all duration-200">
+              <div className="absolute top-0 right-0 w-64 h-64 pointer-events-none"
+                style={{ background: "radial-gradient(circle at top right, rgba(79,70,229,0.12), transparent 60%)" }} />
+              <div className="w-11 h-11 rounded-xl flex items-center justify-center text-xl mb-5 bg-indigo-600">🧠</div>
+              <p className="text-xs font-bold uppercase tracking-widest text-indigo-400 mb-2">AI Trade Review</p>
+              <h3 className="text-slate-100 font-black text-xl mb-3 leading-tight">5 analyst-grade insights. Every single trade.</h3>
+              <p className="text-slate-500 text-sm leading-relaxed mb-5">
+                Not generic advice — actual numbers. Entry vs EMA-20, unrealized P&L, 52W range, sector win rate. Powered by Claude AI.
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {["Position sizing","Entry quality vs EMA","Sector context","Risk-reward","52W range","Trend structure"].map(t => (
+                  <span key={t} className="text-xs px-3 py-1 rounded-full font-medium bg-indigo-950/60 text-indigo-300 border border-indigo-800/50">{t}</span>
+                ))}
+              </div>
+            </div>
+            <FeatureCard icon="📸" title="Screenshot → data" color="emerald"
+              desc="Drop any broker screenshot. AI reads every field in seconds. Zero manual entry ever." />
+            <FeatureCard icon="📡" title="Market data at trade time" color="sky"
+              desc="VIX, EMA-20/50/200, NIFTY trend, 52-week range — fetched at the time of your past trade. No future signals." />
+            <FeatureCard icon="⚠️" title="Overtrading detection" color="amber"
+              desc="See how your P&L changes as trade count increases each day. Know your personal cut-off point." />
+            <div className="sm:col-span-2 rounded-2xl p-7 relative overflow-hidden bg-[#0d1528] border border-[#1c2e4a] hover:border-violet-500/30 transition-all duration-200">
+              <div className="absolute top-0 right-0 w-64 h-64 pointer-events-none"
+                style={{ background: "radial-gradient(circle at top right, rgba(124,58,237,0.1), transparent 60%)" }} />
+              <div className="w-11 h-11 rounded-xl flex items-center justify-center text-xl mb-5 bg-violet-600">📊</div>
+              <p className="text-xs font-bold uppercase tracking-widest text-violet-400 mb-2">Pattern Dashboard</p>
+              <h3 className="text-slate-100 font-black text-xl mb-3 leading-tight">Review your behaviour patterns.</h3>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                {[
+                  { label: "Expiry day win rate", val: "43%" },
+                  { label: "After-loss trades",   val: "28% wins" },
+                  { label: "Most active slot",    val: "9:30–10am" },
+                  { label: "OTM win rate",        val: "38%" },
+                ].map(({ label, val }) => (
+                  <div key={label} className="rounded-xl px-4 py-3 bg-[#0a1220] border border-[#1c2e4a]">
+                    <p className="text-xs text-slate-500 mb-1">{label}</p>
+                    <p className="text-lg font-black text-slate-100">{val}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <FeatureCard icon="🔁" title="Revenge trading flag" color="rose"
+              desc="Detects when you trade emotionally after a loss. Shows post-loss win rate vs normal win rate." />
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════════════════════
+          TESTIMONIALS
+      ══════════════════════════════════════════════════════════════════ */}
+      <section className="bg-[#0a1220] py-20 px-6">
+        <div className="mx-auto max-w-5xl">
+          <p className="text-center text-xs uppercase tracking-widest font-semibold text-slate-600 mb-10">
+            What traders found in their data
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+            {[
+              { quote: "Found out I was revenge trading every Thursday after expiry losses. Just stopping that one pattern — up ₹18k this month.", name: "R.K.", city: "Pune",      broker: "Zerodha",   color: "#387ed1" },
+              { quote: "My expiry day win rate was 31%. Non-expiry was 58%. I had no idea. That single number changed how I trade Thursdays.",      name: "A.M.", city: "Mumbai",    broker: "Upstox",    color: "#7e57f4" },
+              { quote: "Used to take 7–8 trades a day. The overtrading chart showed I was profitable only on trade 1 and 2. Everything after that was giving it back.", name: "S.P.", city: "Hyderabad", broker: "Angel One", color: "#e63946" },
+            ].map(({ quote, name, city, broker, color }) => (
+              <div key={name} className="rounded-2xl p-6 bg-[#0d1528] border border-[#1c2e4a] flex flex-col gap-4">
+                <div className="flex gap-0.5">
+                  {[...Array(5)].map((_,i) => (
+                    <svg key={i} className="w-3.5 h-3.5 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                    </svg>
+                  ))}
+                </div>
+                <p className="text-slate-300 text-sm leading-relaxed flex-1">&ldquo;{quote}&rdquo;</p>
+                <div className="flex items-center gap-2.5 pt-2 border-t border-[#1c2e4a]">
+                  <div className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-black text-white" style={{ background: color }}>{name[0]}</div>
+                  <div>
+                    <p className="text-slate-300 text-xs font-semibold">{name}, {city}</p>
+                    <p className="text-xs font-medium" style={{ color }}>{broker} · Early user</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════════════════════
+          STATS
+      ══════════════════════════════════════════════════════════════════ */}
+      <section className="bg-[#060c18] py-20 px-6">
+        <div className="mx-auto max-w-4xl grid grid-cols-2 sm:grid-cols-4 gap-8 text-center">
+          {[
+            { val: "₹0",    label: "To start",          sub: "10 free AI trade autopsies, no card" },
+            { val: "10s",   label: "AI autopsy time",   sub: "Upload to insights in under 10 seconds" },
+            { val: "2,400+",label: "Trades analysed",   sub: "Across Zerodha, Upstox, Angel One & Dhan" },
+            { val: "4",     label: "Brokers supported", sub: "Zerodha · Upstox · Angel One · Dhan" },
+          ].map(({ val, label, sub }) => (
+            <div key={label}>
+              <p className="text-4xl font-black text-indigo-400 mb-1">{val}</p>
+              <p className="text-slate-200 font-bold text-sm mb-1">{label}</p>
+              <p className="text-slate-500 text-xs">{sub}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════════════════════
+          PRICING
+      ══════════════════════════════════════════════════════════════════ */}
+      <section className="bg-[#060c18] py-24 px-6 border-t border-white/[0.04]">
         <div className="mx-auto max-w-5xl">
           <div className="text-center mb-14">
             <p className="text-xs font-bold uppercase tracking-widest text-emerald-400 mb-3">Pricing</p>
@@ -777,10 +763,7 @@ export default function LandingPage() {
               💸 ₹499/month = cost of one bad revenge trade. One fix pays for a year.
             </div>
           </div>
-
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-
-            {/* Free */}
             <div className="rounded-2xl p-7 bg-[#0d1528] border border-[#1c2e4a] flex flex-col">
               <p className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-3">Free</p>
               <div className="flex items-baseline gap-1 mb-1">
@@ -790,12 +773,12 @@ export default function LandingPage() {
               <ul className="space-y-2.5 mb-6 flex-1">
                 {[
                   { label: "10 free trade autopsies (lifetime)", on: true },
-                  { label: "Screenshot upload", on: true },
+                  { label: "Screenshot upload",                  on: true },
                   { label: "Zerodha · Upstox · Angel One · Dhan CSV", on: true },
-                  { label: "Basic P&L dashboard", on: true },
-                  { label: "Pattern intelligence", on: false },
-                  { label: "Behaviour analysis", on: false },
-                  { label: "Expiry edge reports", on: false },
+                  { label: "Basic P&L dashboard",                on: true },
+                  { label: "Pattern intelligence",               on: false },
+                  { label: "Behaviour analysis",                 on: false },
+                  { label: "Expiry edge reports",                on: false },
                 ].map(({ label, on }) => (
                   <li key={label} className="flex items-center gap-2.5 text-xs">
                     {on ? (
@@ -813,13 +796,8 @@ export default function LandingPage() {
                 Get started free
               </button>
             </div>
-
-            {/* Pro */}
             <ProCard />
-
-            {/* Pro Annual */}
             <ProAnnualCard />
-
           </div>
         </div>
       </section>
@@ -829,17 +807,17 @@ export default function LandingPage() {
       ══════════════════════════════════════════════════════════════════ */}
       <section className="bg-[#060c18] py-16 px-6 border-t border-white/[0.04]">
         <div className="mx-auto max-w-5xl">
-          <p className="text-center text-[10px] uppercase tracking-[0.2em] font-semibold text-slate-600 mb-10">
+          <p className="text-center text-xs uppercase tracking-widest font-semibold text-slate-600 mb-10">
             Why traders trust us with their data
           </p>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-6">
             {[
-              { icon: "🔒", title: "No broker login", body: "We never ask for your Zerodha, Upstox, Angel One or Dhan credentials" },
-              { icon: "📁", title: "File upload only", body: "Share only the report you choose. Nothing else is ever accessed" },
-              { icon: "🇮🇳", title: "Educational tool", body: "Not investment advice. No buy/sell recommendations. Ever." },
+              { icon: "🔒", title: "No broker login",       body: "We never ask for your Zerodha, Upstox, Angel One or Dhan credentials" },
+              { icon: "📁", title: "File upload only",      body: "Share only the report you choose. Nothing else is ever accessed" },
+              { icon: "🇮🇳", title: "Educational tool",    body: "Not investment advice. No buy/sell recommendations. Ever." },
               { icon: "👁️", title: "You control your data", body: "Delete your account and all data any time, instantly" },
               { icon: "🚫", title: "No live trading access", body: "Technically impossible for us to place trades on your behalf" },
-              { icon: "🔑", title: "Read-only analysis", body: "We read your uploaded file. We cannot write to anything" },
+              { icon: "🔑", title: "Read-only analysis",    body: "We read your uploaded file. We cannot write to anything" },
             ].map(({ icon, title, body }) => (
               <div key={title} className="flex flex-col items-center text-center gap-3 p-5 rounded-2xl bg-[#0d1528] border border-[#1c2e4a]">
                 <span className="text-2xl">{icon}</span>
@@ -852,81 +830,7 @@ export default function LandingPage() {
       </section>
 
       {/* ══════════════════════════════════════════════════════════════════
-          FEATURES — dark
-      ══════════════════════════════════════════════════════════════════ */}
-      <section className="bg-[#0a1220] py-24 px-6">
-        <div className="mx-auto max-w-5xl">
-          <div className="mb-14">
-            <p className="text-xs font-bold uppercase tracking-widest text-indigo-400 mb-3">Features</p>
-            <h2 className="text-3xl sm:text-4xl font-black text-slate-100 tracking-tight leading-tight">
-              More than a journal.<br />
-              <span className="text-slate-500">A complete trade intelligence platform.</span>
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-
-            {/* Wide — AI trade review */}
-            <div className="sm:col-span-2 rounded-2xl p-7 relative overflow-hidden bg-[#0d1528] border border-[#1c2e4a] hover:border-indigo-500/30 transition-all duration-200">
-              <div className="absolute top-0 right-0 w-64 h-64 pointer-events-none"
-                style={{ background: "radial-gradient(circle at top right, rgba(79,70,229,0.12), transparent 60%)" }} />
-              <div className="w-11 h-11 rounded-xl flex items-center justify-center text-xl mb-5 bg-indigo-600">🧠</div>
-              <p className="text-[10px] font-bold uppercase tracking-widest text-indigo-400 mb-2">AI Trade Review</p>
-              <h3 className="text-slate-100 font-black text-xl mb-3 leading-tight">5 analyst-grade insights. Every single trade.</h3>
-              <p className="text-slate-500 text-sm leading-relaxed mb-5">
-                Not generic advice — actual numbers. Entry vs EMA-20, unrealized P&L, 52W range, sector win rate. Powered by Claude AI.
-              </p>
-              <div className="flex flex-wrap gap-2">
-                {["Position sizing","Entry quality vs EMA","Sector context","Risk-reward","52W range","Trend structure"].map(t => (
-                  <span key={t} className="text-xs px-3 py-1 rounded-full font-medium bg-indigo-950/60 text-indigo-300 border border-indigo-800/50">{t}</span>
-                ))}
-              </div>
-            </div>
-
-            {/* Screenshot */}
-            <FeatureCard icon="📸" title="Screenshot → data" color="emerald"
-              desc="Drop any broker screenshot. AI reads every field in seconds. Zero manual entry ever." />
-
-            {/* Live data */}
-            <FeatureCard icon="📡" title="Market data at trade time" color="sky"
-              desc="VIX, EMA-20/50/200, NIFTY trend, 52-week range — fetched at the time of your past trade. No future signals." />
-
-            {/* Overtrading */}
-            <FeatureCard icon="⚠️" title="Overtrading detection" color="amber"
-              desc="See how your P&L changes as trade count increases each day. Know your personal cut-off point." />
-
-            {/* Wide — Dashboard */}
-            <div className="sm:col-span-2 rounded-2xl p-7 relative overflow-hidden bg-[#0d1528] border border-[#1c2e4a] hover:border-violet-500/30 transition-all duration-200">
-              <div className="absolute top-0 right-0 w-64 h-64 pointer-events-none"
-                style={{ background: "radial-gradient(circle at top right, rgba(124,58,237,0.1), transparent 60%)" }} />
-              <div className="w-11 h-11 rounded-xl flex items-center justify-center text-xl mb-5 bg-violet-600">📊</div>
-              <p className="text-[10px] font-bold uppercase tracking-widest text-violet-400 mb-2">Pattern Dashboard</p>
-              <h3 className="text-slate-100 font-black text-xl mb-3 leading-tight">Review your behaviour patterns.</h3>
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                {[
-                  { label: "Expiry day win rate", val: "43%" },
-                  { label: "After-loss trades", val: "28% wins" },
-                  { label: "Most active slot", val: "9:30–10am" },
-                  { label: "OTM win rate", val: "38%" },
-                ].map(({ label, val }) => (
-                  <div key={label} className="rounded-xl px-4 py-3 bg-[#0a1220] border border-[#1c2e4a]">
-                    <p className="text-[10px] text-slate-500 mb-1">{label}</p>
-                    <p className="text-lg font-black text-slate-100">{val}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Revenge trading */}
-            <FeatureCard icon="🔁" title="Revenge trading flag" color="rose"
-              desc="Detects when you trade emotionally after a loss. Shows post-loss win rate vs normal win rate." />
-
-          </div>
-        </div>
-      </section>
-
-      {/* ══════════════════════════════════════════════════════════════════
-          FAQ — dark
+          FAQ
       ══════════════════════════════════════════════════════════════════ */}
       <section className="bg-[#0a1220] py-24 px-6">
         <div className="mx-auto max-w-2xl">
@@ -963,17 +867,14 @@ export default function LandingPage() {
       </section>
 
       {/* ══════════════════════════════════════════════════════════════════
-          FINAL CTA — dark gradient (bookend)
+          FINAL CTA
       ══════════════════════════════════════════════════════════════════ */}
       <section className="py-28 px-6 relative overflow-hidden text-center"
         style={{ background: "linear-gradient(160deg, #0f0b28 0%, #1e1760 35%, #2d1b8a 60%, #0b0920 100%)" }}>
         <div className="absolute inset-0 pointer-events-none"
           style={{ background: "radial-gradient(ellipse 80% 60% at 50% 100%, rgba(99,102,241,0.35) 0%, transparent 65%)" }} />
         <div className="absolute inset-0 pointer-events-none opacity-[0.12]"
-          style={{
-            backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.6) 1px, transparent 1px)",
-            backgroundSize: "28px 28px",
-          }} />
+          style={{ backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.6) 1px, transparent 1px)", backgroundSize: "28px 28px" }} />
         <div className="relative mx-auto max-w-2xl">
           <p className="text-xs font-bold uppercase tracking-widest text-indigo-300 mb-5">Stop the pattern. Start the fix.</p>
           <h2 className="font-black text-white tracking-tight leading-tight mb-5" style={{ fontSize: "clamp(2rem,4.5vw,3.5rem)" }}>
@@ -983,13 +884,9 @@ export default function LandingPage() {
           <p className="text-white/50 text-base mb-10 max-w-sm mx-auto leading-relaxed">
             Upload one screenshot. Get a full AI trade autopsy — free, no card needed.
           </p>
-          <button
-            onClick={() => signInWithGoogle()}
+          <button onClick={() => signInWithGoogle()}
             className="inline-flex items-center gap-3 rounded-xl px-8 py-4 text-base font-bold text-white transition-all duration-200 hover:scale-[1.04] active:scale-[0.98] mb-5"
-            style={{
-              background: "linear-gradient(135deg, #4f46e5, #7c3aed)",
-              boxShadow: "0 0 0 1px rgba(165,180,252,0.2) inset, 0 16px 56px rgba(79,70,229,0.5)",
-            }}>
+            style={{ background: "linear-gradient(135deg, #4f46e5, #7c3aed)", boxShadow: "0 0 0 1px rgba(165,180,252,0.2) inset, 0 16px 56px rgba(79,70,229,0.5)" }}>
             <GoogleIcon size={18} />
             Start free with Google
           </button>
