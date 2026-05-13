@@ -50,10 +50,10 @@ function getSetupScore(ctx: MarketContext) {
   else if (ctx.moneyness === "ITM") { score += 1; factors.push("ITM — strong directional exposure") }
   else                              { score += 1; factors.push("ATM — balanced risk/reward") }
 
-  if (score >= 2)  return { label: "Favorable",   color: "green",  score }
-  if (score >= 0)  return { label: "Neutral",      color: "amber",  score }
-  if (score >= -2) return { label: "Challenging",  color: "orange", score }
-  return           { label: "High Risk",           color: "red",    score }
+  if (score >= 2)  return { label: "Clean Entry",  color: "green",  score }
+  if (score >= 0)  return { label: "Mixed Entry",  color: "amber",  score }
+  if (score >= -2) return { label: "Tough Entry",  color: "orange", score }
+  return           { label: "Risky Entry",         color: "red",    score }
 }
 
 // ── Market Pulse Card ─────────────────────────────────────────────────────────
@@ -401,10 +401,10 @@ const ACCENT_COLORS = [
 ]
 
 const SETUP_STYLES = {
-  Favorable:   { bar: "bg-emerald-500", pill: "bg-emerald-500/20 text-emerald-300 border-emerald-500/30", vixBar: "bg-emerald-500" },
-  Neutral:     { bar: "bg-amber-400",   pill: "bg-amber-500/20  text-amber-300  border-amber-500/30",  vixBar: "bg-amber-400"   },
-  Challenging: { bar: "bg-orange-500",  pill: "bg-orange-500/20 text-orange-300 border-orange-500/30", vixBar: "bg-orange-500"  },
-  "High Risk": { bar: "bg-red-500",     pill: "bg-red-500/20    text-red-300    border-red-500/30",    vixBar: "bg-red-500"     },
+  "Clean Entry": { bar: "bg-emerald-500", pill: "bg-emerald-500/20 text-emerald-300 border-emerald-500/30", vixBar: "bg-emerald-500" },
+  "Mixed Entry": { bar: "bg-amber-400",   pill: "bg-amber-500/20  text-amber-300  border-amber-500/30",  vixBar: "bg-amber-400"   },
+  "Tough Entry": { bar: "bg-orange-500",  pill: "bg-orange-500/20 text-orange-300 border-orange-500/30", vixBar: "bg-orange-500"  },
+  "Risky Entry": { bar: "bg-red-500",     pill: "bg-red-500/20    text-red-300    border-red-500/30",    vixBar: "bg-red-500"     },
 }
 
 function SectionLabel({ icon, title, sub }: { icon: string; title: string; sub?: string }) {
@@ -643,7 +643,7 @@ function FeedbackDrawer({ trade, onClose, onTradeUpdated }: { trade: Trade; onCl
 
   // Setup score for header accent
   const setup = mktCtx ? getSetupScore(mktCtx) : null
-  const setupStyle = setup ? SETUP_STYLES[setup.label as keyof typeof SETUP_STYLES] ?? SETUP_STYLES["Neutral"] : null
+  const setupStyle = setup ? SETUP_STYLES[setup.label as keyof typeof SETUP_STYLES] ?? SETUP_STYLES["Mixed Entry"] : null
 
   return (
     <>
